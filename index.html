@@ -1,38 +1,160 @@
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Xizmatlar</title>
-  <style>
-    body {
-      font-family: Arial;
-      background: #0f172a;
-      color: white;
-      text-align: center;
-      padding: 30px;
+"use client";
+import { useState } from "react";
+
+export default function Home() {
+  const [lang, setLang] = useState("uz");
+
+  const data = {
+    uz: {
+      title: "AVIATSIYA & VISA XIZMATLAR",
+      buttons: [
+        { name: "Viza javobi", link: "https://visa.mfa.uz/ruxsat/view" },
+        { name: "Zagran pasport anketasi", link: "#" },
+        { name: "Vatanga qaytish", link: "#" },
+        { name: "Viza anketasi", link: "#" },
+        { name: "Telegram profil", link: "https://t.me/AVIAKASSA9094" },
+        { name: "Avia bilet narxlari", link: "https://t.me/+uJn1nFmpzjoxMGEy" }
+      ],
+      contacts: [
+        "+7 981 193 90 94 (Aviabilet)",
+        "+7 937 949 90 94 (Yordamchi)",
+        "kopitsentr.omad@bk.ru"
+      ],
+      address: [
+        "ООО «ОмадТур», Санкт-Петербург",
+        "Metro: Technologicheskiy institut",
+        "Metro: Dybenko / Prospekt Bol'shevikov"
+      ],
+      prices: [
+        "Kserokopiya: 35–100 RUB",
+        "Foto: 250–400 RUB",
+        "Anketa: 500–1000 RUB"
+      ]
     }
-    h1 { font-size: 28px; }
-    .btn {
-      display: block;
-      margin: 15px auto;
-      padding: 15px;
-      width: 80%;
-      background: #22c55e;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      font-size: 18px;
-    }
-  </style>
-</head>
-<body>
+  };
 
-  <h1>Xizmatlar</h1>
+  const d = data[lang];
 
-  <a class="btn" href="tel:+79379499094">📞 Qo‘ng‘iroq qilish</a>
+  return (
+    <div style={styles.body}>
 
-  <a class="btn" href="https://t.me/@AVIAKASSA9094">💬 Telegram yozish</a>
+      {/* TOP BAR */}
+      <div style={styles.topBar}>
+        <h2 style={styles.logo}>OMAD TOUR</h2>
 
-</body>
-</html>
+        <div>
+          <button onClick={() => setLang("uz")} style={styles.langBtn}>UZ</button>
+          <button onClick={() => setLang("ru")} style={styles.langBtn}>RU</button>
+          <button onClick={() => setLang("en")} style={styles.langBtn}>EN</button>
+        </div>
+      </div>
+
+      {/* TITLE */}
+      <h1 style={styles.title}>{d.title}</h1>
+
+      {/* BUTTONS */}
+      <div style={styles.grid}>
+        {d.buttons.map((b, i) => (
+          <a key={i} href={b.link} target="_blank" style={styles.link}>
+            <div style={styles.card}>
+              {b.name}
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {/* CONTACTS */}
+      <div style={styles.section}>
+        <h3>CONTACTS</h3>
+        {d.contacts.map((c, i) => (
+          <p key={i}>{c}</p>
+        ))}
+      </div>
+
+      {/* ADDRESS */}
+      <div style={styles.section}>
+        <h3>ADDRESS</h3>
+        {d.address.map((a, i) => (
+          <p key={i}>{a}</p>
+        ))}
+      </div>
+
+      {/* PRICES */}
+      <div style={styles.section}>
+        <h3>PRICES</h3>
+        {d.prices.map((p, i) => (
+          <p key={i}>• {p}</p>
+        ))}
+      </div>
+
+    </div>
+  );
+}
+
+const styles = {
+  body: {
+    backgroundColor: "#0f0f10",
+    color: "#ffffff",
+    fontFamily: "Arial",
+    minHeight: "100vh",
+    padding: 20
+  },
+
+  topBar: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottom: "1px solid #222",
+    paddingBottom: 10
+  },
+
+  logo: {
+    color: "#ffffff",
+    letterSpacing: 2
+  },
+
+  langBtn: {
+    marginLeft: 5,
+    padding: "6px 10px",
+    background: "#1c1c1e",
+    color: "#fff",
+    border: "1px solid #333",
+    borderRadius: 6,
+    cursor: "pointer"
+  },
+
+  title: {
+    textAlign: "center",
+    marginTop: 25,
+    fontSize: 22,
+    color: "#ffffff"
+  },
+
+  grid: {
+    display: "grid",
+    gap: 12,
+    marginTop: 25
+  },
+
+  link: {
+    textDecoration: "none"
+  },
+
+  card: {
+    padding: 14,
+    backgroundColor: "#1a1a1d",
+    border: "1px solid #2a2a2e",
+    borderRadius: 10,
+    color: "#ffffff",
+    transition: "0.2s",
+    textAlign: "center"
+  },
+
+  section: {
+    marginTop: 25,
+    padding: 15,
+    background: "#151517",
+    borderRadius: 10,
+    border: "1px solid #2a2a2e"
+  }
+};
