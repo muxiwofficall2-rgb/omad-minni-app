@@ -9,82 +9,60 @@
 
 <body>
 
-<div class="logo">✨ OMAD TOUR ✈️</div>
+<header class="topbar">
+  <div class="logo">Omad Tour</div>
 
-<div class="lang">
-<button onclick="setLang('uz')">🇺🇿 UZ</button>
-<button onclick="setLang('ru')">🇷🇺 RU</button>
-</div>
+  <div class="lang">
+    <button onclick="setLang('uz')">UZ</button>
+    <button onclick="setLang('ru')">RU</button>
+  </div>
+</header>
 
-<!-- MAIN -->
-<div id="main" class="grid page">
+<!-- HOME -->
+<section id="home" class="page">
 
-<div class="card" onclick="openPage('visa')" data-i18n="visa">
-  ✈️ 
+  <h2 data-i18n="title">Sayohat xizmatlari</h2>
+  <p class="subtitle" data-i18n="subtitle">Kerakli xizmatni tanlang</p>
 
-</d
+  <div class="grid">
 
-<div class="card" onclick="openPage('anketa')" data-i18n="anketa">
-  📝 
+    <div class="card" onclick="openPage('visa')">
+      <h3 data-i18n="visa_title"></h3>
+      <p data-i18n="visa_desc"></p>
+    </div>
 
-</di
-</div>
+    <div class="card" onclick="openPage('docs')">
+      <h3 data-i18n="docs_title"></h3>
+      <p data-i18n="docs_desc"></p>
+    </div>
+
+  </div>
+
+</section>
 
 <!-- VISA -->
-<div id="visa" class="page hidden">
+<section id="visa" class="page hidden">
+  <button class="back" onclick="back()">← <span data-i18n="back"></span></button>
 
-<div class="back" onclick="back()">⬅️ <span data-i18n="back"></span></div>
+  <div class="panel">
+    <h2 data-i18n="visa_title"></h2>
+    <p data-i18n="visa_text"></p>
 
-<div class="grid">
+    <a class="btn" href="https://t.me/OMAD_TOUR9094" data-i18n="contact_btn"></a>
+  </div>
+</section>
 
-<div class="card" data-i18n="visa_check">
-  📄🛂
-</div>
+<!-- DOCS -->
+<section id="docs" class="page hidden">
+  <button class="back" onclick="back()">← <span data-i18n="back"></span></button>
 
-<div class="card" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">
-  📢💬
-</div>
+  <div class="panel">
+    <h2 data-i18n="docs_title"></h2>
+    <p data-i18n="docs_text"></p>
 
-</div>
-</div>
-
-<!-- ANKETA -->
-<div id="anketa" class="page hidden">
-
-<div class="back" onclick="back()">⬅️ <span data-i18n="back"></span></div>
-
-<div class="grid">
-
-<div class="card" data-i18n="passport">
-  🛂📘
-</div>
-
-<div class="card" data-i18n="return">
-  🏠✈️
-</div>
-
-<div class="card" data-i18n="transit">
-  🌍🚆
-</div>
-
-</div>
-</div>
-
-<!-- CONTACT -->
-<div class="contact-box">
-
-<h3 data-i18n="contact">📞</h3>
-
-<div class="grid">
-
-<a class="btn" href="https://t.me/OMAD_TOUR9094">✈️ Telegram</a>
-<a class="btn" href="https://t.me/+uJn1nFmpzjoxMGEy">👥 Guruh</a>
-<a class="btn" href="https://wa.me/79811939094">📱 WhatsApp</a>
-<a class="btn" href="tel:+79811939094">☎️ Call</a>
-<a class="btn" href="#">💎 MAX</a>
-
-</div>
-</div>
+    <a class="btn" href="https://wa.me/79811939094">WhatsApp</a>
+  </div>
+</section>
 
 <script src="script.js"></script>
 </body>
