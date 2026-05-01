@@ -4,92 +4,88 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Omad Tour</title>
-
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ✨ ANIMATION ICONS -->
-<div class="float i1">✈</div>
-<div class="float i2">📸</div>
-<div class="float i3">🎟️</div>
-<div class="float i4">💳</div>
-<div class="float i5">👨‍👩‍👧</div>
+<div class="logo">✨ OMAD TOUR ✈️</div>
 
-<!-- LOGO -->
-<div class="logo">OMAD TOUR</div>
-
-<!-- LANG -->
 <div class="lang">
-<button onclick="setLang('uz')">UZ🇺🇿</button>
-<button onclick="setLang('ru')">RU🇷🇺</button>
+<button onclick="setLang('uz')">🇺🇿 UZ</button>
+<button onclick="setLang('ru')">🇷🇺 RU</button>
 </div>
 
 <!-- MAIN -->
-<div id="main" class="grid">
+<div id="main" class="grid page">
 
-<div class="card" onclick="openPage('visa')" data-lang="visa"></div>
-<div class="card" onclick="openPage('anketa')" data-lang="anketa"></div>
+<div class="card" onclick="openPage('visa')" data-i18n="visa">
+  ✈️ 
 
+</d
+
+<div class="card" onclick="openPage('anketa')" data-i18n="anketa">
+  📝 
+
+</di
 </div>
 
 <!-- VISA -->
 <div id="visa" class="page hidden">
-<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
+
+<div class="back" onclick="back()">⬅️ <span data-i18n="back"></span></div>
 
 <div class="grid">
-<div class="card">📄 <span data-lang="visa_check"></span></div>
-  <div class="card" onclick="window.open('@AVIAKASSA9094')">📢 <span data-lang="group"></span></div>
-<div class="card" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">📢 <span data-lang="group"></span></div>
+
+<div class="card" data-i18n="visa_check">
+  📄🛂
+</div>
+
+<div class="card" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">
+  📢💬
+</div>
+
 </div>
 </div>
 
 <!-- ANKETA -->
 <div id="anketa" class="page hidden">
-<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
+
+<div class="back" onclick="back()">⬅️ <span data-i18n="back"></span></div>
 
 <div class="grid">
-<div class="card">🛂 <span data-lang="passport"></span></div>
-<div class="card">🏠 <span data-lang="return"></span></div>
-<div class="card">✈ <span data-lang="transit"></span></div>
+
+<div class="card" data-i18n="passport">
+  🛂📘
+</div>
+
+<div class="card" data-i18n="return">
+  🏠✈️
+</div>
+
+<div class="card" data-i18n="transit">
+  🌍🚆
+</div>
+
 </div>
 </div>
 
-<!-- CONTACT (MAIN PAGE) -->
+<!-- CONTACT -->
 <div class="contact-box">
 
-<h3 data-lang="contact"></h3>
+<h3 data-i18n="contact">📞</h3>
 
 <div class="grid">
 
-<a class="btn" href="https://t.me/OMAD_TOUR9094">Telegram</a>
-<a class="btn" href="https://t.me/+uJn1nFmpzjoxMGEy">Guruh</a>
-
-<a class="btn" href="https://wa.me/79811939094">WhatsApp</a>
-<a class="btn" href="tel:+79811939094">Call</a>
-
-<a class="btn" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk">MAX</a>
+<a class="btn" href="https://t.me/OMAD_TOUR9094">✈️ Telegram</a>
+<a class="btn" href="https://t.me/+uJn1nFmpzjoxMGEy">👥 Guruh</a>
+<a class="btn" href="https://wa.me/79811939094">📱 WhatsApp</a>
+<a class="btn" href="tel:+79811939094">☎️ Call</a>
+<a class="btn" href="#">💎 MAX</a>
 
 </div>
-
-</div>
-
-<!-- ADDRESS -->
-<div class="address">
-
-ООО «ОмадТур»
-Санкт-Петербур метро Технологитскей институт 4 я
-Красноармеская дом 3 домофон 22в
-
-ООО «ОмадТур»
-
-Санкт-Петербург, метро Дыбенко проспект
-Большевиков, 24к1
-
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
