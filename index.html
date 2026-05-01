@@ -96,8 +96,8 @@ body::before{
 <div class="header">✈ OMAD TOUR</div>
 
 <div class="lang">
-<button onclick="setLang('uz')">UZ🇺🇿</button>
-<button onclick="setLang('ru')">RU🇷🇺</button>
+<button onclick="setLang('uz')">UZ</button>
+<button onclick="setLang('ru')">RU</button>
 </div>
 
 <!-- MAIN -->
@@ -163,9 +163,9 @@ body::before{
 Санкт-Петербур метро Технологитскей институт 4 я
 Красноармеская дом 3 домофон 22в
 
-<br
+<br><br>
 
-ОО «ОмадТур»
+ООО «ОмадТур»
 Санкт-Петербург, метро Дыбенко проспект
 Большевиков, 24к1
 
@@ -194,5 +194,50 @@ anketa:"Анкета",
 contact:"Связь",
 map:"Адрес",
 back:"Назад",
-visa_check:"Проверить визу",
-group:"Консульская
+visa_check:"Проверить визу",group:"Консульская группа",
+
+passport_full:"Загран паспорт (полный)",
+
+return_full:"Возвращение (полный)",
+
+transit_full:"Транзитная виза (полный)"
+
+}
+
+};
+
+function setLang(l){
+
+lang=l;
+
+document.querySelectorAll("[data-lang]").forEach(el=>{
+
+el.innerText=t[lang][el.dataset.lang];
+
+});
+
+}
+
+function openPage(id){
+
+document.getElementById("main").classList.add("hidden");
+
+document.getElementById(id).classList.remove("hidden");
+
+}
+
+function back(){
+
+document.getElementById("main").classList.remove("hidden");
+
+document.querySelectorAll(".hidden").forEach(el=>el.classList.add("hidden"));
+
+}
+
+setLang("uz");
+
+</script>
+
+</body>
+
+</html>
