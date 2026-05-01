@@ -1,40 +1,70 @@
-// MAIN BUTTONS
+let lang="uz";
+
+const data={
+uz:{
+main:[
+["📄 Viza javobi","visa"],
+["📝 Anketa","anketa"],
+["💬 Telegram","https://t.me/AVIAKASSA9094"],
+["🎫 Aviabilet","https://t.me/+uJn1nFmpzjoxMGEy"]
+]
+},
+ru:{
+main:[
+["📄 Ответ по визе","visa"],
+["📝 Анкета","anketa"],
+["💬 Telegram","https://t.me/AVIAKASSA9094"],
+["🎫 Билеты","https://t.me/+uJn1nFmpzjoxMGEy"]
+]
+}
+};
+
 const main=document.getElementById("main");
 
-main.innerHTML=`
-<div class="btn blue" onclick="visa()">📄 Viza javobi</div>
-<div class="btn green" onclick="anketa()">📝 Anketa</div>
-<div class="btn red" onclick="window.open('https://t.me/AVIAKASSA9094')">💬 Telegram</div>
-<div class="btn" onclick="window.open('https://t.me/+uJn1nFmpzjoxMGEy')">🎫 Aviabilet</div>
-`;
+function render(){
+main.innerHTML="";
+data[lang].main.forEach(i=>{
+let div=document.createElement("div");
+div.className="btn blue";
+div.innerText=i[0];
 
-// VISA PAGE
-function visa(){
+div.onclick=()=>{
+if(i[1]=="visa") openVisa();
+else if(i[1]=="anketa") openAnketa();
+else window.open(i[1]);
+};
+
+main.appendChild(div);
+});
+}
+
+function setLang(l){
+lang=l;
+render();
+}
+
+function openVisa(){
 document.getElementById("main").style.display="none";
 document.getElementById("visa").classList.remove("hidden");
-document.getElementById("anketa").classList.add("hidden");
 }
 
-// ANKETA PAGE
-function anketa(){
+function openAnketa(){
 document.getElementById("main").style.display="none";
 document.getElementById("anketa").classList.remove("hidden");
-document.getElementById("visa").classList.add("hidden");
 }
 
-// BACK
 function back(){
 document.getElementById("main").style.display="grid";
 document.getElementById("visa").classList.add("hidden");
 document.getElementById("anketa").classList.add("hidden");
 }
 
-// VISA LINK
-function openVisaLink(){
-window.open("https://visa.mfa.uz/ruxsat/view","_blank");
-}
-
-// CALL
 function call(num){
 window.location.href="tel:"+num;
 }
+
+function openVisa(){
+window.open("https://visa.mfa.uz/ruxsat/view","_blank");
+}
+
+render();
