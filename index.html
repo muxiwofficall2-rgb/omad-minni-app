@@ -3,85 +3,180 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Omad Tour</title>
 
-<link rel="stylesheet" href="style.css">
+<style>
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  margin: 0;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.lang button {
+  margin: 5px;
+  padding: 8px 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.btn {
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  background: #22c55e;
+  cursor: pointer;
+}
+
+.hidden { display: none; }
+
+.back {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+</style>
 </head>
 
 <body>
 
-<!-- ✈ flying planes -->
-<div class="plane" style="top:10%; animation-duration:18s;">✈</div>
-<div class="plane" style="top:40%; animation-duration:25s;">✈</div>
-<div class="plane" style="top:70%; animation-duration:30s;">✈</div>
+<div class="header">✈ OMAD TOUR</div>
 
-<!-- HEADER -->
-<div class="header">✈ OMAD TOUR SERVICE</div>
-
-<!-- LANGUAGE -->
 <div class="lang">
-<button onclick="setLang('uz')">UZ🇺🇿</button>
-<button onclick="setLang('ru')">RU🇷🇺</button>
+<button onclick="setLang('uz')">UZ</button>
+<button onclick="setLang('ru')">RU</button>
 </div>
 
-<!-- MAIN -->
-<div id="main" class="grid"></div>
+<!-- MAIN MENU -->
+<div id="main" class="grid">
+
+<div class="btn" onclick="openPage('visa')" data-lang="visa"></div>
+<div class="btn" onclick="openPage('anketa')" data-lang="anketa"></div>
+<div class="btn" onclick="openPage('contact')" data-lang="contact"></div>
+<div class="btn" onclick="openPage('map')" data-lang="address"></div>
+
+</div>
 
 <!-- VISA -->
 <div id="visa" class="hidden">
-<div class="back" onclick="back()">⬅ Orqaga</div>
+<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
 
 <div class="grid">
-<div class="btn blue" onclick="openVisa()">📄 Viza natijasi</div>
-<div class="btn green" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">
-🇺🇿 Konsulxona Telegram
+<div class="btn" onclick="window.open('https://visa-result-link.com')">
+📄 <span data-lang="visa_check"></span>
+</div>
+
+<div class="btn" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">
+📢 <span data-lang="consul_group"></span>
 </div>
 </div>
 </div>
 
 <!-- ANKETA -->
 <div id="anketa" class="hidden">
-<div class="back" onclick="back()">⬅ Orqaga</div>
+<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
 
 <div class="grid">
-<div class="btn">🛂 Zagran pasport</div>
-<div class="btn">🏠 Vatanga qaytish</div>
-<div class="btn">📄 Viza anketa</div>
+<div class="btn">🛂 <span data-lang="passport"></span></div>
+<div class="btn">🏠 <span data-lang="return"></span></div>
+<div class="btn">📄 <span data-lang="form"></span></div>
 </div>
 </div>
 
 <!-- CONTACT -->
-<div class="address">
-
-<h3>📞 MUROJAT</h3>
+<div id="contact" class="hidden">
+<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
 
 <div class="contact">
-<div class="cbtn" onclick="call('+79811939094')">📞 Aviabilet</div>
-<div class="cbtn" onclick="call('+79379499094')">📞 Yordamchi</div>
+<a class="btn" href="https://t.me/OMAD_TOUR9094">Telegram</a>
+<a class="btn" href="https://t.me/+uJn1nFmpzjoxMGEy">Guruh</a>
+
+<a class="btn" href="https://wa.me/79811939094">WhatsApp</a>
+<a class="btn" href="tel:+79811939094">Call</a>
+
+<a class="btn" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk">MAX</a>
+</div>
 </div>
 
-<h3>📍 ADDRESS</h3>
+<!-- MAP -->
+<div id="map" class="hidden">
+<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
 
-<p class="ru">
-метро Технологитскей институт 4 я Красноармеская дом 3
-
-домофо
-22в
-</p>
-
-<p class="ru">
-ООО «ОмадТур»
-
-Санкт-
-рбург, метро Дыбенко проспект
-
-Больше
-в, 24к1
-</p>
-
+<div class="grid">
+<a class="btn" href="https://maps.google.com?q=Technologicheskiy+Institut">Metro Texnolog</a>
+<a class="btn" href="https://maps.google.com?q=Dybenko">Metro Dybenko</a>
+</div>
 </div>
 
-<script src="script.js"></script>
+<script>
+
+let lang = "uz";
+
+const t = {
+  uz: {
+    visa: "Viza",
+    anketa: "Anketa",
+    contact: "Murojaat",
+    address: "Manzil",
+    back: "Orqaga",
+    visa_check: "Vizani tekshirish",
+    consul_group: "Konsul guruhi",
+    passport: "Zagran pasport",
+    return: "Qaytish",
+    form: "Anketa"
+  },
+  ru: {
+    visa: "Виза",
+    anketa: "Анкета",
+    contact: "Связь",
+    address: "Адрес",
+    back: "Назад",
+    visa_check: "Проверить визу",
+    consul_group: "Консульская группа",
+    passport: "Паспорт",
+    return: "Возврат",
+    form: "Анкета"
+  }
+};
+
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll("[data-lang]").forEach(el => {
+    el.innerText = t[lang][el.dataset.lang];
+  });
+}
+
+function openPage(id) {
+  document.getElementById("main").classList.add("hidden");
+  document.getElementById(id).classList.remove("hidden");
+}
+
+function back() {
+  document.querySelectorAll(".hidden").forEach(el => el.classList.remove("hidden"));
+  document.querySelectorAll("div[id]").forEach(el => {
+    if(el.id !== "main") el.classList.add("hidden");
+  });
+}
+
+setLang("uz");
+
+</script>
+
 </body>
 </html>
