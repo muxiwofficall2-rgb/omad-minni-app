@@ -4,33 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Omad Tour Service</title>
+<title>Omad Tour</title>
 
-<!-- 🎨 CSS shu yerga ulanadi -->
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
+<!-- ✈ flying planes -->
+<div class="plane" style="top:10%; animation-duration:18s;">✈</div>
+<div class="plane" style="top:40%; animation-duration:25s;">✈</div>
+<div class="plane" style="top:70%; animation-duration:30s;">✈</div>
+
+<!-- HEADER -->
 <div class="header">✈ OMAD TOUR SERVICE</div>
 
-<!-- MAIN BUTTONS -->
+<!-- LANGUAGE -->
+<div class="lang">
+<button onclick="setLang('uz')">UZ</button>
+<button onclick="setLang('ru')">RU</button>
+</div>
+
+<!-- MAIN -->
 <div id="main" class="grid"></div>
 
-<!-- VISA PAGE -->
+<!-- VISA -->
 <div id="visa" class="hidden">
 <div class="back" onclick="back()">⬅ Orqaga</div>
 
 <div class="grid">
-<div class="btn blue" onclick="openVisaLink()">
-📄 Viza natijasini ko‘rish
-</div>
-
+<div class="btn blue" onclick="openVisa()">📄 Viza natijasi</div>
 <div class="btn green" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">
 🇺🇿 Konsulxona Telegram
 </div>
-
 </div>
 </div>
 
@@ -45,31 +51,37 @@
 </div>
 </div>
 
-<!-- CONTACTS -->
+<!-- CONTACT -->
 <div class="address">
 
 <h3>📞 MUROJAT</h3>
 
 <div class="contact">
-
 <div class="cbtn" onclick="call('+79811939094')">📞 Aviabilet</div>
 <div class="cbtn" onclick="call('+79379499094')">📞 Yordamchi</div>
-
 </div>
 
 <h3>📍 ADDRESS</h3>
 
+<p class="ru">
+метро Технологитскей институт 4 я Красноармеская дом 3
+
+домофо
+в
+</p>
+
+<p class="ru">
 ООО «ОмадТур»
 
-Санкт-П
-бург, метро Технологический институт 4-я Красноармейская улица 3
+Санкт-
+рбург, метро Дыбенко проспект
 
-домофон
+Больше
+в, 24к1
+</p>
 
 </div>
 
-<!-- ⚙️ JS shu yerga ulanadi -->
 <script src="script.js"></script>
-
 </body>
 </html>
