@@ -6,15 +6,15 @@
 <title>Omad Tour</title>
 
 <style>
-body {
+body{
   margin:0;
   font-family: Arial;
   color:white;
+  background: linear-gradient(135deg,#020617,#0f172a,#020617);
   overflow-x:hidden;
-  background: #020617;
 }
 
-/* 🌍 MAP BACKGROUND */
+/* 🌍 fon */
 body::before{
   content:"";
   position:fixed;
@@ -22,11 +22,11 @@ body::before{
   height:100%;
   background:url("https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg");
   background-size:cover;
-  opacity:0.1;
+  opacity:0.07;
   z-index:-2;
 }
 
-/* ✈ PLANES */
+/* ✈️ planes */
 .plane{
   position:fixed;
   font-size:30px;
@@ -35,35 +35,46 @@ body::before{
 }
 
 @keyframes fly{
-  from{ left:-10%; }
-  to{ left:110%; }
+  0%{ left:-10%; transform:translateY(0);}
+  50%{ transform:translateY(-20px);}
+  100%{ left:110%; transform:translateY(0);}
 }
 
+/* header */
 .header{
   text-align:center;
-  font-size:24px;
-  margin:10px;
+  font-size:26px;
+  margin:15px;
 }
 
+/* language */
+.lang{
+  text-align:center;
+}
 .lang button{
   margin:5px;
-  padding:6px 10px;
+  padding:6px 12px;
 }
 
+/* grid */
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:12px;
   padding:10px;
 }
 
+/* button */
 .btn{
   background:#22c55e;
-  padding:15px;
-  border-radius:10px;
+  padding:16px;
+  border-radius:12px;
   text-align:center;
   cursor:pointer;
+  transition:0.3s;
 }
+.btn:hover{transform:scale(1.05);}
+.btn:active{transform:scale(0.95);}
 
 .hidden{display:none;}
 
@@ -72,6 +83,7 @@ body::before{
   cursor:pointer;
 }
 
+/* contact */
 .contact{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -79,21 +91,23 @@ body::before{
   padding:10px;
 }
 
+/* address */
 .address{
   padding:15px;
   font-size:14px;
+  line-height:1.5;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ✈ PLANES -->
-<div class="plane" style="top:10%; animation-duration:20s;">✈</div>
-<div class="plane" style="top:40%; animation-duration:25s;">✈</div>
-<div class="plane" style="top:70%; animation-duration:30s;">✈</div>
+<!-- ✈️ PLANES -->
+<div class="plane" style="top:10%;animation-duration:18s;">✈️</div>
+<div class="plane" style="top:40%;animation-duration:25s;">✈️</div>
+<div class="plane" style="top:70%;animation-duration:30s;">✈️</div>
 
-<div class="header">✈ OMAD TOUR</div>
+<div class="header">✈️ OMAD TOUR</div>
 
 <div class="lang">
 <button onclick="setLang('uz')">UZ</button>
@@ -102,40 +116,36 @@ body::before{
 
 <!-- MAIN -->
 <div id="main" class="grid">
-
 <div class="btn" onclick="openPage('visa')" data-lang="visa"></div>
 <div class="btn" onclick="openPage('anketa')" data-lang="anketa"></div>
 <div class="btn" onclick="openPage('contact')" data-lang="contact"></div>
 <div class="btn" onclick="openPage('map')" data-lang="map"></div>
-
 </div>
 
 <!-- VISA -->
 <div id="visa" class="hidden">
-<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
-
+<div class="back" onclick="back()">⬅️ <span data-lang="back"></span></div>
 <div class="grid">
-<div class="btn" onclick="window.open('#')">📄 <span data-lang="visa_check"></span></div>
+<div class="btn">📄 <span data-lang="visa_check"></span></div>
 <div class="btn" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">📢 <span data-lang="group"></span></div>
 </div>
 </div>
 
 <!-- ANKETA -->
 <div id="anketa" class="hidden">
-<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
-
+<div class="back" onclick="back()">⬅️ <span data-lang="back"></span></div>
 <div class="grid">
-<div class="btn" data-lang="passport_full"></div>
-<div class="btn" data-lang="return_full"></div>
-<div class="btn" data-lang="transit_full"></div>
+<div class="btn" data-lang="passport"></div>
+<div class="btn" data-lang="return"></div>
+<div class="btn" data-lang="transit"></div>
 </div>
 </div>
 
 <!-- CONTACT -->
 <div id="contact" class="hidden">
-<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
-
+<div class="back" onclick="back()">⬅️ <span data-lang="back"></span></div>
 <div class="contact">
+
 <a class="btn" href="https://t.me/OMAD_TOUR9094">Telegram</a>
 <a class="btn" href="https://t.me/+uJn1nFmpzjoxMGEy">Guruh</a>
 
@@ -143,20 +153,20 @@ body::before{
 <a class="btn" href="tel:+79811939094">Call</a>
 
 <a class="btn" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk">MAX</a>
+
 </div>
 </div>
 
 <!-- MAP -->
 <div id="map" class="hidden">
-<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
-
+<div class="back" onclick="back()">⬅️ <span data-lang="back"></span></div>
 <div class="grid">
 <a class="btn" href="https://maps.google.com?q=Технологический институт">Технологический</a>
 <a class="btn" href="https://maps.google.com?q=Дыбенко">Дыбенко</a>
 </div>
 </div>
 
-<!-- ADDRESS (DO NOT CHANGE) -->
+<!-- ADDRESS -->
 <div class="address">
 
 ООО «ОмадТур»
@@ -181,26 +191,40 @@ visa:"Viza",
 anketa:"Anketa",
 contact:"Murojaat",
 map:"Manzil",
-back:"Orqaga",
+back:"Orqaga", 
 visa_check:"Vizani tekshirish",
+
 group:"Konsul guruhi",
-passport_full:"Zagran pasport (to‘liq)",
-return_full:"Vatanga qaytish (to‘liq)",
-transit_full:"Tranzit viza (to‘liq)"
+
+passport:"Zagran pasport (to‘liq)",
+
+return:"Vatanga qaytish (to‘liq)",
+
+transit:"Tranzit viza (to‘liq)"
+
 },
+
 ru:{
+
 visa:"Виза",
+
 anketa:"Анкета",
+
 contact:"Связь",
+
 map:"Адрес",
+
 back:"Назад",
-visa_check:"Проверить визу",group:"Консульская группа",
 
-passport_full:"Загран паспорт (полный)",
+visa_check:"Проверить визу",
 
-return_full:"Возвращение (полный)",
+group:"Консульская группа",
 
-transit_full:"Транзитная виза (полный)"
+passport:"Загран паспорт (полный)",
+
+return:"Возвращение (полный)",
+
+transit:"Транзитная виза (полный)"
 
 }
 
@@ -228,9 +252,15 @@ document.getElementById(id).classList.remove("hidden");
 
 function back(){
 
-document.getElementById("main").classList.remove("hidden");
+document.getElementById("visa").classList.add("hidden");
 
-document.querySelectorAll(".hidden").forEach(el=>el.classList.add("hidden"));
+document.getElementById("anketa").classList.add("hidden");
+
+document.getElementById("contact").classList.add("hidden");
+
+document.getElementById("map").classList.add("hidden");
+
+document.getElementById("main").classList.remove("hidden");
 
 }
 
