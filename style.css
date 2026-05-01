@@ -1,106 +1,93 @@
 body{
-margin:0;
-font-family:Arial;
-color:white;
-background: linear-gradient(-45deg,#07070a,#0f172a,#111827,#0b0b0d);
-background-size:400% 400%;
-animation:bg 10s ease infinite;
-overflow-x:hidden;
+  margin:0;
+  font-family: Arial;
+  color:white;
+  background: linear-gradient(135deg, #020617, #0f172a, #020617);
+  overflow-x:hidden;
 }
 
-@keyframes bg{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
+/* 🌍 fon */
+body::before{
+  content:"";
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:url("https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg");
+  background-size:cover;
+  opacity:0.08;
+  z-index:-2;
 }
 
-/* HEADER */
-.header{
-text-align:center;
-padding:20px;
-font-size:20px;
-font-weight:bold;
-}
-
-/* LANGUAGE */
-.lang{
-text-align:center;
-margin-bottom:10px;
-}
-
-.lang button{
-padding:6px 12px;
-margin:5px;
-background:#1c1c1e;
-border:1px solid #333;
-color:white;
-border-radius:6px;
-}
-
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-padding:15px;
-}
-
-/* BUTTON */
-.btn{
-padding:14px;
-border-radius:16px;
-text-align:center;
-cursor:pointer;
-background:rgba(255,255,255,0.07);
-border:1px solid rgba(255,255,255,0.1);
-backdrop-filter:blur(10px);
-transition:0.3s;
-}
-
-.btn:hover{
-transform:scale(1.03);
-box-shadow:0 0 15px rgba(0,170,255,0.5);
-}
-
-/* COLORS */
-.blue{border-color:#00aaff}
-.green{border-color:#22c55e}
-
-/* CONTACT */
-.address{
-padding:15px;
-font-size:13px;
-color:#ddd;
-}
-
-.cbtn{
-padding:10px;
-background:rgba(255,255,255,0.06);
-border-radius:10px;
-cursor:pointer;
-text-align:center;
-}
-
-/* BACK */
-.back{
-padding:10px;
-color:#00aaff;
-cursor:pointer;
-}
-
-/* HIDDEN */
-.hidden{display:none}
-
-/* ✈ AIRPLANES */
+/* ✈ samolyot */
 .plane{
-position:fixed;
-font-size:18px;
-opacity:0.15;
-animation:fly linear infinite;
-z-index:-1;
+  position:fixed;
+  font-size:32px;
+  animation: fly linear infinite;
+  filter: drop-shadow(0 0 10px #38bdf8);
 }
 
 @keyframes fly{
-0%{transform:translateX(-100px)}
-100%{transform:translateX(120vw)}
+  0%{ left:-10%; transform:translateY(0);}
+  50%{ transform:translateY(-20px);}
+  100%{ left:110%; transform:translateY(0);}
+}
+
+/* header */
+.header{
+  text-align:center;
+  font-size:26px;
+  margin:15px;
+  letter-spacing:2px;
+}
+
+/* grid */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  padding:10px;
+}
+
+/* tugmalar */
+.btn{
+  background: linear-gradient(145deg,#22c55e,#16a34a);
+  padding:16px;
+  border-radius:12px;
+  text-align:center;
+  cursor:pointer;
+  transition: all 0.3s ease;
+  box-shadow:0 0 10px rgba(34,197,94,0.3);
+}
+
+.btn:hover{
+  transform: scale(1.05);
+  box-shadow:0 0 20px rgba(34,197,94,0.8);
+}
+
+/* bosilganda */
+.btn:active{
+  transform: scale(0.95);
+}
+
+/* contact grid */
+.contact{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  padding:10px;
+}
+
+/* fade animatsiya */
+.hidden{
+  display:none;
+  opacity:0;
+}
+
+.show{
+  animation:fade 0.4s ease;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
