@@ -19,29 +19,32 @@
 </header>
 
 <!-- HOME -->
-<section id="home" class="page">
+<section id="home" class="page" style="display:block;">
 
-  <!-- AVIA TOP -->
-  <div class="card main-btn" onclick="window.open('https://t.me/OMAD_TOUR9094')">
-    ✈️ <span data-i18n="avia_booking"></span>
-  </div>
+  <div class="grid2">
 
-  <div class="card main-btn">
-    🎫 <span data-i18n="ticket_price"></span>
-  </div>
+    <div class="card" onclick="openPage('visa')">
+      ✈️ <span data-i18n="avia"></span>
+    </div>
 
-  <div class="card main-btn" onclick="openPage('visa')">
-    🛂 <span data-i18n="visa_answers"></span>
-  </div>
+    <div class="card" onclick="window.open('https://t.me/+OW_pzYSHjIA5NmQy')">
+      👥 <span data-i18n="group"></span>
+    </div>
 
-  <div class="card main-btn" onclick="openPage('anketa')">
-    📝 <span data-i18n="anketa_service"></span>
+    <div class="card">
+      🛂 <span data-i18n="visa_answers"></span>
+    </div>
+
+    <div class="card" onclick="openPage('anketa')">
+      📝 <span data-i18n="anketa"></span>
+    </div>
+
   </div>
 
 </section>
 
-<!-- VISA PAGE -->
-<section id="visa" class="page hidden">
+<!-- VISA -->
+<section id="visa" class="page" style="display:none;">
 
 <button class="back" onclick="back()">⬅ <span data-i18n="back"></span></button>
 
@@ -50,17 +53,17 @@
 </div>
 
 <div class="card" onclick="window.open('https://visa.mfa.uz/ruxsat/view')">
-  🌐 <span data-i18n="visa_link"></span>
+  🌐 Viza tekshirish
 </div>
 
 <div class="card" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">
-  👥 <span data-i18n="consul_group"></span>
+  👥 Konsulxona guruhi
 </div>
 
 </section>
 
-<!-- ANKETA PAGE -->
-<section id="anketa" class="page hidden">
+<!-- ANKETA -->
+<section id="anketa" class="page" style="display:none;">
 
 <button class="back" onclick="back()">⬅ <span data-i18n="back"></span></button>
 
@@ -81,23 +84,22 @@
 транзитную визу — 1.000 ₽
 </p>
 
-<div class="card small" onclick="window.open('https://t.me/AVIAKASSA9094')">
-  📩 <span data-i18n="fill_form"></span>
+<div class="card" onclick="window.open('https://t.me/AVIAKASSA9094')">
+  📩 Anketani to‘ldirish
 </div>
 
 </div>
 
 </section>
 
-<!-- CALL CENTER -->
+<!-- CONTACT -->
 <section class="page">
 
-<h3 data-i18n="contact"></h3>
+<h3>Murojaat</h3>
 
 <div class="grid3">
 
   <a class="btn" href="tel:+79811939094">+7 981 193 90 94</a>
-  <a class="btn" href="tel:+79379499094">+7 937 949 90 94</a>
   <a class="btn" href="tel:+79214027489">+7 921 402 74 89</a>
 
 </div>
@@ -105,7 +107,7 @@
 <div class="grid3">
 
   <a class="btn" href="https://wa.me/79811939094">WhatsApp 1</a>
-  <a class="btn" href="https://wa.me/79379499094">WhatsApp 2</a>
+  <a class="btn" href="https://wa.me/79214027489">WhatsApp 2</a>
 
   <a class="btn" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk">MAX</a>
 
@@ -116,13 +118,13 @@
 <!-- ADDRESS -->
 <footer class="address">
 
-<h4 data-i18n="contact"></h4>
+<h4>Mesta polajenya</h4>
 
 <p>
-🇺🇿 <b>Manzil:</b> Санкт-Петербург, метро Технологический институт, 4-я Красноармейская, дом 3
+Санкт-Петербург, метро Технологический институт, 4-я Красноармейская, дом 3
 
-🇷🇺 <b>Места п
-ения:</b> Санкт-Петербург, метро Дыбенко, проспект Большевиков, 24к1
+Санкт-Пет
+рг, метро Дыбенко, проспект Большевиков, 24к1
 </p>
 
 </footer>
@@ -130,6 +132,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-<section id="home" class="page" style="display:block;"> 
-<section id="visa" class="page" style="display:none;">
-<section id="anketa" class="page" style="display:none;">
