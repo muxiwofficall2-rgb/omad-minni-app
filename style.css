@@ -7,10 +7,11 @@ body {
 
 .header {
   text-align: center;
-  padding: 20px;
+  padding: 25px;
   background: #2563eb;
   color: white;
-  font-size: 22px;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .page {
@@ -22,36 +23,38 @@ body {
   display: block;
 }
 
-.card {
+/* 🔥 KATTA KNOPKA */
+.btn {
   width: 100%;
-  padding: 20px;
+  padding: 22px;
   margin: 12px 0;
 
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
 
   border: none;
-  border-radius: 14px;
+  border-radius: 16px;
 
   background: #2563eb;
   color: white;
 
   cursor: pointer;
 
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 
   transition: 0.2s;
 }
 
-.card:hover {
-  transform: translateY(-3px);
+.btn:hover {
   background: #1d4ed8;
+  transform: translateY(-3px);
 }
 
-.card:active {
+.btn:active {
   transform: scale(0.97);
 }
 
+/* BACK */
 .back {
   padding: 10px 15px;
   background: red;
@@ -62,20 +65,10 @@ body {
   cursor: pointer;
 }
 
-.panel {
+/* BOX */
+.box {
   background: white;
-  padding: 15px;
+  padding: 20px;
   border-radius: 12px;
-  margin-top: 10px;
-}
-
-.btn {
-  display: block;
-  padding: 12px;
-  margin: 10px 0;
-  background: #111;
-  color: white;
-  text-decoration: none;
-  border-radius: 10px;
-  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
