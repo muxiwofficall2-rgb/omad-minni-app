@@ -1,32 +1,34 @@
 {
   "uz": {
-    "visa": "✈️ Viza",
-    "anketa": "📝 Anketa",
+    "title": "Sayohat xizmatlari",
+    "subtitle": "Kerakli xizmatni tanlang",
 
-    "visa_check": "📄 Viza tekshirish",
-    "group": "📢 Guruh",
+    "visa_title": "Viza xizmatlari",
+    "visa_desc": "Hujjat tayyorlash va tekshirish",
+    "visa_text": "Biz viza hujjatlarini tayyorlash va tekshirish xizmatlarini taqdim etamiz.",
 
-    "passport": "🛂 zagran Pasport",
-    "return": "🏠 vatanga Qaytish",
-    "transit": "🌍 Tranzit viza",
+    "docs_title": "Hujjatlar",
+    "docs_desc": "Pasport va anketa xizmatlari",
+    "docs_text": "Barcha hujjatlarni professional tayyorlash xizmati.",
 
-    "contact": "📞 Aloqa",
+    "contact_btn": "Bog‘lanish",
 
     "back": "Orqaga"
   },
 
   "ru": {
-    "visa": "✈️ Виза",
-    "anketa": "📝 Анкета",
+    "title": "Туристические услуги",
+    "subtitle": "Выберите нужную услугу",
 
-    "visa_check": "📄 Проверка визы",
-    "group": "📢 Группа",
+    "visa_title": "Визовые услуги",
+    "visa_desc": "Проверка и оформление документов",
+    "visa_text": "Мы предоставляем услуги по подготовке визовых документов.",
 
-    "passport": "🛂 Загран Паспорт",
-    "return": "🏠 Возвращения На Родину",
-    "transit": "🌍 Транзитна виза",
+    "docs_title": "Документы",
+    "docs_desc": "Паспорт и анкета",
+    "docs_text": "Профессиональная подготовка всех документов.",
 
-    "contact": "📞 Контакты",
+    "contact_btn": "Связаться",
 
     "back": "Назад"
   }
