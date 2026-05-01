@@ -1,104 +1,92 @@
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omad Tour</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
-body{
-  font-family:system-ui;
-  background:#0b0f19;
-  color:white;
-}
+<body>
 
-/* TOP */
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  padding:15px;
-  background:#111827;
-  border-bottom:1px solid #1f2937;
-}
+<header class="header">
+  <h1>Omad Tour</h1>
+</header>
 
-.logo{
-  color:#60a5fa;
-  font-weight:700;
-}
+<!-- HOME -->
+<section id="home" class="page active">
 
-/* PAGES */
-.page{
-  padding:15px;
-}
+  <div class="grid">
 
-/* GRID */
-.grid2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
+    <button class="card" onclick="window.open('https://t.me/OMAD_TOUR9094','_blank')">
+      ✈️ Aviabilet bron qilish
+    </button>
 
-/* CARD - MAIN FIX HERE */
-.card{
-  background:#111827 !important;
-  border:1px solid #1f2937 !important;
+    <button class="card" onclick="window.open('https://t.me/+uJn1nFmpzjoxMGEy','_blank')">
+      👥 Telegram guruh
+    </button>
 
-  padding:18px;
-  border-radius:12px;
+    <button class="card" onclick="openPage('visa')">
+      🛂 Viza tekshirish
+    </button>
 
-  text-align:center;
-  cursor:pointer;
+    <button class="card" onclick="openPage('anketa')">
+      📝 Anketa xizmati
+    </button>
 
-  color:white !important;
-  font-size:16px !important;
-  font-weight:500;
+  </div>
 
-  opacity:1 !important;
-  display:block;
-  visibility:visible;
-}
+</section>
 
-.card span{
-  color:white !important;
-}
+<!-- VISA -->
+<section id="visa" class="page">
 
-/* BUTTON */
-.btn{
-  display:block;
-  background:#3b82f6;
-  color:white;
-  text-align:center;
-  padding:12px;
-  border-radius:8px;
-  text-decoration:none;
-  margin:5px;
-}
+  <button class="back" onclick="back()">⬅ Orqaga</button>
 
-/* BACK */
-.back{
-  background:none;
-  border:none;
-  color:#9ca3af;
-  margin:10px;
-  cursor:pointer;
-}
+  <div class="grid">
 
-/* PANEL */
-.panel{
-  background:#111827;
-  padding:15px;
-  border-radius:12px;
-  border:1px solid #1f2937;
-}
+    <button class="card" onclick="window.open('https://visa.mfa.uz/ruxsat/view','_blank')">
+      🌐 Viza tekshirish
+    </button>
 
-/* GRID 3 */
-.grid3{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:10px;
-}
+    <button class="card" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy','_blank')">
+      👥 Konsulxona guruhi
+    </button>
 
-/* ADDRESS */
-.address{
-  padding:15px;
-  font-size:13px;
-  opacity:0.9;
-}
+  </div>
+
+</section>
+
+<!-- ANKETA -->
+<section id="anketa" class="page">
+
+  <button class="back" onclick="back()">⬅ Orqaga</button>
+
+  <div class="panel">
+
+    <h2>Anketa xizmatlari</h2>
+
+    <p>
+      • Загранпаспорт анкета — 1000 ₽
+
+ 
+ • Anketa to‘ldirish — 500 ₽
+
+ 
+ • Konsullik hujjatlari — 500 ₽
+
+ 
+ • Tranzit viza — 1000 ₽
+    </p>
+
+    <button class="card" onclick="window.open('https://t.me/OMAD_TOUR9094','_blank')">
+      📩 Murojaat qilish
+    </button>
+
+  </div>
+
+</section>
+
+</body>
+<script src="script.js"></script>
+</html>
