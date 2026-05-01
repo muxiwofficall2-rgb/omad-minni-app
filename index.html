@@ -3,71 +3,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omad Tour Service</title>
 
-<title>Omad Tour</title>
+<style>
 
-<!-- CSS ULANADI -->
-<link rel="stylesheet" href="style.css">
+/* ===== PREMIUM BACKGROUND ===== */
+body{
+margin:0;
+font-family:Arial;
+color:white;
+background: linear-gradient(-45deg,#07070a,#0f172a,#111827,#0b0b0d);
+background-size:400% 400%;
+animation:bg 10s ease infinite;
+overflow-x:hidden;
+}
 
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* floating lights */
+body::before{
+content:"";
+position:fixed;
+width:200%;
+height:200%;
+top:-50%;
+left:-50%;
+background: radial-gradient(circle,#00aaff33 0%,transparent 40%),
+            radial-gradient(circle,#ff006633 0%,transparent 50%);
+animation:move 12s infinite alternate;
+z-index:-1;
+}
+
+@keyframes move{
+from{transform:translate(0,0)}
+to{transform:translate(80px,50px)}
+}
+
+/* HEADER */
+.header{
+text-align:center;
+padding:20px;
+font-size:20px;
+font-weight:bold;
+letter-spacing:2px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+padding:15px;
+}
+
+/* BUTTONS */
+.btn{
+padding:14px;
+border-radius:16px;
+text-align:center;
+cursor:pointer;
+
+/* glass */
+background:rgba(255,255,255,0.07);
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+
+/* glow */
+transition:0.3s;
+position:relative;
+overflow:hidden;
+}
+
+.btn:hover{
+transform:translateY(-3px) scale(1.03);
+box-shadow:0 0 20px rgba(0,170,255,0.4);
+}
+
+/* COLORS */
+.blue{border-color:#00aaff}
+.red{border-color:#ff4d6d}
+.green{border-color:#22c55e}
+.purple{border-color:#a855f7}
+
+/* CONTACT BUTTONS */
+.contact{
+display:flex;
+gap:10px;
+padding:10px;
+flex-wrap:wrap;
+}
+
+.cbtn{
+flex:1;
+min-width:30%;
+padding:10px;
+border-radius:10px;
+text-align:center;
+background:rgba(255,255,255,0.06);
+border:1px solid rgba(255,255,255,0.1);
+cursor:pointer;
+font-size:12px;
+}
+
+/* ADDRESS */
+.address{
+padding:15px;
+font-size:13px;
+line-height:1.6;
+color:#ddd;
+}
+
+/* BACK */
+.back{
+padding:10px 15px;
+color:#00aaff;
+cursor:pointer;
+}
+
+/* hidden */
+.hidden{display:none;}
+
+</style>
 </head>
 
 <body>
 
-<div class="top">
-  <div class="logo">OMAD TOUR ✈</div>
+<div class="header">✈ OMAD TOUR SERVICE</div>
+
+<!-- MAIN -->
+<div id="main" class="grid">
+
+<div class="btn blue" onclick="visa()">📄 Viza javobi</div>
+
+<div class="btn purple" onclick="anketa()">📝 Anketa xizmatlari</div>
+
+<div class="btn green" onclick="window.open('https://t.me/AVIAKASSA9094')">💬 Telegram</div>
+
+<div class="btn red" onclick="window.open('https://t.me/+uJn1nFmpzjoxMGEy')">🎫 Aviabilet</div>
+
 </div>
 
-<h1 id="title">AVIATSIYA & VISA XIZMATLAR</h1>
-
-<!-- MAIN BUTTONS -->
-<div id="main" class="grid"></div>
-
-<!-- VISA PAGE -->
+<!-- VISA -->
 <div id="visa" class="hidden">
-  <div class="back" onclick="back()">⬅ Orqaga</div>
-  <div class="grid">
-    <div class="btn" onclick="openVisaLink()">Viza natijasi ochish</div>
-  </div>
+<div class="back" onclick="back()">⬅ Orqaga</div>
+
+<div class="grid">
+<div class="btn blue" onclick="window.open('https://visa.mfa.uz/ruxsat/view')">
+📄 Viza natijasini ko‘rish
+</div>
+</div>
 </div>
 
-<!-- ANKETA PAGE -->
+<!-- ANKETA -->
 <div id="anketa" class="hidden">
-  <div class="back" onclick="back()">⬅ Orqaga</div>
+<div class="back" onclick="back()">⬅ Orqaga</div>
 
-  <div class="grid">
-    <div class="btn">Zagran pasport anketasi</div>
-    <div class="btn">Vatanga qaytish anketasi</div>
-    <div class="btn">Viza anketasi</div>
-  </div>
+<div class="grid">
+<div class="btn">🛂 Zagran pasport</div>
+<div class="btn">🏠 Vatanga qaytish</div>
+<div class="btn">📄 Viza anketa</div>
+</div>
 </div>
 
 <!-- CONTACTS -->
-<div class="section">
-  <h3>CONTACTS</h3>
+<div class="address">
 
-  <div class="contact-grid">
-    <div class="small-btn" onclick="call('+79811939094')">Aviabilet</div>
-    <div class="small-btn" onclick="call('+79379499094')">Yordamchi</div>
-    <div class="small-btn" onclick="tg()">Telegram</div>
-    <div class="small-btn" onclick="max()">MAX</div>
-    <div class="small-btn" onclick="mail()">Email</div>
-  </div>
+<h3>📞 MUROJAT</h3>
 
-  <h3>ADDRESS</h3>
+<div class="contact">
 
-  <div class="address">
-    ООО «ОмадТур»
+<div class="cbtn" onclick="call('+79811939094')">📞 Aviabilet</div>
+<div class="cbtn" onclick="call('+79379499094')">📞 Yordamchi</div>
 
-    Санкт-Петербург, метро Технологический институт 4я
-
-    Красноармейская дом 3, домофон 22в
-
-    Санкт-Петербург, метро Дыбенко, пр. Большевиков 24к1
-  </div>
 </div>
 
-<!-- JS ULANADI -->
-<script src="script.js"></script>
+<h3>📍 ADDRESS</h3>
+
+ООО «ОмадТур» 
+
+Санкт-П
+бург, метро Технологический институт 4-я Красноармейская улица 3 
+
+домофон
+
+</div>
+
+<script>
+
+function visa(){
+document.getElementById("main").classList.add("hidden");
+document.getElementById("visa").classList.remove("hidden");
+document.getElementById("anketa").classList.add("hidden");
+}
+
+function anketa(){
+document.getElementById("main").classList.add("hidden");
+document.getElementById("anketa").classList.remove("hidden");
+document.getElementById("visa").classList.add("hidden");
+}
+
+function back(){
+document.getElementById("main").classList.remove("hidden");
+document.getElementById("visa").classList.add("hidden");
+document.getElementById("anketa").classList.add("hidden");
+}
+
+function call(num){
+window.location.href="tel:"+num;
+}
+
+</script>
 
 </body>
 </html>
