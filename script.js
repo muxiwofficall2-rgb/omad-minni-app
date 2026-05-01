@@ -1,45 +1,33 @@
-let lang="uz";
+let lang = "uz";
+let data = {};
 
-const t={
-uz:{
-visa:"Viza",
-anketa:"Anketa",
-contact:"Murojaat uchun",
-back:"Orqaga",
-visa_check:"Vizani tekshirish",
-group:"Konsul guruhi",
-passport:"Zagran pasport",
-return:"Vatanga Qaytish",
-transit:"Tranzit viza"
-},
-ru:{
-visa:"Виза",
-anketa:"Анкета",
-contact:"Для связи",
-back:"Назад",
-visa_check:"Проверить визу",
-group:"Консульская группа",
-passport:"Паспорт",
-return:"Возвращения на Родину",
-transit:"Транзитная виза"
-}
-};
+fetch("lang.json")
+  .then(r => r.json())
+  .then(j => {
+    data = j;
+    render();
+  });
 
 function setLang(l){
-lang=l;
-document.querySelectorAll("[data-lang]").forEach(el=>{
-el.innerText=t[lang][el.dataset.lang];
-});
+  lang = l;
+  render();
+}
+
+function render(){
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key = el.getAttribute("data-i18n");
+    if(data[lang][key]){
+      el.innerText = data[lang][key];
+    }
+  });
 }
 
 function openPage(id){
-document.getElementById("main").classList.add("hidden");
-document.getElementById(id).classList.remove("hidden");
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById(id).classList.remove("hidden");
 }
 
 function back(){
-document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
-document.getElementById("main").classList.remove("hidden");
+  document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+  document.getElementById("home").classList.remove("hidden");
 }
-
-setLang("uz");
