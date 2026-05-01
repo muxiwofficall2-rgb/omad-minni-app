@@ -1,160 +1,197 @@
-"use client";
-import { useState } from "react";
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omad Tour - Visa & Travel</title>
 
-export default function Home() {
-  const [lang, setLang] = useState("uz");
-
-  const data = {
-    uz: {
-      title: "AVIATSIYA & VISA XIZMATLAR",
-      buttons: [
-        { name: "Viza javobi", link: "https://visa.mfa.uz/ruxsat/view" },
-        { name: "Zagran pasport anketasi", link: "#" },
-        { name: "Vatanga qaytish", link: "#" },
-        { name: "Viza anketasi", link: "#" },
-        { name: "Telegram profil", link: "https://t.me/AVIAKASSA9094" },
-        { name: "Avia bilet narxlari", link: "https://t.me/+uJn1nFmpzjoxMGEy" }
-      ],
-      contacts: [
-        "+7 981 193 90 94 (Aviabilet)",
-        "+7 937 949 90 94 (Yordamchi)",
-        "kopitsentr.omad@bk.ru"
-      ],
-      address: [
-        "ООО «ОмадТур», Санкт-Петербург",
-        "Metro: Technologicheskiy institut",
-        "Metro: Dybenko / Prospekt Bol'shevikov"
-      ],
-      prices: [
-        "Kserokopiya: 35–100 RUB",
-        "Foto: 250–400 RUB",
-        "Anketa: 500–1000 RUB"
-      ]
-    }
-  };
-
-  const d = data[lang];
-
-  return (
-    <div style={styles.body}>
-
-      {/* TOP BAR */}
-      <div style={styles.topBar}>
-        <h2 style={styles.logo}>OMAD TOUR</h2>
-
-        <div>
-          <button onClick={() => setLang("uz")} style={styles.langBtn}>UZ</button>
-          <button onClick={() => setLang("ru")} style={styles.langBtn}>RU</button>
-          <button onClick={() => setLang("en")} style={styles.langBtn}>EN</button>
-        </div>
-      </div>
-
-      {/* TITLE */}
-      <h1 style={styles.title}>{d.title}</h1>
-
-      {/* BUTTONS */}
-      <div style={styles.grid}>
-        {d.buttons.map((b, i) => (
-          <a key={i} href={b.link} target="_blank" style={styles.link}>
-            <div style={styles.card}>
-              {b.name}
-            </div>
-          </a>
-        ))}
-      </div>
-
-      {/* CONTACTS */}
-      <div style={styles.section}>
-        <h3>CONTACTS</h3>
-        {d.contacts.map((c, i) => (
-          <p key={i}>{c}</p>
-        ))}
-      </div>
-
-      {/* ADDRESS */}
-      <div style={styles.section}>
-        <h3>ADDRESS</h3>
-        {d.address.map((a, i) => (
-          <p key={i}>{a}</p>
-        ))}
-      </div>
-
-      {/* PRICES */}
-      <div style={styles.section}>
-        <h3>PRICES</h3>
-        {d.prices.map((p, i) => (
-          <p key={i}>• {p}</p>
-        ))}
-      </div>
-
-    </div>
-  );
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f10;
+    color: #fff;
 }
 
-const styles = {
-  body: {
-    backgroundColor: "#0f0f10",
-    color: "#ffffff",
-    fontFamily: "Arial",
-    minHeight: "100vh",
-    padding: 20
-  },
+/* TOP BAR */
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #222;
+}
 
-  topBar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderBottom: "1px solid #222",
-    paddingBottom: 10
-  },
+.logo {
+    font-weight: bold;
+    letter-spacing: 2px;
+}
 
-  logo: {
-    color: "#ffffff",
-    letterSpacing: 2
-  },
+.lang button {
+    background: #1c1c1e;
+    color: white;
+    border: 1px solid #333;
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
-  langBtn: {
-    marginLeft: 5,
-    padding: "6px 10px",
-    background: "#1c1c1e",
-    color: "#fff",
-    border: "1px solid #333",
-    borderRadius: 6,
-    cursor: "pointer"
-  },
+/* TITLE */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+}
 
-  title: {
-    textAlign: "center",
-    marginTop: 25,
-    fontSize: 22,
-    color: "#ffffff"
-  },
+/* BUTTONS */
+.grid {
+    display: grid;
+    gap: 12px;
+    padding: 20px;
+}
 
-  grid: {
-    display: "grid",
-    gap: 12,
-    marginTop: 25
-  },
+.card {
+    background: #1a1a1d;
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid #2a2a2e;
+    cursor: pointer;
+    transition: 0.2s;
+}
 
-  link: {
-    textDecoration: "none"
-  },
+.card:hover {
+    background: #2a2a2e;
+}
 
-  card: {
-    padding: 14,
-    backgroundColor: "#1a1a1d",
-    border: "1px solid #2a2a2e",
-    borderRadius: 10,
-    color: "#ffffff",
-    transition: "0.2s",
-    textAlign: "center"
-  },
+/* SECTIONS */
+.section {
+    padding: 15px;
+    margin: 10px;
+    background: #151517;
+    border-radius: 10px;
+    border: 1px solid #2a2a2e;
+}
 
-  section: {
-    marginTop: 25,
-    padding: 15,
-    background: "#151517",
-    borderRadius: 10,
-    border: "1px solid #2a2a2e"
-  }
+a {
+    color: white;
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top">
+    <div class="logo">OMAD TOUR</div>
+    <div class="lang">
+        <button onclick="setLang('uz')">UZ</button>
+        <button onclick="setLang('ru')">RU</button>
+        <button onclick="setLang('en')">EN</button>
+    </div>
+</div>
+
+<h1 id="title">AVIATSIYA & VISA XIZMATLAR</h1>
+
+<div class="grid" id="buttons"></div>
+
+<div class="section">
+    <h3>CONTACTS</h3>
+    <p id="c1"></p>
+    <p id="c2"></p>
+    <p id="c3"></p>
+</div>
+
+<div class="section">
+    <h3>ADDRESS</h3>
+    <p>ООО «ОмадТур», Санкт-Петербург</p>
+    <p>Metro Technologicheskiy institut</p>
+    <p>Metro Dybenko / Bolshhevikov</p>
+</div>
+
+<div class="section">
+    <h3>PRICES</h3>
+    <p>Kserokopiya: 35–100 RUB</p>
+    <p>Foto: 250–400 RUB</p>
+    <p>Anketa: 500–1000 RUB</p>
+</div>
+
+<script>
+const data = {
+ uz: {
+  title: "AVIATSIYA & VISA XIZMATLAR",
+  contacts: [
+   "+7 981 193 90 94 (Aviabilet)",
+   "+7 937 949 90 94 (Yordamchi)",
+   "kopitsentr.omad@bk.ru"
+  ],
+  buttons: [
+   ["Viza javobi","https://visa.mfa.uz/ruxsat/view"],
+   ["Zagran pasport anketasi","#"],
+   ["Vatanga qaytish","#"],
+   ["Viza anketasi","#"],
+   ["Telegram profil","https://t.me/AVIAKASSA9094"],
+   ["Avia bilet narxlari","https://t.me/+uJn1nFmpzjoxMGEy"]
+  ]
+ },
+ ru: {
+  title: "ВИЗА И АВИАСЕРВИС",
+  contacts: [
+   "+7 981 193 90 94",
+   "+7 937 949 90 94",
+   "kopitsentr.omad@bk.ru"
+  ],
+  buttons: [
+   ["Ответ по визе","https://visa.mfa.uz/ruxsat/view"],
+   ["Анкета","#"],
+   ["Возврат","#"],
+   ["Telegram","https://t.me/AVIAKASSA9094"]
+  ]
+ },
+ en: {
+  title: "VISA & AVIATION SERVICES",
+  contacts: [
+   "+7 981 193 90 94",
+   "+7 937 949 90 94",
+   "kopitsentr.omad@bk.ru"
+  ],
+  buttons: [
+   ["Visa result","https://visa.mfa.uz/ruxsat/view"],
+   ["Forms","#"],
+   ["Telegram","https://t.me/AVIAKASSA9094"]
+  ]
+ }
 };
+
+let lang = "uz";
+
+function setLang(l){
+ lang = l;
+ render();
+}
+
+function render(){
+ document.getElementById("title").innerText = data[lang].title;
+
+ document.getElementById("c1").innerText = data[lang].contacts[0];
+ document.getElementById("c2").innerText = data[lang].contacts[1];
+ document.getElementById("c3").innerText = data[lang].contacts[2];
+
+ let box = document.getElementById("buttons");
+ box.innerHTML = "";
+
+ data[lang].buttons.forEach(b=>{
+  let a = document.createElement("a");
+  a.href = b[1];
+  a.target = "_blank";
+  a.innerHTML = `<div class="card">${b[0]}</div>`;
+  box.appendChild(a);
+ });
+}
+
+render();
+</script>
+
+</body>
+</html>
