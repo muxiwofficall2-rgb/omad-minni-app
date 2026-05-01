@@ -2,9 +2,10 @@ body{
   margin:0;
   font-family:system-ui;
   background:#0b0f19;
-  color:white;
+  color:#e5e7eb;
 }
 
+/* TOP */
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -18,28 +19,42 @@ body{
   font-weight:700;
 }
 
-.page{
+/* GRID */
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
   padding:15px;
 }
 
+/* CARD - MAIN FIX HERE */
 .card{
   background:#111827;
   border:1px solid #1f2937;
-  padding:15px;
-  margin:10px 0;
-  border-radius:10px;
+  padding:18px;
+  border-radius:12px;
+
   cursor:pointer;
+
+  /* 🔥 TEXT KO‘RINISH MUHIM QISM */
+  color:#ffffff !important;
+  font-size:16px;
+  font-weight:500;
+  text-align:center;
+
+  transition:0.2s;
+}
+
+.card span{
+  color:#ffffff !important;
 }
 
 .card:hover{
   border-color:#3b82f6;
+  transform:translateY(-2px);
 }
 
-.main-btn{
-  font-size:16px;
-  font-weight:600;
-}
-
+/* BUTTON */
 .btn{
   display:block;
   background:#3b82f6;
@@ -51,28 +66,31 @@ body{
   margin:5px;
 }
 
-.grid3{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:10px;
+/* PAGE */
+.page{
+  padding:10px;
 }
 
-.panel{
-  background:#111827;
-  padding:15px;
-  border-radius:10px;
-}
-
+/* BACK */
 .back{
   background:none;
   border:none;
   color:#9ca3af;
-  margin-bottom:10px;
+  margin:10px;
   cursor:pointer;
 }
 
+/* PANEL */
+.panel{
+  background:#111827;
+  padding:15px;
+  border-radius:12px;
+  border:1px solid #1f2937;
+}
+
+/* ADDRESS */
 .address{
   padding:15px;
-  opacity:0.8;
-  font-size:14px;
+  font-size:13px;
+  opacity:0.9;
 }
