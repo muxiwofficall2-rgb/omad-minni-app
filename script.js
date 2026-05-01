@@ -1,28 +1,27 @@
 let lang="uz";
+
 const t={
 uz:{
 visa:"Viza",
 anketa:"Anketa",
-contact:"Murojaat",
-map:"Manzil",
+contact:"Murojaat uchun",
 back:"Orqaga",
 visa_check:"Vizani tekshirish",
 group:"Konsul guruhi",
 passport:"Zagran pasport",
-return:"Qaytish",
+return:"Vatanga Qaytish",
 transit:"Tranzit viza"
 },
 ru:{
 visa:"Виза",
 anketa:"Анкета",
-contact:"Связь",
-map:"Адрес",
+contact:"Для связи",
 back:"Назад",
 visa_check:"Проверить визу",
 group:"Консульская группа",
 passport:"Паспорт",
-return:"Возврат",
-transit:"Транзит"
+return:"Возвращения на Родину",
+transit:"Транзитная виза"
 }
 };
 
