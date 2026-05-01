@@ -6,4 +6,3 @@ function openPage(id){
   page.classList.remove("hidden");
   page.classList.add("show");
 }
-
