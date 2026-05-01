@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -11,10 +10,12 @@
 
 <body>
 
-<!-- ✈ planes -->
-<div class="plane p1">✈</div>
-<div class="plane p2">✈</div>
-<div class="plane p3">✈</div>
+<!-- ✨ ANIMATION ICONS -->
+<div class="float i1">✈</div>
+<div class="float i2">📸</div>
+<div class="float i3">🎟️</div>
+<div class="float i4">💳</div>
+<div class="float i5">👨‍👩‍👧</div>
 
 <!-- LOGO -->
 <div class="logo">OMAD TOUR</div>
@@ -30,8 +31,6 @@
 
 <div class="card" onclick="openPage('visa')" data-lang="visa"></div>
 <div class="card" onclick="openPage('anketa')" data-lang="anketa"></div>
-<div class="card" onclick="openPage('contact')" data-lang="contact"></div>
-<div class="card" onclick="openPage('map')" data-lang="map"></div>
 
 </div>
 
@@ -40,8 +39,8 @@
 <div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
 
 <div class="grid">
-<div class="card glow">📄 <span data-lang="visa_check"></span></div>
-<div class="card glow" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">📢 <span data-lang="group"></span></div>
+<div class="card">📄 <span data-lang="visa_check"></span></div>
+<div class="card" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">📢 <span data-lang="group"></span></div>
 </div>
 </div>
 
@@ -56,27 +55,37 @@
 </div>
 </div>
 
-<!-- CONTACT -->
-<div id="contact" class="page hidden">
-<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
+<!-- CONTACT (MAIN PAGE) -->
+<div class="contact-box">
+
+<h3 data-lang="contact"></h3>
 
 <div class="grid">
-<a class="card" href="https://t.me/OMAD_TOUR9094">Telegram</a>
-<a class="card" href="https://t.me/+uJn1nFmpzjoxMGEy">Group</a>
-<a class="card" href="https://wa.me/79811939094">WhatsApp</a>
-<a class="card" href="tel:+79811939094">Call</a>
-<a class="card" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk">MAX</a>
-</div>
+
+<a class="btn" href="https://t.me/OMAD_TOUR9094">Telegram</a>
+<a class="btn" href="https://t.me/+uJn1nFmpzjoxMGEy">Guruh</a>
+
+<a class="btn" href="https://wa.me/79811939094">WhatsApp</a>
+<a class="btn" href="tel:+79811939094">Call</a>
+
+<a class="btn" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk">MAX</a>
+
 </div>
 
-<!-- MAP -->
-<div id="map" class="page hidden">
-<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
-
-<div class="grid">
-<a class="card" href="https://maps.google.com?q=Технологический институт">Tech</a>
-<a class="card" href="https://maps.google.com?q=Дыбенко">Dybenko</a>
 </div>
+
+<!-- ADDRESS -->
+<div class="address">
+
+ООО «ОмадТур»
+Санкт-Петербур метро Технологитскей институт 4 я
+Красноармеская дом 3 домофон 22в
+
+ООО «ОмадТур»
+
+Санкт-Петербург, метро Дыбенко проспект
+Большевиков, 24к1
+
 </div>
 
 <script src="script.js"></script>
