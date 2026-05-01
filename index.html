@@ -6,6 +6,66 @@
 <title>Omad Tour</title>
 <link rel="stylesheet" href="style.css">
 </head>
+  style>
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  margin: 0;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.lang button {
+  margin: 5px;
+  padding: 8px 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.btn {
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  background: #22c55e;
+  cursor: pointer;
+}
+
+.hidden { display: none; }
+
+.back {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">✈ OMAD TOUR</div>
+
+<div class="lang">
+<button onclick="setLang('uz')">UZ</button>
+<button onclick="setLang('ru')">RU</button>
+</div>
+
+<!-- MAIN MENU -->
+<div id="main" class="grid">
 
 <body>
 
