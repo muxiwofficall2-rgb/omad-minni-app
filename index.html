@@ -3,178 +3,130 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Omad Tour</title>
+<title>Omad Tour Servis</title>
 <link rel="stylesheet" href="style.css">
 </head>
-  style>
-body {
-  font-family: Arial;
-  background: #0f172a;
-  color: white;
-  margin: 0;
-  padding: 20px;
-}
-
-.header {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 15px;
-}
-
-.lang button {
-  margin: 5px;
-  padding: 8px 12px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.btn {
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  background: #22c55e;
-  cursor: pointer;
-}
-
-.hidden { display: none; }
-
-.back {
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.contact {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-</style>
-</head>
 
 <body>
 
-<div class="header">✈ OMAD TOUR</div>
-
-<div class="lang">
-<button onclick="setLang('uz')">UZ</button>
-<button onclick="setLang('ru')">RU</button>
-</div>
-
-<!-- MAIN MENU -->
-<div id="main" class="grid">
-
-<body>
-
+<!-- HEADER -->
 <header class="header">
-  <h1>Omad Tour</h1>
+  <div class="back" onclick="goHome()">←</div>
+
+  <div class="logoBox">
+    <img src="logo.png" class="logo">
+    <div class="title">
+      <span>Omad Tour</span>
+      <small id="subtitle">Servis</small>
+    </div>
+  </div>
+
+  <div class="lang">
+    <button onclick="setLang('uz')">UZ</button>
+    <button onclick="setLang('ru')">RU</button>
+  </div>
 </header>
 
 <!-- HOME -->
-<section id="home" class="page active">
+<section id="home" class="page">
 
-  <button class="card" onclick="window.open('https://t.me/OMAD_TOUR9094','_blank')">
-    ✈️ Aviabilet bron qilish
-  </button>
+<div class="menu">
 
-  <button class="card" onclick="window.open('https://t.me/+uJn1nFmpzjoxMGEy','_blank')">
-    👥 Telegram guruh
-  </button>
+<div class="btn" onclick="tg('@OMAD_TOUR9094')">✈️ Aviabilet bron qilish</div>
 
-  <button class="card" onclick="openPage('visa')">
-    🛂 Viza javoblari
-  </button>
+<div class="btn" onclick="openPage('visa')">🛂 Viza javoblari</div>
 
-  <button class="card" onclick="openPage('anketa')">
-    📝 Anketa xizmati
-  </button>
+<div class="btn" onclick="window.open('https://t.me/+uJn1nFmpzjoxMGEy')">
+👥 Telegram guruh
+</div>
+
+<div class="btn" onclick="openPage('support')">📞 Yordam / Поддержка</div>
+
+<div class="btn" onclick="openPage('anketa')">📝 Anketa to‘ldirish</div>
+
+<div class="btn" onclick="openPage('services')">📄 Uslugyalarimiz</div>
+
+</div>
+
+<div class="address">
+<p>ООО «ОмадТур»
+
+С
+-Петербург метро Технологический институт
+
+4
+расноармейская дом 3
+
+д
+он 22в</p>
+
+<p>ООО «ОмадТур»
+
+С
+-Петербург, метро Дыбенко
+
+п
+ольшевиков, 24к1</p>
+</div>
 
 </section>
 
 <!-- VISA -->
-<section id="visa" class="page">
+<section id="visa" class="page hidden">
+<div class="btn" onclick="window.open('https://visa.mfa.uz/ruxsat/view')">🌐 Tekshirish</div>
+<div class="btn" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">👥 Konsul guruhi</div>
+</section>
 
-  <button class="back" onclick="back()">⬅ Orqaga</button>
-
-  <button class="card" onclick="window.open('https://visa.mfa.uz/ruxsat/view','_blank')">
-    🌐 Viza tekshirish
-  </button>
-
-  <button class="card" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy','_blank')">
-    👥 Konsulxona guruhi
-  </button>
-
+<!-- SUPPORT -->
+<section id="support" class="page hidden">
+<div class="btn" onclick="tg('@AVIAKASSA9094')">📩 Telegram</div>
+<div class="btn" onclick="window.open('https://wa.me/79379499094')">📞 WhatsApp</div>
 </section>
 
 <!-- ANKETA -->
-<section id="anketa" class="page">
+<section id="anketa" class="page hidden">
 
-  <button class="back" onclick="back()">⬅ Orqaga</button>
+<div class="text">
+Заграничный паспорт анкета — 1.000 ₽
 
-  <div class="panel">
+Ватан
+айтиш бланкаси — 500 ₽
 
-    <h3>Anketa xizmatlari</h3>
+Транз
+иза анкета — 1.000 ₽
+</div>
 
-    <p>
-      • Загранпаспорт анкета — 1000 ₽
-
- 
- • Anketa to‘ldirish — 500 ₽
-
- 
- • Konsullik hujjatlari — 500 ₽
-
- 
- • Tranzit viza — 1000 ₽
-    </p>
-
-    <button class="card" onclick="window.open('https://t.me/OMAD_TOUR9094','_blank')">
-      📩 Murojaat qilish
-    </button>
-
-  </div>
+<div class="btn big" onclick="tg('@AVIAKASSA9094')">📩 Buyurtma berish</div>
 
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="page">
+<!-- SERVICES -->
+<section id="services" class="page hidden">
 
-  <h3>Murojaat</h3>
+<div class="text">
+КСЕРОКОПИЯ
 
-  <a class="btn" href="tel:+79811939094">📞 +7 981 193 90 94</a>
-  <a class="btn" href="tel:+79214027489">📞 +7 921 402 74 89</a>
+1 Чёрн
+Белый 35₽ / 50₽
 
-  <div class="panel">
+Цветно
+₽ / 100₽
 
-    <h3>📍 Manzillar</h3>
+Скан 5
+r>
 
-    <p>
-      ООО «ОмадТур»
+Ф
 
-     
-кт-Петербург, метро Технологический институт
+3×4 — 
 
-     
- Красноармейская, дом 3
+Электр
+я — 250₽
 
-     
-офон 22В
-    </p>
+2×3 — 
 
-    <p>
-      ООО «ОмадТур»
+</div>
 
-     
-кт-Петербург, метро Дыбенко
-
-     
- Большевиков, 24к1
-    </p>
-
-  </div>
+<div class="btn big" onclick="tg('@AVIAKASSA9094')">📩 Buyurtma</div>
 
 </section>
 
