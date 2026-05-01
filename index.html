@@ -3,80 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Omad Tour - Visa & Travel</title>
+<title>Omad Tour</title>
 
 <style>
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f0f10;
-    color: #fff;
+ margin:0;
+ font-family:Arial;
+ background:#0b0b0d;
+ color:white;
+ overflow-x:hidden;
 }
 
-/* TOP BAR */
-.top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid #222;
+/* BACKGROUND */
+body::before{
+ content:"";
+ position:fixed;
+ top:0;left:0;
+ width:100%;height:100%;
+ background:url("https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1400&q=80");
+ background-size:cover;
+ opacity:0.15;
+ z-index:-1;
 }
 
-.logo {
-    font-weight: bold;
-    letter-spacing: 2px;
+/* TOP */
+.top{
+ display:flex;
+ justify-content:space-between;
+ padding:15px;
+ border-bottom:1px solid #222;
 }
 
-.lang button {
-    background: #1c1c1e;
-    color: white;
-    border: 1px solid #333;
-    padding: 5px 10px;
-    margin-left: 5px;
-    cursor: pointer;
-    border-radius: 5px;
+.lang button{
+ margin:3px;
+ padding:5px 10px;
+ background:#1c1c1e;
+ border:1px solid #333;
+ color:white;
+ border-radius:6px;
 }
 
 /* TITLE */
-h1 {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 20px;
+h1{
+ text-align:center;
+ font-size:20px;
+ margin:15px;
 }
 
 /* BUTTONS */
-.grid {
-    display: grid;
-    gap: 12px;
-    padding: 20px;
+.grid{
+ display:grid;
+ gap:10px;
+ padding:15px;
 }
 
-.card {
-    background: #1a1a1d;
-    padding: 15px;
-    text-align: center;
-    border-radius: 10px;
-    border: 1px solid #2a2a2e;
-    cursor: pointer;
-    transition: 0.2s;
+.btn{
+ padding:14px;
+ background:#151517;
+ border:1px solid #2a2a2e;
+ border-radius:10px;
+ text-align:center;
+ cursor:pointer;
 }
 
-.card:hover {
-    background: #2a2a2e;
+.btn:hover{
+ background:#222;
 }
 
-/* SECTIONS */
-.section {
-    padding: 15px;
-    margin: 10px;
-    background: #151517;
-    border-radius: 10px;
-    border: 1px solid #2a2a2e;
+/* SUB MENU */
+.hidden{display:none;}
+
+.back{
+ padding:10px;
+ cursor:pointer;
+ color:#00aaff;
 }
 
-a {
-    color: white;
-    text-decoration: none;
+/* CONTACT */
+a{
+ color:white;
+ text-decoration:none;
 }
 </style>
 </head>
@@ -84,110 +90,121 @@ a {
 <body>
 
 <div class="top">
-    <div class="logo">OMAD TOUR</div>
-    <div class="lang">
-        <button onclick="setLang('uz')">UZ</button>
-        <button onclick="setLang('ru')">RU</button>
-        <button onclick="setLang('en')">EN</button>
-    </div>
+ <div><b>OMAD TOUR ✈</b></div>
+ <div class="lang">
+  <button onclick="setLang('uz')">UZ</button>
+  <button onclick="setLang('ru')">RU</button>
+  <button onclick="setLang('en')">EN</button>
+ </div>
 </div>
 
-<h1 id="title">AVIATSIYA & VISA XIZMATLAR</h1>
+<h1 id="title"></h1>
 
-<div class="grid" id="buttons"></div>
+<!-- MAIN -->
+<div id="main" class="grid"></div>
 
-<div class="section">
-    <h3>CONTACTS</h3>
-    <p id="c1"></p>
-    <p id="c2"></p>
-    <p id="c3"></p>
+<!-- ANKETA SUB MENU -->
+<div id="anketa" class="hidden">
+ <div class="back" onclick="back()">⬅ Orqaga</div>
+
+ <div class="grid">
+  <div class="btn" onclick="openLink('#')">Zagran pasport anketasi</div>
+  <div class="btn" onclick="openLink('#')">Vatanga qaytish anketasi</div>
+  <div class="btn" onclick="openLink('#')">Viza anketasi</div>
+ </div>
 </div>
 
-<div class="section">
-    <h3>ADDRESS</h3>
-    <p>ООО «ОмадТур», Санкт-Петербург</p>
-    <p>Metro Technologicheskiy institut</p>
-    <p>Metro Dybenko / Bolshhevikov</p>
-</div>
+<!-- CONTACT -->
+<div style="padding:15px">
+ <h3>CONTACTS</h3>
 
-<div class="section">
-    <h3>PRICES</h3>
-    <p>Kserokopiya: 35–100 RUB</p>
-    <p>Foto: 250–400 RUB</p>
-    <p>Anketa: 500–1000 RUB</p>
+ <p onclick="call('+79811939094')">📞 +7 981 193 90 94 (Aviabilet)</p>
+ <p onclick="call('+79379499094')">📞 +7 937 949 90 94 (Yordamchi)</p>
+
+ <p onclick="tg()">💬 Telegram: AVIAKASSA9094</p>
+ <p onclick="max()">📱 MAX APP</p>
+ <p>📧 kopitsentr.omad@bk.ru</p>
+
+ <h3>ADDRESS (RU ONLY)</h3>
+ <p>ООО «ОмадТур»</p>
+ <p>Санкт-Петербург, метро Технологический институт 4я</p>
+ <p>Красноармейская дом 3, домофон 22в</p>
+ <p>Санкт-Петербург, метро Дыбенко, пр. Большевиков 24к1</p>
 </div>
 
 <script>
-const data = {
- uz: {
-  title: "AVIATSIYA & VISA XIZMATLAR",
-  contacts: [
-   "+7 981 193 90 94 (Aviabilet)",
-   "+7 937 949 90 94 (Yordamchi)",
-   "kopitsentr.omad@bk.ru"
-  ],
-  buttons: [
-   ["Viza javobi","https://visa.mfa.uz/ruxsat/view"],
-   ["Zagran pasport anketasi","#"],
-   ["Vatanga qaytish","#"],
-   ["Viza anketasi","#"],
-   ["Telegram profil","https://t.me/AVIAKASSA9094"],
-   ["Avia bilet narxlari","https://t.me/+uJn1nFmpzjoxMGEy"]
-  ]
- },
- ru: {
-  title: "ВИЗА И АВИАСЕРВИС",
-  contacts: [
-   "+7 981 193 90 94",
-   "+7 937 949 90 94",
-   "kopitsentr.omad@bk.ru"
-  ],
-  buttons: [
-   ["Ответ по визе","https://visa.mfa.uz/ruxsat/view"],
-   ["Анкета","#"],
-   ["Возврат","#"],
-   ["Telegram","https://t.me/AVIAKASSA9094"]
-  ]
- },
- en: {
-  title: "VISA & AVIATION SERVICES",
-  contacts: [
-   "+7 981 193 90 94",
-   "+7 937 949 90 94",
-   "kopitsentr.omad@bk.ru"
-  ],
-  buttons: [
-   ["Visa result","https://visa.mfa.uz/ruxsat/view"],
-   ["Forms","#"],
-   ["Telegram","https://t.me/AVIAKASSA9094"]
+
+let lang="uz";
+
+const data={
+ uz:{
+  title:"AVIATSIYA & VISA XIZMATLAR",
+  main:[
+   {t:"Viza javobi",l:"https://visa.mfa.uz/ruxsat/view"},
+   {t:"Anketa tuldirish",type:"anketa"},
+   {t:"Telegram profil",l:"https://t.me/AVIAKASSA9094"},
+   {t:"Avia bilet narxlari",l:"https://t.me/+uJn1nFmpzjoxMGEy"},
+   {t:"Kontaktlar",type:"contact"}
   ]
  }
 };
 
-let lang = "uz";
+function render(){
+ document.getElementById("title").innerText=data[lang].title;
 
-function setLang(l){
- lang = l;
- render();
+ let box=document.getElementById("main");
+ box.innerHTML="";
+
+ data[lang].main.forEach(i=>{
+
+  let div=document.createElement("div");
+  div.className="btn";
+
+  div.innerText=i.t;
+
+  div.onclick=()=>{
+
+   if(i.type=="anketa"){
+    document.getElementById("main").classList.add("hidden");
+    document.getElementById("anketa").classList.remove("hidden");
+   }
+   else if(i.l){
+    window.open(i.l,"_blank");
+   }
+   else if(i.type=="contact"){
+    window.scrollTo(0,500);
+   }
+
+  };
+
+  box.appendChild(div);
+ });
 }
 
-function render(){
- document.getElementById("title").innerText = data[lang].title;
+function back(){
+ document.getElementById("anketa").classList.add("hidden");
+ document.getElementById("main").classList.remove("hidden");
+}
 
- document.getElementById("c1").innerText = data[lang].contacts[0];
- document.getElementById("c2").innerText = data[lang].contacts[1];
- document.getElementById("c3").innerText = data[lang].contacts[2];
+function call(num){
+ window.location.href="tel:"+num;
+}
 
- let box = document.getElementById("buttons");
- box.innerHTML = "";
+function tg(){
+ window.open("https://t.me/AVIAKASSA9094","_blank");
+}
 
- data[lang].buttons.forEach(b=>{
-  let a = document.createElement("a");
-  a.href = b[1];
-  a.target = "_blank";
-  a.innerHTML = `<div class="card">${b[0]}</div>`;
-  box.appendChild(a);
- });
+function max(){
+ window.open("https://max.ru","_blank");
+}
+
+function openLink(l){
+ window.open(l,"_blank");
+}
+
+function setLang(l){
+ lang=l;
+ render();
 }
 
 render();
