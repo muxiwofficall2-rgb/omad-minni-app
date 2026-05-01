@@ -1,106 +1,49 @@
-body{
-margin:0;
-font-family:Arial;
-color:white;
-background: linear-gradient(-45deg,#07070a,#0f172a,#111827,#0b0b0d);
-background-size:400% 400%;
-animation:bg 10s ease infinite;
-overflow-x:hidden;
-}
-
-@keyframes bg{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
-}
-
-/* HEADER */
-.header{
-text-align:center;
-padding:20px;
-font-size:20px;
-font-weight:bold;
-}
-
-/* LANGUAGE */
-.lang{
-text-align:center;
-margin-bottom:10px;
-}
-
-.lang button{
-padding:6px 12px;
-margin:5px;
-background:#1c1c1e;
-border:1px solid #333;
-color:white;
-border-radius:6px;
-}
-
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-padding:15px;
-}
-
-/* BUTTON */
 .btn{
 padding:14px;
 border-radius:16px;
-text-align:center;
 cursor:pointer;
-background:rgba(255,255,255,0.07);
-border:1px solid rgba(255,255,255,0.1);
-backdrop-filter:blur(10px);
+text-align:center;
 transition:0.3s;
-}
-
-.btn:hover{
-transform:scale(1.03);
-box-shadow:0 0 15px rgba(0,170,255,0.5);
+color:white;
+font-weight:500;
 }
 
 /* COLORS */
-.blue{border-color:#00aaff}
-.green{border-color:#22c55e}
+.blue{background:linear-gradient(135deg,#00aaff,#0066ff)}
+.green{background:linear-gradient(135deg,#22c55e,#16a34a)}
+.red{background:linear-gradient(135deg,#ff4d6d,#e11d48)}
+.purple{background:linear-gradient(135deg,#a855f7,#7c3aed)}
 
-/* CONTACT */
-.address{
-padding:15px;
-font-size:13px;
-color:#ddd;
-}
-
-.cbtn{
-padding:10px;
-background:rgba(255,255,255,0.06);
-border-radius:10px;
-cursor:pointer;
-text-align:center;
-}
-
-/* BACK */
-.back{
-padding:10px;
-color:#00aaff;
-cursor:pointer;
-}
-
-/* HIDDEN */
-.hidden{display:none}
-
-/* ✈ AIRPLANES */
-.plane{
+.btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px rgba(255,255,255,0.2);
+}body::before{
+content:"";
 position:fixed;
-font-size:18px;
-opacity:0.15;
-animation:fly linear infinite;
-z-index:-1;
+width:200%;
+height:200%;
+background:url("https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg");
+background-size:cover;
+opacity:0.08;
+z-index:-2;
+animation: rotate 60s linear infinite;
 }
 
-@keyframes fly{
-0%{transform:translateX(-100px)}
-100%{transform:translateX(120vw)}
+@keyframes rotate{
+from{transform:rotate(0deg)}
+to{transform:rotate(360deg)}
+}.plane {
+position: fixed;
+width: 05px;
+height: 10px;
+background-image: url("https://cdn-icons-png.flaticon.com/512/201/201623.png");
+background-size: cover;
+opacity: 0.15;
+z-index: -1;
+animation: fly linear infinite;
+}
+
+@keyframes fly {
+0% { transform: translateX(-100px) translateY(0); }
+100% { transform: translateX(120vw) translateY(-80px); }
 }
