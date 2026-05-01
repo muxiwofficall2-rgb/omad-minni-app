@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -5,110 +6,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Omad Tour</title>
 
-<style>
-body{
-  margin:0;
-  font-family: Arial;
-  color:white;
-  background: linear-gradient(135deg,#020617,#0f172a,#020617);
-  overflow-x:hidden;
-}
-
-/* 🌍 fon */
-body::before{
-  content:"";
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:url("https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg");
-  background-size:cover;
-  opacity:0.07;
-  z-index:-2;
-}
-
-/* ✈️ planes */
-.plane{
-  position:fixed;
-  font-size:30px;
-  animation: fly linear infinite;
-  z-index:-1;
-}
-
-@keyframes fly{
-  0%{ left:-10%; transform:translateY(0);}
-  50%{ transform:translateY(-20px);}
-  100%{ left:110%; transform:translateY(0);}
-}
-
-/* header */
-.header{
-  text-align:center;
-  font-size:26px;
-  margin:15px;
-}
-
-/* language */
-.lang{
-  text-align:center;
-}
-.lang button{
-  margin:5px;
-  padding:6px 12px;
-}
-
-/* grid */
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  padding:10px;
-}
-
-/* button */
-.btn{
-  background:#22c55e;
-  padding:16px;
-  border-radius:12px;
-  text-align:center;
-  cursor:pointer;
-  transition:0.3s;
-}
-.btn:hover{transform:scale(1.05);}
-.btn:active{transform:scale(0.95);}
-
-.hidden{display:none;}
-
-.back{
-  margin:10px;
-  cursor:pointer;
-}
-
-/* contact */
-.contact{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  padding:10px;
-}
-
-/* address */
-.address{
-  padding:15px;
-  font-size:14px;
-  line-height:1.5;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ✈️ PLANES -->
-<div class="plane" style="top:10%;animation-duration:18s;">✈️</div>
-<div class="plane" style="top:40%;animation-duration:25s;">✈️</div>
-<div class="plane" style="top:70%;animation-duration:30s;">✈️</div>
+<!-- ✈ planes -->
+<div class="plane p1">✈</div>
+<div class="plane p2">✈</div>
+<div class="plane p3">✈</div>
 
-<div class="header">✈️ OMAD TOUR</div>
+<!-- LOGO -->
+<div class="logo">OMAD TOUR</div>
 
+<!-- LANG -->
 <div class="lang">
 <button onclick="setLang('uz')">UZ</button>
 <button onclick="setLang('ru')">RU</button>
@@ -116,158 +27,59 @@ body::before{
 
 <!-- MAIN -->
 <div id="main" class="grid">
-<div class="btn" onclick="openPage('visa')" data-lang="visa"></div>
-<div class="btn" onclick="openPage('anketa')" data-lang="anketa"></div>
-<div class="btn" onclick="openPage('contact')" data-lang="contact"></div>
-<div class="btn" onclick="openPage('map')" data-lang="map"></div>
+
+<div class="card" onclick="openPage('visa')" data-lang="visa"></div>
+<div class="card" onclick="openPage('anketa')" data-lang="anketa"></div>
+<div class="card" onclick="openPage('contact')" data-lang="contact"></div>
+<div class="card" onclick="openPage('map')" data-lang="map"></div>
+
 </div>
 
 <!-- VISA -->
-<div id="visa" class="hidden">
-<div class="back" onclick="back()">⬅️ <span data-lang="back"></span></div>
+<div id="visa" class="page hidden">
+<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
+
 <div class="grid">
-<div class="btn">📄 <span data-lang="visa_check"></span></div>
-<div class="btn" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">📢 <span data-lang="group"></span></div>
+<div class="card glow">📄 <span data-lang="visa_check"></span></div>
+<div class="card glow" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">📢 <span data-lang="group"></span></div>
 </div>
 </div>
 
 <!-- ANKETA -->
-<div id="anketa" class="hidden">
-<div class="back" onclick="back()">⬅️ <span data-lang="back"></span></div>
+<div id="anketa" class="page hidden">
+<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
+
 <div class="grid">
-<div class="btn" data-lang="passport"></div>
-<div class="btn" data-lang="return"></div>
-<div class="btn" data-lang="transit"></div>
+<div class="card">🛂 <span data-lang="passport"></span></div>
+<div class="card">🏠 <span data-lang="return"></span></div>
+<div class="card">✈ <span data-lang="transit"></span></div>
 </div>
 </div>
 
 <!-- CONTACT -->
-<div id="contact" class="hidden">
-<div class="back" onclick="back()">⬅️ <span data-lang="back"></span></div>
-<div class="contact">
+<div id="contact" class="page hidden">
+<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
 
-<a class="btn" href="https://t.me/OMAD_TOUR9094">Telegram</a>
-<a class="btn" href="https://t.me/+uJn1nFmpzjoxMGEy">Guruh</a>
-
-<a class="btn" href="https://wa.me/79811939094">WhatsApp</a>
-<a class="btn" href="tel:+79811939094">Call</a>
-
-<a class="btn" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk">MAX</a>
-
+<div class="grid">
+<a class="card" href="https://t.me/OMAD_TOUR9094">Telegram</a>
+<a class="card" href="https://t.me/+uJn1nFmpzjoxMGEy">Group</a>
+<a class="card" href="https://wa.me/79811939094">WhatsApp</a>
+<a class="card" href="tel:+79811939094">Call</a>
+<a class="card" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk">MAX</a>
 </div>
 </div>
 
 <!-- MAP -->
-<div id="map" class="hidden">
-<div class="back" onclick="back()">⬅️ <span data-lang="back"></span></div>
+<div id="map" class="page hidden">
+<div class="back" onclick="back()">⬅ <span data-lang="back"></span></div>
+
 <div class="grid">
-<a class="btn" href="https://maps.google.com?q=Технологический институт">Технологический</a>
-<a class="btn" href="https://maps.google.com?q=Дыбенко">Дыбенко</a>
+<a class="card" href="https://maps.google.com?q=Технологический институт">Tech</a>
+<a class="card" href="https://maps.google.com?q=Дыбенко">Dybenko</a>
 </div>
 </div>
 
-<!-- ADDRESS -->
-<div class="address">
-
-ООО «ОмадТур»
-Санкт-Петербур метро Технологитскей институт 4 я
-Красноармеская дом 3 домофон 22в
-
-<br><br>
-
-ООО «ОмадТур»
-Санкт-Петербург, метро Дыбенко проспект
-Большевиков, 24к1
-
-</div>
-
-<script>
-
-let lang="uz";
-
-const t={
-uz:{
-visa:"Viza",
-anketa:"Anketa",
-contact:"Murojaat",
-map:"Manzil",
-back:"Orqaga", 
-visa_check:"Vizani tekshirish",
-
-group:"Konsul guruhi",
-
-passport:"Zagran pasport (to‘liq)",
-
-return:"Vatanga qaytish (to‘liq)",
-
-transit:"Tranzit viza (to‘liq)"
-
-},
-
-ru:{
-
-visa:"Виза",
-
-anketa:"Анкета",
-
-contact:"Связь",
-
-map:"Адрес",
-
-back:"Назад",
-
-visa_check:"Проверить визу",
-
-group:"Консульская группа",
-
-passport:"Загран паспорт (полный)",
-
-return:"Возвращение (полный)",
-
-transit:"Транзитная виза (полный)"
-
-}
-
-};
-
-function setLang(l){
-
-lang=l;
-
-document.querySelectorAll("[data-lang]").forEach(el=>{
-
-el.innerText=t[lang][el.dataset.lang];
-
-});
-
-}
-
-function openPage(id){
-
-document.getElementById("main").classList.add("hidden");
-
-document.getElementById(id).classList.remove("hidden");
-
-}
-
-function back(){
-
-document.getElementById("visa").classList.add("hidden");
-
-document.getElementById("anketa").classList.add("hidden");
-
-document.getElementById("contact").classList.add("hidden");
-
-document.getElementById("map").classList.add("hidden");
-
-document.getElementById("main").classList.remove("hidden");
-
-}
-
-setLang("uz");
-
-</script>
+<script src="script.js"></script>
 
 </body>
-
 </html>
