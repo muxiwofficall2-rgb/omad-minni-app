@@ -1,1 +1,33 @@
+{
+  "uz": {
+    "visa": "✈️ Viza",
+    "anketa": "📝 Anketa",
 
+    "visa_check": "📄 Viza tekshirish",
+    "group": "📢 Guruh",
+
+    "passport": "🛂 zagran Pasport",
+    "return": "🏠 vatanga Qaytish",
+    "transit": "🌍 Tranzit viza",
+
+    "contact": "📞 Aloqa",
+
+    "back": "Orqaga"
+  },
+
+  "ru": {
+    "visa": "✈️ Виза",
+    "anketa": "📝 Анкета",
+
+    "visa_check": "📄 Проверка визы",
+    "group": "📢 Группа",
+
+    "passport": "🛂 Загран Паспорт",
+    "return": "🏠 Возвращения На Родину",
+    "transit": "🌍 Транзитна виза",
+
+    "contact": "📞 Контакты",
+
+    "back": "Назад"
+  }
+}
