@@ -2,25 +2,17 @@ let lang = "uz";
 
 const t = {
   uz:{
-    avia_booking:"Avia bilet bron qilish",
-    ticket_price:"Biletlar narxi",
+    avia:"Avia bilet bron qilish",
+    group:"Telegram guruh",
     visa_answers:"Viza javoblari",
-    anketa_service:"Anketa to‘ldirish xizmati",
-    visa_link:"Viza tekshirish",
-    consul_group:"Konsulxona guruhi",
-    fill_form:"Anketani to‘ldirish",
-    contact:"Murojaat",
+    anketa:"Anketa xizmati",
     back:"Orqaga"
   },
   ru:{
-    avia_booking:"Бронирование авиабилетов",
-    ticket_price:"Цены на билеты",
+    avia:"Бронирование авиабилетов",
+    group:"Telegram группа",
     visa_answers:"Визовые ответы",
-    anketa_service:"Заполнение анкеты",
-    visa_link:"Проверка визы",
-    consul_group:"Консульская группа",
-    fill_form:"Заполнить анкету",
-    contact:"Контакты",
+    anketa:"Анкета сервис",
     back:"Назад"
   }
 };
@@ -39,7 +31,6 @@ function render(){
   });
 }
 
-/* ✅ FIXED NAVIGATION */
 function openPage(id){
   document.getElementById("home").style.display = "none";
   document.getElementById("visa").style.display = "none";
@@ -54,6 +45,4 @@ function back(){
   document.getElementById("home").style.display = "block";
 }
 
-window.onload = () => {
-  render();
-};
+window.onload = render;
