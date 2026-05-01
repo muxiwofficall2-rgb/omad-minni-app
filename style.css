@@ -1,87 +1,79 @@
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f172a,#3b0764);
+  color:white;
+}
 
-<title>Omad Tour</title>
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px;
+}
 
-<link rel="stylesheet" href="style.css">
-</head>
+.logo{
+  width:40px;
+}
 
-<body>
+.logoBox{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
 
-<!-- ✈ flying planes -->
-<div class="plane" style="top:10%; animation-duration:18s;">✈</div>
-<div class="plane" style="top:40%; animation-duration:25s;">✈</div>
-<div class="plane" style="top:70%; animation-duration:30s;">✈</div>
+.title span{
+  font-size:20px;
+  font-weight:bold;
+}
 
-<!-- HEADER -->
-<div class="header">✈ OMAD TOUR SERVICE</div>
+.lang button{
+  background:#ffffff20;
+  border:none;
+  color:white;
+  padding:5px 10px;
+  border-radius:10px;
+}
 
-<!-- LANGUAGE -->
-<div class="lang">
-<button onclick="setLang('uz')">UZ</button>
-<button onclick="setLang('ru')">RU</button>
-</div>
+.back{
+  font-size:20px;
+  cursor:pointer;
+}
 
-<!-- MAIN -->
-<div id="main" class="grid"></div>
+.page{
+  padding:20px;
+}
 
-<!-- VISA -->
-<div id="visa" class="hidden">
-<div class="back" onclick="back()">⬅ Orqaga</div>
+.hidden{
+  display:none;
+}
 
-<div class="grid">
-<div class="btn blue" onclick="openVisa()">📄 Viza natijasi</div>
-<div class="btn green" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">
-🇺🇿 Konsulxona Telegram
-</div>
-</div>
-</div>
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
 
-<!-- ANKETA -->
-<div id="anketa" class="hidden">
-<div class="back" onclick="back()">⬅ Orqaga</div>
+.btn{
+  background:linear-gradient(135deg,#6366f1,#9333ea);
+  padding:15px;
+  border-radius:15px;
+  text-align:center;
+  cursor:pointer;
+  font-weight:bold;
+}
 
-<div class="grid">
-<div class="btn">🛂 Zagran pasport</div>
-<div class="btn">🏠 Vatanga qaytish</div>
-<div class="btn">📄 Viza anketa</div>
-</div>
-</div>
+.btn.big{
+  margin-top:20px;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+}
 
-<!-- CONTACT -->
-<div class="address">
+.text{
+  line-height:1.7;
+}
 
-<h3>📞 MUROJAT</h3>
-
-<div class="contact">
-<div class="cbtn" onclick="call('+79811939094')">📞 Aviabilet</div>
-<div class="cbtn" onclick="call('+79379499094')">📞 Yordamchi</div>
-</div>
-
-<h3>📍 ADDRESS</h3>
-
-<p class="ru">
-метро Технологитскей институт 4 я Красноармеская дом 3
-
-домофо
-в
-</p>
-
-<p class="ru">
-ООО «ОмадТур»
-
-Санкт-
-рбург, метро Дыбенко проспект
-
-Больше
-в, 24к1
-</p>
-
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
+.address{
+  margin-top:30px;
+  font-size:12px;
+  opacity:0.8;
+}
