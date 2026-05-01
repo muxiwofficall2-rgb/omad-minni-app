@@ -132,3 +132,106 @@
 <script src="script.js"></script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omad Tour</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="logo">Omad Tour</div>
+
+  <div class="lang">
+    <button onclick="setLang('uz')">🇺🇿 UZ</button>
+    <button onclick="setLang('ru')">🇷🇺 RU</button>
+  </div>
+</header>
+
+<!-- HOME -->
+<section id="home" class="page">
+
+  <div class="grid2">
+
+    <div class="card" onclick="openPage('visa')">
+      ✈️ <span data-i18n="avia"></span>
+    </div>
+
+    <div class="card" onclick="window.open('https://t.me/+OW_pzYSHjIA5NmQy')">
+      👥 <span data-i18n="group"></span>
+    </div>
+
+    <div class="card">
+      🛂 <span data-i18n="visa_answers"></span>
+    </div>
+
+    <div class="card" onclick="openPage('anketa')">
+      📝 <span data-i18n="anketa"></span>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- VISA -->
+<section id="visa" class="page hidden">
+
+<button onclick="back()" class="back">⬅ <span data-i18n="back"></span></button>
+
+<div class="card" onclick="window.open('https://visa.mfa.uz/ruxsat/view')">
+  🌐 Viza tekshirish
+</div>
+
+<div class="card" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">
+  👥 Konsulxona guruhi
+</div>
+
+</section>
+
+<!-- ANKETA -->
+<section id="anketa" class="page hidden">
+
+<button onclick="back()" class="back">⬅ <span data-i18n="back"></span></button>
+
+<div class="panel">
+
+<h3>АНКЕТА</h3>
+
+<p>
+* Загранпаспортная анкета — 1.000 ₽
+
+* Анкет
+ возвращение — 500 ₽
+
+* Консу
+ий учёт — 500 ₽
+
+* Транз
+я виза — 1.000 ₽
+</p>
+
+<div class="card" onclick="window.open('https://t.me/AVIAKASSA9094')">
+  📩 To‘ldirish
+</div>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+<section class="page">
+
+<h3>Murojaat</h3>
+
+<a class="btn" href="tel:+79811939094">+7 981 193 90 94</a>
+<a class="btn" href="tel:+79214027489">+7 921 402 74 89</a>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
