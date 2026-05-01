@@ -21,48 +21,51 @@
 <!-- HOME -->
 <section id="home" class="page">
 
-  <!-- AVIA TOP -->
-  <div class="card main-btn" onclick="window.open('https://t.me/OMAD_TOUR9094')">
-    ✈️ <span data-i18n="avia_booking"></span>
-  </div>
+  <div class="grid2">
 
-  <div class="card main-btn">
-    🎫 <span data-i18n="ticket_price"></span>
-  </div>
+    <!-- ✈️ AVIABILET -->
+    <div class="card" onclick="openPage('visa')">
+      ✈️ Avia bilet bron qilish
+    </div>
 
-  <div class="card main-btn" onclick="openPage('visa')">
-    🛂 <span data-i18n="visa_answers"></span>
-  </div>
+    <!-- 👥 GROUP -->
+    <div class="card" onclick="window.open('https://t.me/+OW_pzYSHjIA5NmQy')">
+      👥 Telegram guruh
+    </div>
 
-  <div class="card main-btn" onclick="openPage('anketa')">
-    📝 <span data-i18n="anketa_service"></span>
+    <!-- 🛂 VISA -->
+    <div class="card">
+      🛂 Viza javoblari
+    </div>
+
+    <!-- 📝 ANKETA -->
+    <div class="card" onclick="openPage('anketa')">
+      📝 Anketa xizmati
+    </div>
+
   </div>
 
 </section>
 
-<!-- VISA PAGE -->
+<!-- VISA -->
 <section id="visa" class="page hidden">
 
-<button class="back" onclick="back()">⬅ <span data-i18n="back"></span></button>
-
-<div class="card">
-  🛂 <span data-i18n="visa_answers"></span>
-</div>
+<button onclick="back()" class="back">⬅ Orqaga</button>
 
 <div class="card" onclick="window.open('https://visa.mfa.uz/ruxsat/view')">
-  🌐 <span data-i18n="visa_link"></span>
+  🌐 Viza tekshirish
 </div>
 
 <div class="card" onclick="window.open('https://t.me/+i8I6ByH_CUVhOWQy')">
-  👥 <span data-i18n="consul_group"></span>
+  👥 Konsulxona guruhi
 </div>
 
 </section>
 
-<!-- ANKETA PAGE -->
+<!-- ANKETA -->
 <section id="anketa" class="page hidden">
 
-<button class="back" onclick="back()">⬅ <span data-i18n="back"></span></button>
+<button onclick="back()" class="back">⬅ Orqaga</button>
 
 <div class="panel">
 
@@ -71,61 +74,33 @@
 <p>
 * Загранпаспортная анкета — 1.000 ₽
 
-* Анкета
-возвращение на родину — 500 ₽
+* Анкета на
+вращение — 500 ₽
 
-* Постан
- на консульский учёт — 500 ₽
+* Консульск
+чёт — 500 ₽
 
-* Анкета
-транзитную визу — 1.000 ₽
+* Транзитна
+за — 1.000 ₽
 </p>
 
-<div class="card small" onclick="window.open('https://t.me/AVIAKASSA9094')">
-  📩 <span data-i18n="fill_form"></span>
+<div class="card" onclick="window.open('https://t.me/AVIAKASSA9094')">
+  📩 Anketani to‘ldirish
 </div>
 
 </div>
 
 </section>
 
-<!-- CALL CENTER -->
+<!-- CONTACT -->
 <section class="page">
 
-<h3 data-i18n="contact"></h3>
+<h3>Murojaat</h3>
 
-<div class="grid3">
-
-  <a class="btn" href="tel:+79811939094">+7 981 193 90 94</a>
-  <a class="btn" href="tel:+79379499094">+7 937 949 90 94</a>
-  <a class="btn" href="tel:+79214027489">+7 921 402 74 89</a>
-
-</div>
-
-<div class="grid3">
-
-  <a class="btn" href="https://wa.me/79811939094">WhatsApp 1</a>
-  <a class="btn" href="https://wa.me/79379499094">WhatsApp 2</a>
-
-  <a class="btn" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk">MAX</a>
-
-</div>
+<a class="btn" href="tel:+79811939094">+7 981 193 90 94</a>
+<a class="btn" href="tel:+79214027489">+7 921 402 74 89</a>
 
 </section>
-
-<!-- ADDRESS -->
-<footer class="address">
-
-<h4 data-i18n="contact"></h4>
-
-<p>
-🇺🇿 <b>Manzil:</b> Санкт-Петербург, метро Технологический институт, 4-я Красноармейская, дом 3
-
-🇷🇺 <b>Места п
-ения:</b> Санкт-Петербург, метро Дыбенко, проспект Большевиков, 24к1
-</p>
-
-</footer>
 
 <script src="script.js"></script>
 </body>
