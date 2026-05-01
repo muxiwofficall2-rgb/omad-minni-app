@@ -2,30 +2,42 @@ body{
   margin:0;
   font-family:Arial;
   color:white;
-  overflow:hidden;
-
-  background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a40);
-  background-size: 400% 400%;
-  animation: gradientMove 12s ease infinite;
+  overflow-x:hidden;
+  background: linear-gradient(-45deg,#0f0c29,#302b63,#24243e,#1a1a40);
+  background-size:400% 400%;
+  animation:gradientMove 12s ease infinite;
 }
 
-/* 🌈 BACKGROUND ANIMATION */
 @keyframes gradientMove{
   0%{background-position:0% 50%;}
   50%{background-position:100% 50%;}
   100%{background-position:0% 50%;}
 }
 
-/* LOGO */
 .logo{
   text-align:center;
-  font-size:30px;
+  font-size:28px;
   margin-top:20px;
   font-weight:bold;
-  text-shadow:0 0 20px #a855f7;
+  text-shadow:0 0 25px #a855f7;
 }
 
-/* GRID */
+.lang{
+  text-align:center;
+  margin:10px;
+}
+
+.lang button{
+  margin:5px;
+  padding:8px 14px;
+  border:none;
+  border-radius:10px;
+  background:#a855f7;
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
+}
+
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -33,24 +45,23 @@ body{
   padding:20px;
 }
 
-/* CARD */
 .card{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(12px);
-  padding:20px;
-  border-radius:18px;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(14px);
+  padding:25px;
+  border-radius:20px;
   text-align:center;
   cursor:pointer;
   transition:0.3s;
-  border:1px solid rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.15);
+  font-size:20px;
 }
 
 .card:hover{
-  transform:scale(1.07);
-  box-shadow:0 0 25px #a855f7;
+  transform:scale(1.08);
+  box-shadow:0 0 30px #a855f7;
 }
 
-/* 💜 BUTTON */
 .btn{
   background:#a855f7;
   color:white;
@@ -58,59 +69,23 @@ body{
   border-radius:12px;
   text-align:center;
   text-decoration:none;
+  font-weight:bold;
   transition:0.3s;
-  box-shadow:0 0 15px rgba(168,85,247,0.6);
 }
 
 .btn:hover{
   transform:scale(1.05);
-  box-shadow:0 0 25px #a855f7;
+  box-shadow:0 0 20px #a855f7;
 }
 
-/* ✨ FLOAT ICONS */
-.float{
-  position:fixed;
-  font-size:26px;
-  opacity:0.4;
-  pointer-events:none;
-  animation: floatMove linear infinite;
-}
-
-.i1{top:0; left:10%; animation-duration:25s;}
-.i2{bottom:0; left:30%; animation-duration:30s;}
-.i3{top:20%; right:0; animation-duration:22s;}
-.i4{bottom:10%; right:20%; animation-duration:28s;}
-.i5{top:60%; left:-10%; animation-duration:35s;}
-
-@keyframes floatMove{
-  0%{transform:translate(0,0);}
-  50%{transform:translate(120vw,-60vh);}
-  100%{transform:translate(-120vw,60vh);}
-}
-
-/* PAGE */
 .hidden{display:none;}
-.page{animation:fade 0.4s;}
 
-@keyframes fade{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1;}
-}
-
-/* BACK */
 .back{
   margin:10px;
   cursor:pointer;
+  font-size:18px;
 }
 
-/* CONTACT */
 .contact-box{
-  padding:10px;
-}
-
-/* ADDRESS */
-.address{
   padding:15px;
-  font-size:14px;
-  opacity:0.8;
 }
