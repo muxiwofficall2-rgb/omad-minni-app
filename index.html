@@ -680,7 +680,7 @@ function submitOrder(){
   const svc=document.getElementById('serviceSelect').value;
   if(!name||!phone||!svc){showToast("⚠️ Barcha maydonlarni to'ldiring!",'#e53935');return;}
   const msg='📦 Yangi buyurtma!\n👤 '+name+'\n📱 '+prefix+phone+'\n🛎 '+svc;
-  window.open('https://t.me/OMAD_TOUR9094?text='+encodeURIComponent(msg),'_blank');
+  window.open('https://t.me/AVIAKASSA9094?text='+encodeURIComponent(msg),'_blank');
   stats.orders++;stats.clicks++;saveStats();showToast('✅ Buyurtma yuborildi!');
 }
 
