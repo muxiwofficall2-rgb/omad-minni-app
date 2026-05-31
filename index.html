@@ -434,8 +434,8 @@ html, body {
       <div class="mail-addr">kopitsentr.omad@bk.ru</div>
       <div class="item-list">
 
-        <!-- Mail.ru: mailto: with bk.ru address — system will open Mail.ru if installed -->
-        <a class="item-btn" href="mailto:kopitsentr.omad@bk.ru">
+        <!-- Mail.ru: deep link → app, fallback App Store -->
+        <a class="item-btn" id="mailru-btn" href="#">
           <div class="ib-icon">📧</div>
           <div class="ib-info">
             <div class="ib-name" id="ml-mailru">Mail.ru</div>
@@ -544,23 +544,56 @@ function goBack() {
   current = null;
 }
 
-// ===== GMAIL LINK (device-aware) =====
-(function setGmailLink() {
+// ===== MAIL APP LINKS (device-aware) =====
+(function setMailLinks() {
   const email = 'kopitsentr.omad@bk.ru';
   const ua    = navigator.userAgent || '';
   const isIOS = /iPhone|iPad|iPod/.test(ua);
   const isAnd = /Android/.test(ua);
-  const btn   = document.getElementById('gmail-btn');
+
+  // --- Mail.ru ---
+  // iOS/Android: try mailrumail:// deep link first.
+  // If app not installed, after 600ms redirect to App Store / Play Store.
+  const mailruBtn = document.getElementById('mailru-btn');
   if (isIOS) {
-    // Gmail iOS deep link
-    btn.href = 'googlegmail://co?to=' + email;
+    mailruBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Try deep link
+      window.location.href = 'mailrumail://compose?to=' + email;
+      // Fallback: if app not installed, go to App Store after short delay
+      setTimeout(function() {
+        window.location.href = 'https://apps.apple.com/app/id511310430';
+      }, 700);
+    });
   } else if (isAnd) {
-    // Android: intent URI that opens Gmail app if installed
-    btn.href = 'intent://compose?to=' + email + '#Intent;scheme=mailto;package=com.google.android.gm;end';
+    mailruBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = 'mailrumail://compose?to=' + email;
+      setTimeout(function() {
+        window.location.href = 'https://play.google.com/store/apps/details?id=ru.mail.mailapp';
+      }, 700);
+    });
   } else {
-    // Desktop: open Gmail web compose
-    btn.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + email;
-    btn.target = '_blank';
+    // Desktop: open Mail.ru web compose
+    mailruBtn.href   = 'https://e.mail.ru/compose/?to=' + email;
+    mailruBtn.target = '_blank';
+  }
+
+  // --- Gmail ---
+  const gmailBtn = document.getElementById('gmail-btn');
+  if (isIOS) {
+    gmailBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = 'googlegmail://co?to=' + email;
+      setTimeout(function() {
+        window.location.href = 'https://apps.apple.com/app/id422689480';
+      }, 700);
+    });
+  } else if (isAnd) {
+    gmailBtn.href = 'intent://compose?to=' + email + '#Intent;scheme=mailto;package=com.google.android.gm;end';
+  } else {
+    gmailBtn.href   = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + email;
+    gmailBtn.target = '_blank';
   }
 })();
 
