@@ -552,29 +552,33 @@ function goBack() {
   const isAnd = /Android/.test(ua);
 
   // --- Mail.ru ---
-  // iOS/Android: try mailrumail:// deep link first.
-  // If app not installed, after 600ms redirect to App Store / Play Store.
   const mailruBtn = document.getElementById('mailru-btn');
   if (isIOS) {
     mailruBtn.addEventListener('click', function(e) {
       e.preventDefault();
-      // Try deep link
-      window.location.href = 'mailrumail://compose?to=' + email;
-      // Fallback: if app not installed, go to App Store after short delay
+      // Correct Mail.ru iOS deep link scheme
+      var deepLink = 'mailru://compose?to=' + email;
+      var appStore = 'https://apps.apple.com/app/id511310430';
+      // Try to open app; if not installed, go to App Store
+      var iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+      iframe.src = deepLink;
       setTimeout(function() {
-        window.location.href = 'https://apps.apple.com/app/id511310430';
-      }, 700);
+        document.body.removeChild(iframe);
+        // If still on page → app not installed → open App Store
+        window.location.href = appStore;
+      }, 1200);
     });
   } else if (isAnd) {
     mailruBtn.addEventListener('click', function(e) {
       e.preventDefault();
-      window.location.href = 'mailrumail://compose?to=' + email;
+      window.location.href = 'mailru://compose?to=' + email;
       setTimeout(function() {
         window.location.href = 'https://play.google.com/store/apps/details?id=ru.mail.mailapp';
-      }, 700);
+      }, 800);
     });
   } else {
-    // Desktop: open Mail.ru web compose
     mailruBtn.href   = 'https://e.mail.ru/compose/?to=' + email;
     mailruBtn.target = '_blank';
   }
