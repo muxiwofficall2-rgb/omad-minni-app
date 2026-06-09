@@ -1,1042 +1,1347 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OMAD TOUR — Aviakassa</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600&display=swap');
 
-:root {
-  --bg: #04070e;
-  --card: rgba(8,15,35,0.9);
-  --border: rgba(60,100,220,0.2);
-  --accent: #2e6fff;
-  --accent2: #5b8fff;
-  --pink: #c930f0;
-  --text: #dde3f5;
-  --text2: #7a8fb0;
-  --text3: #3a4a6a;
-  --white: #ffffff;
-  --r: 14px;
-}
+  :root {
+    --deep: #05080f;
+    --navy: #0a1628;
+    --blue-dark: #0d2045;
+    --blue-mid: #1a3a6e;
+    --blue-accent: #1e5adc;
+    --blue-glow: #2979ff;
+    --cyan: #00c6ff;
+    --white: #f0f4ff;
+    --white-dim: rgba(240,244,255,0.7);
+    --white-faint: rgba(240,244,255,0.15);
+    --gold: #ffc857;
+    --radius: 16px;
+    --transition: 0.35s cubic-bezier(.4,0,.2,1);
+  }
 
-html, body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  height: 100%;
-  overflow: hidden;
-}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ── CANVAS BG ── */
-#cv {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
+  html { scroll-behavior: smooth; }
 
-/* ── SCREENS ── */
-.pg {
-  position: fixed;
-  inset: 0;
-  z-index: 10;
-  display: none;
-  flex-direction: column;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-.pg.on { display: flex; }
+  body {
+    background: var(--deep);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-/* ── TOPBAR ── */
-.bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 18px;
-  background: rgba(4,7,14,0.95);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  flex-shrink: 0;
-}
-.logo-row { display: flex; align-items: center; gap: 10px; }
-.logo-ic {
-  width: 34px; height: 34px;
-  background: linear-gradient(135deg, var(--accent), var(--pink));
-  border-radius: 9px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 17px;
-}
-.logo-name {
-  font-weight: 900; font-size: 16px; letter-spacing: 0.3px;
-  background: linear-gradient(90deg, var(--accent2), var(--pink));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.logo-sub { font-size: 9px; color: var(--text2); letter-spacing: 2px; text-transform: uppercase; margin-top: -2px; }
+  /* ── PARTICLES CANVAS ── */
+  #particles-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-.lsw { display: flex; gap: 3px; background: rgba(255,255,255,0.07); border-radius: 20px; padding: 3px; }
-.lbtn {
-  padding: 5px 13px; border-radius: 16px; font-size: 12px; font-weight: 700;
-  cursor: pointer; transition: all 0.2s; color: var(--text2); border: none; background: transparent;
-}
-.lbtn.act { background: linear-gradient(135deg, var(--accent), var(--pink)); color: #fff; }
+  /* ── LANG SWITCHER ── */
+  .lang-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    background: rgba(5,8,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--white-faint);
+  }
 
-.back {
-  display: flex; align-items: center; gap: 5px;
-  color: var(--accent2); font-size: 14px; font-weight: 500;
-  cursor: pointer; border: none; background: transparent; padding: 4px 0;
-}
-.back svg { width: 18px; height: 18px; }
+  .lang-btn {
+    background: var(--white-faint);
+    border: 1px solid rgba(240,244,255,0.2);
+    color: var(--white-dim);
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    letter-spacing: .5px;
+  }
+  .lang-btn.active, .lang-btn:hover {
+    background: var(--blue-glow);
+    border-color: var(--blue-glow);
+    color: #fff;
+  }
 
-/* ── CONTENT ── */
-.body { padding: 22px 16px; flex: 1; padding-bottom: 40px; }
+  /* ── WRAPPER & SCREENS ── */
+  .app {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+  }
 
-/* hero */
-.eyebrow {
-  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--accent2); font-weight: 700; margin-bottom: 14px; text-align: center;
-}
-.h1 {
-  font-size: clamp(26px, 8vw, 42px); font-weight: 900; line-height: 1.1;
-  text-align: center; margin-bottom: 12px;
-}
-.h1 span { background: linear-gradient(90deg, var(--accent2), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.hsub {
-  font-size: 14px; color: var(--text2); text-align: center; line-height: 1.6;
-  max-width: 300px; margin: 0 auto 28px;
-}
+  .screen {
+    display: none;
+    min-height: 100vh;
+    padding-top: 56px;
+    animation: fadeUp .45s ease forwards;
+  }
+  .screen.active { display: block; }
 
-/* section label */
-.slabel {
-  font-size: 10px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase;
-  color: var(--text3); padding: 6px 2px 8px;
-}
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
-/* card */
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 17px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  transition: border-color 0.2s, transform 0.15s;
-  backdrop-filter: blur(12px);
-  text-decoration: none;
-  color: inherit;
-}
-.card:hover, .card:active { border-color: var(--accent); transform: translateY(-1px); }
+  /* ── BACK BUTTON ── */
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--cyan);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    margin: 8px 0 0 4px;
+    background: none;
+    border: none;
+    transition: var(--transition);
+    letter-spacing: .3px;
+  }
+  .back-btn:hover { color: #fff; gap: 12px; }
+  .back-btn svg { width:18px; height:18px; }
 
-.cic {
-  width: 50px; height: 50px; border-radius: 13px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px; flex-shrink: 0;
-}
-.bl { background: rgba(46,111,255,0.18); }
-.pk { background: rgba(201,48,240,0.18); }
-.gd { background: rgba(240,192,64,0.18); }
-.tl { background: rgba(46,200,180,0.18); }
-.gr { background: rgba(37,211,102,0.18); }
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    text-align: center;
+    padding: 80px 20px 60px;
+    overflow: hidden;
+  }
 
-.ctxt { flex: 1; }
-.ctitle { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
-.cdesc { font-size: 12px; color: var(--text2); line-height: 1.4; }
-.chev { color: var(--text3); font-size: 18px; }
+  .hero-logo {
+    display: inline-block;
+    margin-bottom: 18px;
+  }
+  .hero-logo .plane-icon {
+    font-size: 54px;
+    display: block;
+    animation: floatPlane 3.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 18px var(--blue-glow));
+  }
+  @keyframes floatPlane {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50%      { transform: translateY(-12px) rotate(5deg); }
+  }
 
-/* screen titles */
-.stitle { font-size: 21px; font-weight: 800; color: var(--white); margin-bottom: 5px; }
-.ssub { font-size: 13px; color: var(--text2); margin-bottom: 20px; line-height: 1.5; }
+  .hero-tagline {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
 
-/* direction cards */
-.dcard {
-  background: var(--card); border: 1.5px solid var(--border);
-  border-radius: var(--r); padding: 18px 16px; margin-bottom: 11px;
-  cursor: pointer; display: flex; align-items: center; gap: 14px;
-  transition: all 0.2s; backdrop-filter: blur(12px);
-  position: relative; overflow: hidden;
-}
-.dcard:hover, .dcard:active { border-color: var(--accent); background: rgba(46,111,255,0.09); }
-.dcard::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-  background: linear-gradient(180deg, var(--accent), var(--pink)); opacity: 0; transition: opacity 0.2s;
-}
-.dcard:hover::before { opacity: 1; }
-.dflags { font-size: 24px; display: flex; align-items: center; gap: 3px; flex-shrink: 0; }
-.darr { font-size: 13px; color: var(--text3); }
-.dname { font-size: 15px; font-weight: 700; color: var(--white); }
-.ddesc { font-size: 12px; color: var(--text2); margin-top: 3px; }
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2.4rem, 7vw, 4.8rem);
+    font-weight: 900;
+    line-height: 1.05;
+    background: linear-gradient(135deg, #fff 30%, var(--cyan) 70%, var(--blue-glow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
 
-/* region grid */
-.rlabel { font-size: 13px; color: var(--text2); font-weight: 500; margin-bottom: 11px; }
-.rgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 20px; }
-.rbtn {
-  background: var(--card); border: 1.5px solid var(--border);
-  border-radius: 11px; padding: 13px 11px; cursor: pointer;
-  display: flex; align-items: center; gap: 8px;
-  font-size: 13px; font-weight: 500; color: var(--text);
-  transition: all 0.18s; backdrop-filter: blur(10px);
-  font-family: 'Inter', sans-serif;
-}
-.rbtn:hover, .rbtn:active { border-color: var(--accent); background: rgba(46,111,255,0.12); color: var(--white); }
-.rflag { font-size: 18px; flex-shrink: 0; }
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--white-dim);
+    max-width: 520px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+  }
 
-/* calendar */
-.calbox {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 18px; backdrop-filter: blur(12px);
-}
-.calhead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-.calmy { font-size: 16px; font-weight: 700; color: var(--white); }
-.calnav {
-  width: 34px; height: 34px; border-radius: 50%;
-  border: 1.5px solid var(--border); background: rgba(255,255,255,0.04);
-  color: var(--text); font-size: 16px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; transition: all 0.2s;
-}
-.calnav:hover { border-color: var(--accent); }
-.calgrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
-.cdow { text-align: center; font-size: 10px; font-weight: 700; color: var(--text3); padding: 3px 0 7px; }
-.cday {
-  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
-  border-radius: 50%; font-size: 13px; font-weight: 500;
-  cursor: pointer; transition: all 0.15s; color: var(--text);
-}
-.cday:hover:not(.emp):not(.pst) { background: rgba(46,111,255,0.22); }
-.cday.tod { border: 1.5px solid var(--accent); color: var(--accent2); }
-.cday.sel { background: linear-gradient(135deg, var(--accent), var(--pink)) !important; color: #fff !important; font-weight: 800; }
-.cday.pst { color: var(--text3); cursor: default; }
-.cday.emp { cursor: default; }
+  /* ── HERO ACTION BUTTONS ── */
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
 
-/* summary */
-.sumbox {
-  background: rgba(46,111,255,0.09);
-  border: 1px solid rgba(46,111,255,0.28);
-  border-radius: var(--r); padding: 18px; margin-bottom: 20px;
-  font-size: 13px;
-}
-.sumlabel {
-  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--accent2); font-weight: 700; margin-bottom: 12px;
-}
-.sumrow {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.05); gap: 10px;
-}
-.sumrow:last-child { border-bottom: none; }
-.sumk { color: var(--text2); }
-.sumv { color: var(--white); font-weight: 600; text-align: right; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--blue-glow), var(--cyan));
+    color: #fff;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 0 30px rgba(41,121,255,0.4);
+    letter-spacing: .5px;
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 0 48px rgba(0,198,255,0.5);
+  }
 
-/* contact card (link) */
-.ccard {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 16px; margin-bottom: 9px;
-  display: flex; align-items: center; gap: 14px;
-  text-decoration: none; color: inherit; cursor: pointer;
-  transition: border-color 0.2s, transform 0.15s; backdrop-filter: blur(12px);
-}
-.ccard:hover, .ccard:active { border-color: var(--accent); transform: translateY(-1px); }
+  .btn-outline {
+    background: var(--white-faint);
+    backdrop-filter: blur(8px);
+    color: var(--white);
+    border: 1.5px solid rgba(240,244,255,0.3);
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .btn-outline:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+    transform: translateY(-3px);
+  }
 
-/* address */
-.addrcard {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 22px 18px; text-align: center;
-  margin-bottom: 14px; backdrop-filter: blur(12px);
-}
-.mbadge {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: rgba(201,48,240,0.13); border: 1px solid rgba(201,48,240,0.3);
-  border-radius: 20px; padding: 7px 15px; font-size: 12px; font-weight: 700;
-  color: var(--pink); margin-bottom: 14px;
-}
-.astreet { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 7px; line-height: 1.4; }
-.acode { font-size: 14px; color: var(--accent2); margin-bottom: 4px; }
-.aoffice { font-size: 13px; color: var(--text2); margin-bottom: 18px; }
-.mapbtns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-.mapbtn {
-  display: flex; align-items: center; gap: 7px;
-  padding: 11px 18px; border-radius: 10px; font-size: 13px; font-weight: 600;
-  cursor: pointer; border: 1.5px solid var(--border);
-  background: rgba(255,255,255,0.04); color: var(--text);
-  text-decoration: none; transition: all 0.2s;
-}
-.mapbtn:hover { border-color: var(--accent); color: var(--accent2); }
+  /* ── DIVIDER GLOW ── */
+  .glow-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue-glow), var(--cyan), transparent);
+    margin: 0 10%;
+    opacity: .4;
+  }
 
-/* cta button */
-.cta {
-  width: 100%; padding: 15px; border-radius: var(--r);
-  font-size: 15px; font-weight: 700; cursor: pointer; border: none;
-  background: linear-gradient(135deg, var(--accent), var(--pink));
-  color: white; margin-top: 14px; letter-spacing: 0.2px;
-  transition: opacity 0.2s, transform 0.15s; font-family: 'Inter', sans-serif;
-}
-.cta:hover { opacity: 0.9; transform: translateY(-1px); }
-.cta:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+  /* ── SECTION CARDS GRID ── */
+  .section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 40px 24px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
 
-/* pill */
-.pill {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(46,111,255,0.1); border: 1px solid rgba(46,111,255,0.22);
-  border-radius: 20px; padding: 5px 13px; font-size: 11px; color: var(--accent2);
-  font-weight: 600; margin-bottom: 16px;
-}
+  .card {
+    background: linear-gradient(145deg, rgba(13,32,69,.9), rgba(10,22,40,.95));
+    border: 1px solid rgba(41,121,255,.2);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--blue-glow), var(--cyan));
+    opacity: 0;
+    transition: var(--transition);
+    z-index: 0;
+  }
+  .card:hover::before { opacity: .12; }
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: var(--blue-glow);
+    box-shadow: 0 12px 40px rgba(41,121,255,.25);
+  }
+  .card > * { position: relative; z-index: 1; }
 
-/* toast */
-#toast {
-  position: fixed; bottom: 22px; left: 50%;
-  transform: translateX(-50%) translateY(70px);
-  background: linear-gradient(135deg, var(--accent), var(--pink));
-  color: #fff; padding: 11px 22px; border-radius: 30px;
-  font-size: 13px; font-weight: 600; z-index: 999;
-  transition: transform 0.3s; white-space: nowrap; pointer-events: none;
-}
-#toast.show { transform: translateX(-50%) translateY(0); }
+  .card-icon { font-size: 36px; margin-bottom: 14px; }
+  .card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+  .card-desc { font-size: 13.5px; color: var(--white-dim); line-height: 1.6; }
+
+  /* ── MONTHLY GROUPS ── */
+  .groups-section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+  }
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--cyan);
+    letter-spacing: .3px;
+  }
+  .group-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+  }
+  .group-link-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(41,121,255,.1);
+    border: 1px solid rgba(41,121,255,.25);
+    border-radius: 12px;
+    padding: 14px 18px;
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+  }
+  .group-link-btn:hover {
+    background: rgba(41,121,255,.25);
+    border-color: var(--cyan);
+    transform: translateY(-2px);
+  }
+  .group-link-btn svg { width:20px; height:20px; flex-shrink:0; }
+
+  /* ── ADDRESS SECTION ── */
+  .address-section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+  }
+  .address-card {
+    background: linear-gradient(145deg, rgba(13,32,69,.85), rgba(5,8,15,.9));
+    border: 1px solid rgba(41,121,255,.2);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+  }
+  .address-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--white-dim);
+    margin-bottom: 20px;
+  }
+  .address-text strong { color: #fff; }
+  .map-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: 30px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition);
+    border: 1.5px solid rgba(240,244,255,.2);
+    color: var(--white);
+    background: var(--white-faint);
+  }
+  .map-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* ── TICKET SCREEN ── */
+  .ticket-screen-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 20px 20px 60px;
+  }
+
+  .screen-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.4rem, 5vw, 2rem);
+    font-weight: 800;
+    margin: 20px 0 6px;
+    background: linear-gradient(135deg, #fff, var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .screen-sub {
+    font-size: 13.5px;
+    color: var(--white-dim);
+    margin-bottom: 28px;
+  }
+
+  /* ROUTE CHOICE BUTTONS */
+  .route-choices {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+
+  .route-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, rgba(13,32,69,.9), rgba(10,22,40,.95));
+    border: 1.5px solid rgba(41,121,255,.3);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: var(--transition);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .route-btn:hover, .route-btn.selected {
+    border-color: var(--blue-glow);
+    background: linear-gradient(135deg, rgba(41,121,255,.15), rgba(0,198,255,.08));
+    box-shadow: 0 0 24px rgba(41,121,255,.2);
+    transform: translateX(4px);
+  }
+  .route-btn-flags { font-size: 22px; }
+  .route-btn-arrow { color: var(--cyan); font-size: 18px; }
+
+  /* REGION GRID */
+  .region-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cyan);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 24px 0 12px;
+  }
+  .region-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .region-btn {
+    background: rgba(26,58,110,.5);
+    border: 1px solid rgba(41,121,255,.2);
+    border-radius: 12px;
+    padding: 13px 14px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--white-dim);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .region-btn:hover, .region-btn.selected {
+    border-color: var(--blue-glow);
+    color: #fff;
+    background: rgba(41,121,255,.18);
+  }
+
+  /* CALENDAR */
+  .calendar-wrap {
+    background: linear-gradient(145deg, rgba(13,32,69,.9), rgba(5,8,15,.95));
+    border: 1px solid rgba(41,121,255,.25);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-top: 8px;
+  }
+  .cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .cal-month-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #fff;
+  }
+  .cal-nav {
+    background: none;
+    border: none;
+    color: var(--cyan);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 8px;
+    transition: var(--transition);
+  }
+  .cal-nav:hover { background: rgba(41,121,255,.2); }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .cal-day-name {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--cyan);
+    padding: 6px 0;
+    letter-spacing: .5px;
+  }
+  .cal-day {
+    text-align: center;
+    padding: 9px 4px;
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--white-dim);
+    border: 1px solid transparent;
+  }
+  .cal-day:hover { background: rgba(41,121,255,.2); color: #fff; }
+  .cal-day.today {
+    border-color: var(--cyan);
+    color: var(--cyan);
+    font-weight: 700;
+  }
+  .cal-day.selected {
+    background: linear-gradient(135deg, var(--blue-glow), var(--cyan));
+    color: #fff;
+    font-weight: 700;
+  }
+  .cal-day.empty { cursor: default; }
+  .cal-day.past { opacity: .3; cursor: not-allowed; }
+
+  /* CONTACT SELECT */
+  .contact-section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+    margin: 32px 0 16px;
+  }
+
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(26,58,110,.45);
+    border: 1.5px solid rgba(41,121,255,.2);
+    border-radius: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--white-dim);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .contact-btn:hover {
+    border-color: var(--blue-glow);
+    color: #fff;
+    background: rgba(41,121,255,.15);
+    transform: translateX(4px);
+  }
+  .contact-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .ci-wa  { background: rgba(37,211,102,.15); }
+  .ci-tg  { background: rgba(0,136,204,.15); }
+  .ci-mx  { background: rgba(255,100,50,.15); }
+  .ci-sms { background: rgba(90,200,250,.15); }
+  .ci-tel { background: rgba(41,121,255,.15); }
+
+  .contact-btn-inner { display: flex; flex-direction: column; gap: 2px; }
+  .contact-btn-name  { font-size: 15px; font-weight: 700; color: #fff; }
+  .contact-btn-val   { font-size: 12px; color: var(--white-dim); }
+
+  /* SUMMARY CARD */
+  .summary-card {
+    background: linear-gradient(145deg, rgba(13,32,69,.9), rgba(5,8,15,.95));
+    border: 1px solid rgba(0,198,255,.3);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin: 8px 0 24px;
+  }
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(240,244,255,.07);
+    font-size: 14px;
+  }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-label { color: var(--white-dim); }
+  .summary-value { font-weight: 600; color: #fff; }
+
+  /* MODAL-LIKE OVERLAY for message preview */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    backdrop-filter: blur(6px);
+    z-index: 9000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .overlay.show { display: flex; }
+  .overlay-box {
+    background: var(--navy);
+    border: 1px solid rgba(0,198,255,.3);
+    border-radius: 20px;
+    padding: 28px 24px;
+    max-width: 420px;
+    width: 100%;
+    animation: fadeUp .3s ease forwards;
+  }
+  .overlay-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    color: var(--cyan);
+  }
+  .msg-preview {
+    background: rgba(5,8,15,.8);
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--white-dim);
+    margin-bottom: 20px;
+    white-space: pre-line;
+  }
+  .msg-preview strong { color: #fff; }
+  .overlay-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .overlay-send-btn {
+    flex: 1;
+    padding: 13px;
+    border-radius: 12px;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+  .os-wa  { background: #25d366; color: #000; }
+  .os-tg  { background: #0088cc; color: #fff; }
+  .os-mx  { background: #ff6432; color: #fff; }
+  .overlay-cancel {
+    width: 100%;
+    padding: 11px;
+    border-radius: 12px;
+    border: 1px solid rgba(240,244,255,.2);
+    background: none;
+    color: var(--white-dim);
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 4px;
+  }
+  .overlay-cancel:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* FOOTER STRIP */
+  .footer-strip {
+    text-align: center;
+    padding: 20px;
+    font-size: 11.5px;
+    color: rgba(240,244,255,.25);
+    letter-spacing: .5px;
+  }
 </style>
 </head>
 <body>
 
-<canvas id="cv"></canvas>
+<canvas id="particles-canvas"></canvas>
 
-<!-- ════════════════ HOME ════════════════ -->
-<div class="pg on" id="p-home">
-  <div class="bar">
-    <div class="logo-row">
-      <div class="logo-ic">✈️</div>
-      <div>
-        <div class="logo-name">OMAD TOUR</div>
-        <div class="logo-sub">Aviakassa</div>
-      </div>
-    </div>
-    <div class="lsw">
-      <button class="lbtn act" onclick="setLang('ru')">RU</button>
-      <button class="lbtn" onclick="setLang('uz')">UZ</button>
-    </div>
-  </div>
-
-  <div class="body">
-    <div class="eyebrow" id="t-eyebrow">Профессиональный сервис</div>
-    <div class="h1"><span id="t-h1">Авиабилеты</span><br><span style="color:var(--white)" id="t-h2">быстро и надёжно</span></div>
-    <div class="hsub" id="t-hsub">Бронирование рейсов Россия ↔ Узбекистан. Прямые и с пересадками.</div>
-
-    <div class="slabel" id="t-s1">🎫 БИЛЕТЫ</div>
-
-    <div class="card" onclick="go('p-directions')">
-      <div class="cic bl">💰</div>
-      <div class="ctxt">
-        <div class="ctitle" id="t-btn1">Онлайн цена билета</div>
-        <div class="cdesc" id="t-btn1s">Узнать стоимость по направлению</div>
-      </div>
-      <div class="chev">›</div>
-    </div>
-
-    <div class="card" onclick="go('p-book')">
-      <div class="cic pk">✈️</div>
-      <div class="ctxt">
-        <div class="ctitle" id="t-btn2">Забронировать авиабилет</div>
-        <div class="cdesc" id="t-btn2s">Связаться с нами напрямую</div>
-      </div>
-      <div class="chev">›</div>
-    </div>
-
-    <div class="slabel" id="t-s2">📢 КАНАЛЫ</div>
-
-    <div class="card" onclick="go('p-groups')">
-      <div class="cic gd">🗓️</div>
-      <div class="ctxt">
-        <div class="ctitle" id="t-btn3">Ежемесячные билеты</div>
-        <div class="cdesc" id="t-btn3s">Telegram, WhatsApp, Max каналы</div>
-      </div>
-      <div class="chev">›</div>
-    </div>
-
-    <div class="slabel" id="t-s3">📍 АДРЕС</div>
-
-    <div class="card" onclick="go('p-address')">
-      <div class="cic tl">📍</div>
-      <div class="ctxt">
-        <div class="ctitle" id="t-btn4">Наш адрес</div>
-        <div class="cdesc" id="t-btn4s">м. Технологический институт, СПб</div>
-      </div>
-      <div class="chev">›</div>
-    </div>
-  </div>
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('uz')" id="lb-uz">🇺🇿 UZ</button>
+  <button class="lang-btn" onclick="setLang('ru')" id="lb-ru">🇷🇺 RU</button>
 </div>
 
-<!-- ════════════════ DIRECTIONS ════════════════ -->
-<div class="pg" id="p-directions">
-  <div class="bar">
-    <button class="back" onclick="back('p-home')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
-      <span id="t-back1">Назад</span>
-    </button>
-    <div class="lsw">
-      <button class="lbtn act" onclick="setLang('ru')">RU</button>
-      <button class="lbtn" onclick="setLang('uz')">UZ</button>
-    </div>
-  </div>
-  <div class="body">
-    <div class="stitle" id="t-dirtitle">Выберите направление</div>
-    <div class="ssub" id="t-dirsub">Укажите откуда и куда вы летите</div>
+<div class="app">
 
-    <div class="dcard" onclick="pickDir('ru_uz')">
-      <div class="dflags">🇷🇺 <span class="darr">→</span> 🇺🇿</div>
-      <div class="ctxt">
-        <div class="dname" id="t-d1">Россия → Узбекистан</div>
-        <div class="ddesc" id="t-d1s">Прямые и с пересадками</div>
+  <!-- ═══════════════════════════════════════════
+       SCREEN: HOME
+  ════════════════════════════════════════════ -->
+  <div class="screen active" id="screen-home">
+    <div class="hero">
+      <div class="hero-logo">
+        <span class="plane-icon">✈️</span>
       </div>
-      <div class="chev">›</div>
-    </div>
-
-    <div class="dcard" onclick="pickDir('uz_ru')">
-      <div class="dflags">🇺🇿 <span class="darr">→</span> 🇷🇺</div>
-      <div class="ctxt">
-        <div class="dname" id="t-d2">Узбекистан → Россия</div>
-        <div class="ddesc" id="t-d2s">Прямые и с пересадками</div>
+      <p class="hero-tagline" data-uz="Ishonchli aviakassa" data-ru="Надёжная авиакасса">Ishonchli aviakassa</p>
+      <h1>OMAD TOUR</h1>
+      <p class="hero-sub"
+         data-uz="Rossiya va Uzbekiston orasidagi eng qulay reyslar. Tez, ishonchli, arzon."
+         data-ru="Лучшие рейсы между Россией и Узбекистаном. Быстро, надёжно, выгодно.">
+        Rossiya va Uzbekiston orasidagi eng qulay reyslar. Tez, ishonchli, arzon.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="goScreen('screen-ticket')"
+          data-uz="✈ Online bilet narxi" data-ru="✈ Цены на билеты онлайн">
+          ✈ Online bilet narxi
+        </button>
+        <button class="btn-outline" onclick="goScreen('screen-bron')"
+          data-uz="📋 Aviabilet bron" data-ru="📋 Забронировать билет">
+          📋 Aviabilet bron
+        </button>
       </div>
-      <div class="chev">›</div>
     </div>
 
-    <div class="dcard" onclick="pickDir('other')">
-      <div class="dflags">🌍 <span class="darr">→</span> ✈️</div>
-      <div class="ctxt">
-        <div class="dname" id="t-d3">Другое направление</div>
-        <div class="ddesc" id="t-d3s">Международные рейсы</div>
+    <div class="glow-line"></div>
+
+    <div class="section-grid">
+      <div class="card" onclick="goScreen('screen-ticket')">
+        <div class="card-icon">🎫</div>
+        <div class="card-title" data-uz="Online Bilet Narxi" data-ru="Цены на билеты">Online Bilet Narxi</div>
+        <div class="card-desc"
+             data-uz="Rossiya ↔ Uzbekiston reyslarining narxlari bilan tanishing"
+             data-ru="Узнайте цены на рейсы Россия ↔ Узбекистан">
+          Rossiya ↔ Uzbekiston reyslarining narxlari bilan tanishing
+        </div>
       </div>
-      <div class="chev">›</div>
+      <div class="card" onclick="goScreen('screen-bron')">
+        <div class="card-icon">📞</div>
+        <div class="card-title" data-uz="Aviabilet Bron" data-ru="Бронирование">Aviabilet Bron</div>
+        <div class="card-desc"
+             data-uz="Bizga murojaat qiling va bron qiling"
+             data-ru="Свяжитесь с нами для бронирования">
+          Bizga murojaat qiling va bron qiling
+        </div>
+      </div>
+      <div class="card" onclick="goScreen('screen-groups')">
+        <div class="card-icon">👥</div>
+        <div class="card-title" data-uz="Oylik Biletlar Guruhi" data-ru="Группы на месяц">Oylik Biletlar Guruhi</div>
+        <div class="card-desc"
+             data-uz="Guruh safarlar uchun maxsus narxlar"
+             data-ru="Специальные цены для групповых поездок">
+          Guruh safarlar uchun maxsus narxlar
+        </div>
+      </div>
+      <div class="card" onclick="goScreen('screen-address')">
+        <div class="card-icon">📍</div>
+        <div class="card-title" data-uz="Ofis Manzili" data-ru="Адрес офиса">Ofis Manzili</div>
+        <div class="card-desc"
+             data-uz="Sankt-Peterburg, Texnologicheskiy Institut metro"
+             data-ru="СПб, Технологический институт">
+          Sankt-Peterburg, Texnologicheskiy Institut metro
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- ════════════════ DEPART CITY ════════════════ -->
-<div class="pg" id="p-depart">
-  <div class="bar">
-    <button class="back" onclick="back('p-directions')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
-      <span id="t-back2">Назад</span>
-    </button>
-    <div class="lsw">
-      <button class="lbtn act" onclick="setLang('ru')">RU</button>
-      <button class="lbtn" onclick="setLang('uz')">UZ</button>
-    </div>
+    <div class="footer-strip">© 2026 OMAD TOUR · Все права защищены</div>
   </div>
-  <div class="body" id="depart-body"></div>
-</div>
 
-<!-- ════════════════ ARRIVE CITY ════════════════ -->
-<div class="pg" id="p-arrive">
-  <div class="bar">
-    <button class="back" onclick="back('p-depart')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
-      <span id="t-back3">Назад</span>
-    </button>
-    <div class="lsw">
-      <button class="lbtn act" onclick="setLang('ru')">RU</button>
-      <button class="lbtn" onclick="setLang('uz')">UZ</button>
-    </div>
-  </div>
-  <div class="body" id="arrive-body"></div>
-</div>
+  <!-- ═══════════════════════════════════════════
+       SCREEN: TICKET (Online bilet narxi)
+  ════════════════════════════════════════════ -->
+  <div class="screen" id="screen-ticket">
+    <div class="ticket-screen-inner">
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+        <span data-uz="Orqaga" data-ru="Назад">Orqaga</span>
+      </button>
 
-<!-- ════════════════ CALENDAR ════════════════ -->
-<div class="pg" id="p-calendar">
-  <div class="bar">
-    <button class="back" onclick="back('p-arrive')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
-      <span id="t-back4">Назад</span>
-    </button>
-    <div class="lsw">
-      <button class="lbtn act" onclick="setLang('ru')">RU</button>
-      <button class="lbtn" onclick="setLang('uz')">UZ</button>
-    </div>
-  </div>
-  <div class="body">
-    <div class="stitle" id="t-caltitle">Выберите дату</div>
-    <div class="ssub" id="t-calsub">Укажите дату вылета</div>
-    <div class="calbox" id="cal-box"></div>
-    <button class="cta" id="btn-calok" onclick="calConfirm()" disabled id="t-calok">Подтвердить дату</button>
-  </div>
-</div>
+      <h2 class="screen-heading" data-uz="Yo'nalishni tanlang" data-ru="Выберите направление">Yo'nalishni tanlang</h2>
+      <p class="screen-sub"
+         data-uz="Qaysi yo'nalishda uchmoqchisiz?"
+         data-ru="В каком направлении хотите лететь?">
+        Qaysi yo'nalishda uchmoqchisiz?
+      </p>
 
-<!-- ════════════════ CONTACT (price) ════════════════ -->
-<div class="pg" id="p-contact">
-  <div class="bar">
-    <button class="back" onclick="back('p-calendar')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
-      <span id="t-back5">Назад</span>
-    </button>
-    <div class="lsw">
-      <button class="lbtn act" onclick="setLang('ru')">RU</button>
-      <button class="lbtn" onclick="setLang('uz')">UZ</button>
-    </div>
-  </div>
-  <div class="body">
-    <div class="stitle" id="t-ctitle">Ваш запрос готов!</div>
-    <div class="ssub" id="t-csub">Выберите удобный способ связи</div>
-    <div id="sum-box"></div>
-    <div class="pill">✨ <span id="t-pill">Сообщение подготовлено автоматически</span></div>
-    <div id="contact-links"></div>
-  </div>
-</div>
-
-<!-- ════════════════ BOOK ════════════════ -->
-<div class="pg" id="p-book">
-  <div class="bar">
-    <button class="back" onclick="back('p-home')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
-      <span id="t-back6">Назад</span>
-    </button>
-    <div class="lsw">
-      <button class="lbtn act" onclick="setLang('ru')">RU</button>
-      <button class="lbtn" onclick="setLang('uz')">UZ</button>
-    </div>
-  </div>
-  <div class="body">
-    <div class="stitle" id="t-booktitle">Забронировать билет</div>
-    <div class="ssub" id="t-booksub">Выберите удобный способ — мы ответим быстро!</div>
-
-    <a class="ccard" href="https://t.me/OMAD_TOUR9094" target="_blank">
-      <div class="cic bl">✈️</div>
-      <div class="ctxt"><div class="ctitle">Telegram</div><div class="cdesc">@OMAD_TOUR9094</div></div>
-      <div class="chev">›</div>
-    </a>
-    <a class="ccard" href="https://wa.me/79811939094" target="_blank">
-      <div class="cic gr">💬</div>
-      <div class="ctxt"><div class="ctitle">WhatsApp</div><div class="cdesc">+7 981 193 90 94</div></div>
-      <div class="chev">›</div>
-    </a>
-    <a class="ccard" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk" target="_blank">
-      <div class="cic pk">⚡</div>
-      <div class="ctxt"><div class="ctitle">Max</div><div class="cdesc">Открыть чат в Max</div></div>
-      <div class="chev">›</div>
-    </a>
-    <a class="ccard" href="imo://chat?phone=+79811939094" target="_blank">
-      <div class="cic gd">🌐</div>
-      <div class="ctxt"><div class="ctitle">IMO</div><div class="cdesc">+7 981 193 90 94</div></div>
-      <div class="chev">›</div>
-    </a>
-    <a class="ccard" href="tel:+79811939094">
-      <div class="cic tl">📞</div>
-      <div class="ctxt"><div class="ctitle" id="t-call">Позвонить</div><div class="cdesc">+7 981 193 90 94</div></div>
-      <div class="chev">›</div>
-    </a>
-  </div>
-</div>
-
-<!-- ════════════════ GROUPS ════════════════ -->
-<div class="pg" id="p-groups">
-  <div class="bar">
-    <button class="back" onclick="back('p-home')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
-      <span id="t-back7">Назад</span>
-    </button>
-    <div class="lsw">
-      <button class="lbtn act" onclick="setLang('ru')">RU</button>
-      <button class="lbtn" onclick="setLang('uz')">UZ</button>
-    </div>
-  </div>
-  <div class="body">
-    <div class="stitle" id="t-grptitle">Группы ежемесячных билетов</div>
-    <div class="ssub" id="t-grpsub">Вступайте и получайте актуальные цены каждый месяц</div>
-
-    <a class="ccard" href="https://t.me/+uJn1nFmpzjoxMGEy" target="_blank">
-      <div class="cic bl">✈️</div>
-      <div class="ctxt"><div class="ctitle">Telegram</div><div class="cdesc" id="t-grp1">Канал с актуальными ценами</div></div>
-      <div class="chev">›</div>
-    </a>
-    <a class="ccard" href="https://chat.whatsapp.com/KgnvfhpMYso6lSX3kbNd4l" target="_blank">
-      <div class="cic gr">💬</div>
-      <div class="ctxt"><div class="ctitle">WhatsApp</div><div class="cdesc" id="t-grp2">Группа ежемесячных билетов</div></div>
-      <div class="chev">›</div>
-    </a>
-    <a class="ccard" href="https://max.ru/join/M4-SsjF594_qN-XYZd8YabTAqxvGFRzd30p_N2hRh7c" target="_blank">
-      <div class="cic pk">⚡</div>
-      <div class="ctxt"><div class="ctitle">Max</div><div class="cdesc" id="t-grp3">Чат в Max</div></div>
-      <div class="chev">›</div>
-    </a>
-  </div>
-</div>
-
-<!-- ════════════════ ADDRESS ════════════════ -->
-<div class="pg" id="p-address">
-  <div class="bar">
-    <button class="back" onclick="back('p-home')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
-      <span id="t-back8">Назад</span>
-    </button>
-    <div class="lsw">
-      <button class="lbtn act" onclick="setLang('ru')">RU</button>
-      <button class="lbtn" onclick="setLang('uz')">UZ</button>
-    </div>
-  </div>
-  <div class="body">
-    <div class="stitle" id="t-addrtitle">Наш офис</div>
-    <div class="ssub" id="t-addrsub">Приходите к нам лично — поможем с любым вопросом</div>
-    <div class="addrcard">
-      <div class="mbadge">🚇 <span id="t-metro">МЕТРО ТЕХНОЛОГИЧЕСКИЙ ИНСТИТУТ</span></div>
-      <div class="astreet" id="t-street">4-я Красноармейская, дом 3</div>
-      <div class="acode" id="t-code">Домофон: 22В</div>
-      <div class="aoffice" id="t-office">🏢 Офис ОМАД ТУР</div>
-      <div class="mapbtns">
-        <a class="mapbtn" href="https://yandex.ru/maps/-/CLaRUCPW" target="_blank">🗺️ Яндекс</a>
-        <a class="mapbtn" href="https://maps.apple/p/GQw0MY4gCth._6" target="_blank">🍎 Apple</a>
+      <div class="route-choices">
+        <button class="route-btn" onclick="selectRoute('ru-uz')">
+          <span>
+            <div class="route-btn-flags">🇷🇺 → 🇺🇿</div>
+            <div style="margin-top:4px;font-size:14px;color:var(--white-dim)" data-uz="Rossiya → Uzbekiston" data-ru="Россия → Узбекистан">Rossiya → Uzbekiston</div>
+          </span>
+          <span class="route-btn-arrow">›</span>
+        </button>
+        <button class="route-btn" onclick="selectRoute('uz-ru')">
+          <span>
+            <div class="route-btn-flags">🇺🇿 → 🇷🇺</div>
+            <div style="margin-top:4px;font-size:14px;color:var(--white-dim)" data-uz="Uzbekiston → Rossiya" data-ru="Узбекистан → Россия">Uzbekiston → Rossiya</div>
+          </span>
+          <span class="route-btn-arrow">›</span>
+        </button>
+        <button class="route-btn" onclick="selectRoute('other')">
+          <span>
+            <div class="route-btn-flags">🌍</div>
+            <div style="margin-top:4px;font-size:14px;color:var(--white-dim)" data-uz="Kerakli yo'nalish" data-ru="Другое направление">Kerakli yo'nalish</div>
+          </span>
+          <span class="route-btn-arrow">›</span>
+        </button>
       </div>
     </div>
   </div>
-</div>
 
-<div id="toast"></div>
+  <!-- ═══════════════════════════════════════════
+       SCREEN: SELECT FROM-REGION (Rossiya viloyatlari)
+  ════════════════════════════════════════════ -->
+  <div class="screen" id="screen-from-region">
+    <div class="ticket-screen-inner">
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+        <span data-uz="Orqaga" data-ru="Назад">Orqaga</span>
+      </button>
+      <h2 class="screen-heading" id="from-region-heading"></h2>
+      <p class="screen-sub" id="from-region-sub"></p>
+      <div class="region-grid" id="from-region-grid"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN: SELECT TO-REGION (Uzbekiston viloyatlari)
+  ════════════════════════════════════════════ -->
+  <div class="screen" id="screen-to-region">
+    <div class="ticket-screen-inner">
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+        <span data-uz="Orqaga" data-ru="Назад">Orqaga</span>
+      </button>
+      <h2 class="screen-heading" id="to-region-heading"></h2>
+      <p class="screen-sub" id="to-region-sub"></p>
+      <div class="region-grid" id="to-region-grid"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN: CALENDAR
+  ════════════════════════════════════════════ -->
+  <div class="screen" id="screen-calendar">
+    <div class="ticket-screen-inner">
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+        <span data-uz="Orqaga" data-ru="Назад">Orqaga</span>
+      </button>
+      <h2 class="screen-heading" data-uz="Sanani tanlang" data-ru="Выберите дату">Sanani tanlang</h2>
+      <p class="screen-sub"
+         data-uz="Uchish sanangizni belgilang"
+         data-ru="Укажите дату вылета">
+        Uchish sanangizni belgilang
+      </p>
+      <div class="calendar-wrap">
+        <div class="cal-header">
+          <button class="cal-nav" onclick="calNav(-1)">‹</button>
+          <div class="cal-month-label" id="cal-month-label"></div>
+          <button class="cal-nav" onclick="calNav(1)">›</button>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN: CONTACT SEND (after calendar)
+  ════════════════════════════════════════════ -->
+  <div class="screen" id="screen-contact-send">
+    <div class="ticket-screen-inner">
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+        <span data-uz="Orqaga" data-ru="Назад">Orqaga</span>
+      </button>
+      <h2 class="screen-heading" data-uz="Aloqani tanlang" data-ru="Выберите способ связи">Aloqani tanlang</h2>
+      <p class="screen-sub"
+         data-uz="Xabaringiz tayyor — qaysi orqali yuborasiz?"
+         data-ru="Сообщение готово — через что отправить?">
+        Xabaringiz tayyor — qaysi orqali yuborasiz?
+      </p>
+
+      <div class="summary-card" id="summary-card"></div>
+
+      <div class="contact-list">
+        <a class="contact-btn" id="send-wa" href="#" onclick="sendVia('wa');return false;">
+          <div class="contact-icon ci-wa">💬</div>
+          <div class="contact-btn-inner">
+            <span class="contact-btn-name">WhatsApp</span>
+            <span class="contact-btn-val">+7 981 193-90-94</span>
+          </div>
+        </a>
+        <a class="contact-btn" id="send-tg" href="#" onclick="sendVia('tg');return false;">
+          <div class="contact-icon ci-tg">✈️</div>
+          <div class="contact-btn-inner">
+            <span class="contact-btn-name">Telegram</span>
+            <span class="contact-btn-val">@OMAD_TOUR9094</span>
+          </div>
+        </a>
+        <a class="contact-btn" id="send-mx" href="#" onclick="sendVia('mx');return false;">
+          <div class="contact-icon ci-mx">💙</div>
+          <div class="contact-btn-inner">
+            <span class="contact-btn-name">Max</span>
+            <span class="contact-btn-val">max.ru</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN: BRON (Aviabilet bron)
+  ════════════════════════════════════════════ -->
+  <div class="screen" id="screen-bron">
+    <div class="ticket-screen-inner">
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+        <span data-uz="Orqaga" data-ru="Назад">Orqaga</span>
+      </button>
+      <h2 class="screen-heading" data-uz="Biz bilan bog'laning" data-ru="Свяжитесь с нами">Biz bilan bog'laning</h2>
+      <p class="screen-sub"
+         data-uz="Tezkor bron uchun qulay aloqani tanlang"
+         data-ru="Выберите удобный способ связи для быстрого бронирования">
+        Tezkor bron uchun qulay aloqani tanlang
+      </p>
+      <div class="contact-list">
+        <a class="contact-btn" href="https://t.me/OMAD_TOUR9094" target="_blank">
+          <div class="contact-icon ci-tg">✈️</div>
+          <div class="contact-btn-inner">
+            <span class="contact-btn-name">Telegram</span>
+            <span class="contact-btn-val">@OMAD_TOUR9094</span>
+          </div>
+        </a>
+        <a class="contact-btn" href="https://wa.me/79811939094" target="_blank">
+          <div class="contact-icon ci-wa">💬</div>
+          <div class="contact-btn-inner">
+            <span class="contact-btn-name">WhatsApp</span>
+            <span class="contact-btn-val">+7 981 193-90-94</span>
+          </div>
+        </a>
+        <a class="contact-btn" href="sms:+79811939094" target="_blank">
+          <div class="contact-icon ci-sms">💬</div>
+          <div class="contact-btn-inner">
+            <span class="contact-btn-name">SMS</span>
+            <span class="contact-btn-val">+7 981 193-90-94</span>
+          </div>
+        </a>
+        <a class="contact-btn" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk" target="_blank">
+          <div class="contact-icon ci-mx">💙</div>
+          <div class="contact-btn-inner">
+            <span class="contact-btn-name">Max</span>
+            <span class="contact-btn-val">max.ru/u/...</span>
+          </div>
+        </a>
+        <a class="contact-btn" href="tel:+79811939094">
+          <div class="contact-icon ci-tel">📞</div>
+          <div class="contact-btn-inner">
+            <span class="contact-btn-name" data-uz="Qo'ng'iroq" data-ru="Позвонить">Qo'ng'iroq</span>
+            <span class="contact-btn-val">+7 981 193-90-94</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN: GROUPS
+  ════════════════════════════════════════════ -->
+  <div class="screen" id="screen-groups">
+    <div class="ticket-screen-inner">
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+        <span data-uz="Orqaga" data-ru="Назад">Orqaga</span>
+      </button>
+      <h2 class="screen-heading" data-uz="Oylik Biletlar Guruhi" data-ru="Ежемесячные группы">Oylik Biletlar Guruhi</h2>
+      <p class="screen-sub"
+         data-uz="Qo'shiling — oylik guruh safarlarida chegirmali narxlar!"
+         data-ru="Присоединяйтесь — скидки в ежемесячных групповых поездках!">
+        Qo'shiling — oylik guruh safarlarida chegirmali narxlar!
+      </p>
+      <div class="contact-list">
+        <a class="contact-btn" href="https://t.me/+uJn1nFmpzjoxMGEy" target="_blank">
+          <div class="contact-icon ci-tg">✈️</div>
+          <div class="contact-btn-inner">
+            <span class="contact-btn-name">Telegram Guruh</span>
+            <span class="contact-btn-val">t.me/+uJn1nFmpzjoxMGEy</span>
+          </div>
+        </a>
+        <a class="contact-btn" href="https://chat.whatsapp.com/KgnvfhpMYso6lSX3kbNd4l" target="_blank">
+          <div class="contact-icon ci-wa">💬</div>
+          <div class="contact-btn-inner">
+            <span class="contact-btn-name">WhatsApp Guruh</span>
+            <span class="contact-btn-val">chat.whatsapp.com/...</span>
+          </div>
+        </a>
+        <a class="contact-btn" href="https://max.ru/join/M4-SsjF594_qN-XYZd8YabTAqxvGFRzd30p_N2hRh7c" target="_blank">
+          <div class="contact-icon ci-mx">💙</div>
+          <div class="contact-btn-inner">
+            <span class="contact-btn-name">Max Guruh</span>
+            <span class="contact-btn-val">max.ru/join/...</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN: ADDRESS
+  ════════════════════════════════════════════ -->
+  <div class="screen" id="screen-address">
+    <div class="ticket-screen-inner">
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+        <span data-uz="Orqaga" data-ru="Назад">Orqaga</span>
+      </button>
+      <h2 class="screen-heading" data-uz="Ofis Manzili" data-ru="Адрес офиса">Ofis Manzili</h2>
+      <div class="address-card" style="margin-top:20px">
+        <div class="address-text">
+          🚇 <strong>МЕТРО ТЕХНОЛОГИЧЕСКИЙ ИНСТИТУТ</strong><br>
+          4-я Красноармейская, дом 3<br>
+          Домофон: <strong>22В</strong><br>
+          🏢 <strong>Офис ОМАД ТУР</strong>
+        </div>
+        <div class="map-btns">
+          <a class="map-btn" href="https://yandex.ru/maps/-/CLaRUCPW" target="_blank">
+            <span>🗺</span>
+            <span>Yandex Maps</span>
+          </a>
+          <a class="map-btn" href="https://maps.apple/p/GQw0MY4gCth._6" target="_blank">
+            <span>🍎</span>
+            <span>Apple Maps</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<!-- MESSAGE OVERLAY -->
+<div class="overlay" id="msg-overlay">
+  <div class="overlay-box">
+    <div class="overlay-title" data-uz="Xabar tayyor!" data-ru="Сообщение готово!">Xabar tayyor!</div>
+    <div class="msg-preview" id="msg-preview-text"></div>
+    <div class="overlay-actions" id="overlay-actions"></div>
+    <button class="overlay-cancel" onclick="closeOverlay()"
+      data-uz="Bekor qilish" data-ru="Отмена">Bekor qilish</button>
+  </div>
+</div>
 
 <script>
-// ══════════════════════════════════════════
-// CANVAS ANIMATION
-// ══════════════════════════════════════════
-(function(){
-  var cv = document.getElementById('cv');
-  var cx = cv.getContext('2d');
-  var W, H, dots = [];
-  var planes = [{x:-60,y:0,vx:0.55,vy:-0.08,op:0.18},{x:0,y:0,vx:-0.45,vy:0.07,op:0.12}];
-
-  function resize(){
-    W = cv.width = window.innerWidth;
-    H = cv.height = window.innerHeight;
-    planes[0].y = H*0.3;
-    planes[1].x = W+60; planes[1].y = H*0.65;
-  }
-
-  function makeDots(){
-    dots = [];
-    var n = Math.floor(W*H/8500);
-    for(var i=0;i<n;i++){
-      dots.push({
-        x: Math.random()*W, y: Math.random()*H,
-        r: Math.random()*1.6+0.3,
-        vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3,
-        op: Math.random()*0.45+0.15,
-        ph: Math.random()*6.28, ps: Math.random()*0.018+0.004
-      });
-    }
-  }
-
-  function frame(){
-    cx.clearRect(0,0,W,H);
-
-    // gradient bg
-    var g = cx.createRadialGradient(W/2,H*0.35,0,W/2,H*0.35,W*0.85);
-    g.addColorStop(0,'rgba(12,22,50,0.75)');
-    g.addColorStop(0.6,'rgba(6,10,22,0.82)');
-    g.addColorStop(1,'rgba(4,7,14,0.92)');
-    cx.fillStyle = g; cx.fillRect(0,0,W,H);
-
-    // blobs
-    blob(cx,W*0.1,H*0.18,220,'rgba(46,111,255,0.045)');
-    blob(cx,W*0.9,H*0.72,260,'rgba(201,48,240,0.035)');
-
-    // lines between close dots
-    for(var i=0;i<dots.length;i++){
-      for(var j=i+1;j<dots.length;j++){
-        var dx=dots[i].x-dots[j].x, dy=dots[i].y-dots[j].y;
-        var d=Math.sqrt(dx*dx+dy*dy);
-        if(d<110){
-          cx.strokeStyle='rgba(60,100,220,'+(0.065*(1-d/110))+')';
-          cx.lineWidth=0.5;
-          cx.beginPath(); cx.moveTo(dots[i].x,dots[i].y); cx.lineTo(dots[j].x,dots[j].y); cx.stroke();
-        }
-      }
-    }
-
-    // dots
-    for(var i=0;i<dots.length;i++){
-      var d=dots[i];
-      d.ph+=d.ps;
-      var ao=d.op+Math.sin(d.ph)*0.12;
-      cx.beginPath(); cx.arc(d.x,d.y,d.r,0,6.28);
-      cx.fillStyle='rgba(90,140,255,'+ao+')'; cx.fill();
-      d.x+=d.vx; d.y+=d.vy;
-      if(d.x<-5) d.x=W+5; if(d.x>W+5) d.x=-5;
-      if(d.y<-5) d.y=H+5; if(d.y>H+5) d.y=-5;
-    }
-
-    // planes
-    for(var i=0;i<planes.length;i++){
-      var p=planes[i];
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.vx>0 && p.x>W+80){ p.x=-80; p.y=Math.random()*H; }
-      if(p.vx<0 && p.x<-80){ p.x=W+80; p.y=Math.random()*H; }
-      var tg=cx.createLinearGradient(p.x-50*Math.sign(p.vx),p.y,p.x,p.y);
-      tg.addColorStop(0,'rgba(46,111,255,0)');
-      tg.addColorStop(1,'rgba(46,111,255,'+p.op+')');
-      cx.strokeStyle=tg; cx.lineWidth=1;
-      cx.beginPath(); cx.moveTo(p.x-50*Math.sign(p.vx),p.y); cx.lineTo(p.x,p.y); cx.stroke();
-      cx.globalAlpha=p.op*1.6; cx.font='13px serif';
-      cx.fillText(p.vx>0?'✈':'✈',p.x,p.y); cx.globalAlpha=1;
-    }
-
-    requestAnimationFrame(frame);
-  }
-
-  function blob(cx,x,y,r,col){
-    var g=cx.createRadialGradient(x,y,0,x,y,r);
-    g.addColorStop(0,col); g.addColorStop(1,'rgba(0,0,0,0)');
-    cx.fillStyle=g; cx.beginPath(); cx.arc(x,y,r,0,6.28); cx.fill();
-  }
-
-  window.addEventListener('resize',function(){ resize(); makeDots(); });
-  resize(); makeDots(); frame();
-})();
-
-// ══════════════════════════════════════════
-// LANGUAGE
-// ══════════════════════════════════════════
-var lang = 'ru';
-var TR = {
-  ru:{
-    eyebrow:'Профессиональный сервис',
-    h1:'Авиабилеты', h2:'быстро и надёжно',
-    hsub:'Бронирование рейсов Россия ↔ Узбекистан. Прямые и с пересадками.',
-    s1:'🎫 БИЛЕТЫ', s2:'📢 КАНАЛЫ', s3:'📍 АДРЕС',
-    btn1:'Онлайн цена билета', btn1s:'Узнать стоимость по направлению',
-    btn2:'Забронировать авиабилет', btn2s:'Связаться с нами напрямую',
-    btn3:'Ежемесячные билеты', btn3s:'Telegram, WhatsApp, Max каналы',
-    btn4:'Наш адрес', btn4s:'м. Технологический институт, СПб',
-    back:'Назад',
-    dirtitle:'Выберите направление', dirsub:'Укажите откуда и куда вы летите',
-    d1:'Россия → Узбекистан', d1s:'Прямые и с пересадками',
-    d2:'Узбекистан → Россия', d2s:'Прямые и с пересадками',
-    d3:'Другое направление', d3s:'Международные рейсы',
-    dep_title:'Откуда летите?', dep_sub_ru:'Выберите город вылета в России', dep_sub_uz:'Выберите город вылета в Узбекистане',
-    arr_title:'Куда летите?', arr_sub_ru:'Выберите город в России', arr_sub_uz:'Выберите город в Узбекистане',
-    caltitle:'Выберите дату', calsub:'Укажите дату вылета', calok:'Подтвердить дату',
-    ctitle:'Ваш запрос готов!', csub:'Выберите удобный способ связи',
-    pill:'Сообщение подготовлено автоматически',
-    sumfrom:'Откуда', sumto:'Куда', sumdate:'Дата вылета',
-    booktitle:'Забронировать билет', booksub:'Выберите удобный способ — мы ответим быстро!',
-    call:'Позвонить',
-    grptitle:'Группы ежемесячных билетов', grpsub:'Вступайте и получайте актуальные цены каждый месяц',
-    grp1:'Канал с актуальными ценами', grp2:'Группа ежемесячных билетов', grp3:'Чат в Max',
-    addrtitle:'Наш офис', addrsub:'Приходите к нам лично — поможем с любым вопросом',
-    metro:'МЕТРО ТЕХНОЛОГИЧЕСКИЙ ИНСТИТУТ',
-    street:'4-я Красноармейская, дом 3', code:'Домофон: 22В', office:'🏢 Офис ОМАД ТУР',
-    months:['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
-    dows:['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],
-    msghi:'Здравствуйте! Хотел бы узнать цену на авиабилет:'
-  },
-  uz:{
-    eyebrow:'Professional xizmat',
-    h1:'Aviachiptalar', h2:'tez va ishonchli',
-    hsub:"Rossiya ↔ O'zbekiston reyslarini bron qilish. To'g'ri va transit.",
-    s1:'🎫 CHIPTA', s2:'📢 KANALLAR', s3:'📍 MANZIL',
-    btn1:'Online chipta narxi', btn1s:"Narx va yo'nalishni bilish",
-    btn2:'Aviachiptani bron qilish', btn2s:"Biz bilan to'g'ridan-to'g'ri bog'laning",
-    btn3:'Oylik chiptalar', btn3s:'Telegram, WhatsApp, Max kanallar',
-    btn4:'Bizning manzil', btn4s:'m. Texnologicheskiy institut, SPb',
-    back:'Orqaga',
-    dirtitle:"Yo'nalishni tanlang", dirsub:'Qaerdan va qaerga uchayotganingizni tanlang',
-    d1:"Rossiya → O'zbekiston", d1s:"To'g'ri va transit reyslar",
-    d2:"O'zbekiston → Rossiya", d2s:"To'g'ri va transit reyslar",
-    d3:"Boshqa yo'nalish", d3s:"Xalqaro reyslar",
-    dep_title:'Qaerdan uchaysiz?', dep_sub_ru:"Rossiyadan jo'nash shahrini tanlang", dep_sub_uz:"O'zbekistondan jo'nash shahrini tanlang",
-    arr_title:'Qaerga uchaysiz?', arr_sub_ru:"Rossiyada boradigan shahrni tanlang", arr_sub_uz:"O'zbekistonda boradigan shahrni tanlang",
-    caltitle:'Sana tanlang', calsub:"Jo'nash sanasini belgilang", calok:'Sanani tasdiqlash',
-    ctitle:"So'rovingiz tayyor!", csub:'Qulay aloqa usulini tanlang',
-    pill:"Xabar avtomatik tarzda tayyorlandi",
-    sumfrom:'Qaerdan', sumto:'Qaerga', sumdate:"Jo'nash sanasi",
-    booktitle:'Chiptani bron qilish', booksub:'Qulay aloqa usulini tanlang — tez javob beramiz!',
-    call:"Qo'ng'iroq qilish",
-    grptitle:'Oylik chipta guruhlari', grpsub:"Guruhlarimizga qo'shiling va joriy narxlarni oling",
-    grp1:'Joriy narxlar kanali', grp2:'Oylik chiptalar guruhi', grp3:'Max chati',
-    addrtitle:'Bizning ofis', addrsub:"Shaxsan kelib bizga murojaat qiling",
-    metro:'TEXNOLOGICHESKIY INSTITUT METRO',
-    street:'4-ya Krasnoarmeiskaya, 3-uy', code:'Domofon: 22B', office:'🏢 OMAD TUR ofisi',
-    months:['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentyabr','Oktyabr','Noyabr','Dekabr'],
-    dows:['Du','Se','Ch','Pa','Ju','Sh','Ya'],
-    msghi:"Salom! Aviachiptaning narxini bilmoqchi edim:"
-  }
+// ─── STATE ───────────────────────────────────────────
+const state = {
+  lang: 'uz',
+  routeType: null,   // 'ru-uz' | 'uz-ru' | 'other'
+  fromRegion: null,
+  toRegion: null,
+  date: null,
+  screenStack: ['screen-home'],
+  cal: { year: new Date().getFullYear(), month: new Date().getMonth() }
 };
 
-function tr(k){ return (TR[lang]&&TR[lang][k])||TR.ru[k]||k; }
+// ─── DATA ────────────────────────────────────────────
+const ruRegions = [
+  { id:'mow', flag:'🇷🇺', uz:'Moskva', ru:'Москва' },
+  { id:'spb', flag:'🇷🇺', uz:'Sankt-Peterburg', ru:'Санкт-Петербург' },
+  { id:'ekb', flag:'🇷🇺', uz:'Yekaterinburg', ru:'Екатеринбург' },
+  { id:'nsk', flag:'🇷🇺', uz:'Novosibirsk', ru:'Новосибирск' },
+  { id:'kzn', flag:'🇷🇺', uz:'Qozon', ru:'Казань' },
+  { id:'ufa', flag:'🇷🇺', uz:'Ufa', ru:'Уфа' },
+  { id:'krd', flag:'🇷🇺', uz:'Krasnodar', ru:'Краснодар' },
+  { id:'oms', flag:'🇷🇺', uz:'Omsk', ru:'Омск' },
+  { id:'rnd', flag:'🇷🇺', uz:'Rostov', ru:'Ростов-на-Дону' },
+  { id:'vog', flag:'🇷🇺', uz:'Volgograd', ru:'Волгоград' },
+  { id:'chel', flag:'🇷🇺', uz:'Chelyabinsk', ru:'Челябинск' },
+  { id:'krsk', flag:'🇷🇺', uz:'Krasnoyarsk', ru:'Красноярск' },
+];
 
-function setLang(l){
-  lang = l;
-  // update all static text
-  var map = {
-    't-eyebrow':'eyebrow','t-h1':'h1','t-h2':'h2','t-hsub':'hsub',
-    't-s1':'s1','t-s2':'s2','t-s3':'s3',
-    't-btn1':'btn1','t-btn1s':'btn1s','t-btn2':'btn2','t-btn2s':'btn2s',
-    't-btn3':'btn3','t-btn3s':'btn3s','t-btn4':'btn4','t-btn4s':'btn4s',
-    't-back1':'back','t-back2':'back','t-back3':'back','t-back4':'back',
-    't-back5':'back','t-back6':'back','t-back7':'back','t-back8':'back',
-    't-dirtitle':'dirtitle','t-dirsub':'dirsub',
-    't-d1':'d1','t-d1s':'d1s','t-d2':'d2','t-d2s':'d2s','t-d3':'d3','t-d3s':'d3s',
-    't-caltitle':'caltitle','t-calsub':'calsub',
-    't-ctitle':'ctitle','t-csub':'csub','t-pill':'pill',
-    't-booktitle':'booktitle','t-booksub':'booksub','t-call':'call',
-    't-grptitle':'grptitle','t-grpsub':'grpsub',
-    't-grp1':'grp1','t-grp2':'grp2','t-grp3':'grp3',
-    't-addrtitle':'addrtitle','t-addrsub':'addrsub',
-    't-metro':'metro','t-street':'street','t-code':'code','t-office':'office'
+const uzRegions = [
+  { id:'tash', flag:'🇺🇿', uz:'Toshkent', ru:'Ташкент' },
+  { id:'sam', flag:'🇺🇿', uz:'Samarqand', ru:'Самарканд' },
+  { id:'bkh', flag:'🇺🇿', uz:'Buxoro', ru:'Бухара' },
+  { id:'nma', flag:'🇺🇿', uz:'Namangan', ru:'Наманган' },
+  { id:'and', flag:'🇺🇿', uz:'Andijon', ru:'Андижан' },
+  { id:'fgn', flag:'🇺🇿', uz:'Farg\'ona', ru:'Фергана' },
+  { id:'nav', flag:'🇺🇿', uz:'Navoiy', ru:'Навои' },
+  { id:'urg', flag:'🇺🇿', uz:'Urganch', ru:'Ургенч' },
+  { id:'ter', flag:'🇺🇿', uz:'Termiz', ru:'Термез' },
+  { id:'kar', flag:'🇺🇿', uz:'Qarshi', ru:'Карши' },
+];
+
+// ─── LANG ─────────────────────────────────────────────
+function setLang(l) {
+  state.lang = l;
+  document.querySelectorAll('[data-uz]').forEach(el => {
+    el.textContent = el.dataset[l] || el.textContent;
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('lb-' + l).classList.add('active');
+}
+
+function t(uz, ru) { return state.lang === 'ru' ? ru : uz; }
+
+// ─── SCREEN NAVIGATION ────────────────────────────────
+function goScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  state.screenStack.push(id);
+  window.scrollTo(0, 0);
+  // re-apply lang
+  setLang(state.lang);
+}
+
+function goBack() {
+  if (state.screenStack.length > 1) state.screenStack.pop();
+  const prev = state.screenStack[state.screenStack.length - 1];
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(prev).classList.add('active');
+  window.scrollTo(0, 0);
+  setLang(state.lang);
+}
+
+// ─── ROUTE SELECTION ──────────────────────────────────
+function selectRoute(type) {
+  state.routeType = type;
+  state.fromRegion = null;
+  state.toRegion = null;
+  state.date = null;
+
+  if (type === 'other') {
+    // go straight to contact
+    goScreen('screen-bron');
+    return;
+  }
+
+  // Build from-region screen
+  const isRuUz = type === 'ru-uz';
+  const fromLabel = isRuUz
+    ? t('Siz Rossiya Federatsiyasining qaysi viloyatidan uchasiz?', 'Из какого региона России вы летите?')
+    : t('Siz Uzbekistonning qaysi viloyatidan uchasiz?', 'Из какого региона Узбекистана вы летите?');
+
+  document.getElementById('from-region-heading').textContent =
+    isRuUz ? t('Rossiya viloyati', 'Регион России') : t('Uzbekiston viloyati', 'Регион Узбекистана');
+  document.getElementById('from-region-sub').textContent = fromLabel;
+
+  const fromRegions = isRuUz ? ruRegions : uzRegions;
+  buildRegionGrid('from-region-grid', fromRegions, 'from');
+  goScreen('screen-from-region');
+}
+
+function buildRegionGrid(gridId, regions, role) {
+  const grid = document.getElementById(gridId);
+  grid.innerHTML = '';
+  regions.forEach(r => {
+    const btn = document.createElement('button');
+    btn.className = 'region-btn';
+    btn.innerHTML = `<span>${r.flag}</span><span>${state.lang === 'ru' ? r.ru : r.uz}</span>`;
+    btn.onclick = () => onRegionSelect(role, r);
+    grid.appendChild(btn);
+  });
+}
+
+function onRegionSelect(role, region) {
+  if (role === 'from') {
+    state.fromRegion = region;
+
+    // Now build to-region screen
+    const isRuUz = state.routeType === 'ru-uz';
+    const toRegions = isRuUz ? uzRegions : ruRegions;
+    const toLabel = isRuUz
+      ? t('Siz Uzbekistonning qayeriga uchasiz?', 'В какой регион Узбекистана вы летите?')
+      : t('Siz Rossiyaning qayeriga uchasiz?', 'В какой регион России вы летите?');
+
+    document.getElementById('to-region-heading').textContent =
+      isRuUz ? t('Uzbekiston viloyati', 'Регион Узбекистана') : t('Rossiya viloyati', 'Регион России');
+    document.getElementById('to-region-sub').textContent = toLabel;
+    buildRegionGrid('to-region-grid', toRegions, 'to');
+    goScreen('screen-to-region');
+  } else {
+    state.toRegion = region;
+    buildCalendar();
+    goScreen('screen-calendar');
+  }
+}
+
+// ─── CALENDAR ─────────────────────────────────────────
+const MONTHS_UZ = ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr'];
+const MONTHS_RU = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const DAYS_UZ = ['Ya','Du','Se','Ch','Pa','Ju','Sh'];
+const DAYS_RU = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+
+function buildCalendar() {
+  const { year, month } = state.cal;
+  const today = new Date();
+  const months = state.lang === 'ru' ? MONTHS_RU : MONTHS_UZ;
+  const days   = state.lang === 'ru' ? DAYS_RU : DAYS_UZ;
+
+  document.getElementById('cal-month-label').textContent = `${months[month]} ${year}`;
+
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+
+  days.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'cal-day-name';
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+
+  // First day of month (Monday=0)
+  let firstDay = new Date(year, month, 1).getDay(); // 0=Sun
+  firstDay = (firstDay + 6) % 7; // convert to Mon=0
+  for (let i = 0; i < firstDay; i++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day empty';
+    grid.appendChild(el);
+  }
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  for (let d = 1; d <= daysInMonth; d++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day';
+    el.textContent = d;
+    const thisDate = new Date(year, month, d);
+    const todayMid = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    if (thisDate < todayMid) {
+      el.classList.add('past');
+    } else {
+      if (thisDate.getTime() === todayMid.getTime()) el.classList.add('today');
+      el.onclick = () => selectDate(year, month, d);
+    }
+    if (state.date &&
+        state.date.year === year &&
+        state.date.month === month &&
+        state.date.day === d) {
+      el.classList.add('selected');
+    }
+    grid.appendChild(el);
+  }
+}
+
+function calNav(dir) {
+  state.cal.month += dir;
+  if (state.cal.month < 0) { state.cal.month = 11; state.cal.year--; }
+  if (state.cal.month > 11){ state.cal.month = 0;  state.cal.year++; }
+  buildCalendar();
+}
+
+function selectDate(y, m, d) {
+  state.date = { year: y, month: m, day: d };
+  buildCalendar();
+  setTimeout(() => {
+    buildSummary();
+    goScreen('screen-contact-send');
+  }, 250);
+}
+
+// ─── SUMMARY ──────────────────────────────────────────
+function buildSummary() {
+  const months = state.lang === 'ru' ? MONTHS_RU : MONTHS_UZ;
+  const { fromRegion, toRegion, date } = state;
+  const dateStr = `${date.day} ${months[date.month]} ${date.year}`;
+
+  const fromName = state.lang === 'ru' ? fromRegion.ru : fromRegion.uz;
+  const toName   = state.lang === 'ru' ? toRegion.ru   : toRegion.uz;
+
+  const card = document.getElementById('summary-card');
+  card.innerHTML = `
+    <div class="summary-row">
+      <span class="summary-label">${t('Yo\'nalish','Маршрут')}</span>
+      <span class="summary-value">${fromRegion.flag} ${fromName} → ${toRegion.flag} ${toName}</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">${t('Sana','Дата')}</span>
+      <span class="summary-value">${dateStr}</span>
+    </div>
+  `;
+  setLang(state.lang);
+}
+
+function buildMessage() {
+  const months = state.lang === 'ru' ? MONTHS_RU : MONTHS_UZ;
+  const { fromRegion, toRegion, date } = state;
+  const dateStr = `${date.day} ${months[date.month]} ${date.year}`;
+  const fromName = state.lang === 'ru' ? fromRegion.ru : fromRegion.uz;
+  const toName   = state.lang === 'ru' ? toRegion.ru   : toRegion.uz;
+
+  if (state.lang === 'ru') {
+    return `✈️ Запрос на билет\n\nМаршрут: ${fromRegion.flag} ${fromName} → ${toRegion.flag} ${toName}\nДата: ${dateStr}\n\nПрошу помочь с подбором рейса. Спасибо!`;
+  }
+  return `✈️ Bilet so'rovi\n\nYo'nalish: ${fromRegion.flag} ${fromName} → ${toRegion.flag} ${toName}\nSana: ${dateStr}\n\nReys tanlashda yordam so'rayman. Rahmat!`;
+}
+
+// ─── SEND VIA ──────────────────────────────────────────
+function sendVia(platform) {
+  const msg = encodeURIComponent(buildMessage());
+  let url = '';
+  if (platform === 'wa') url = `https://wa.me/79811939094?text=${msg}`;
+  else if (platform === 'tg') url = `https://t.me/OMAD_TOUR9094?text=${msg}`;
+  else if (platform === 'mx') url = `https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk`;
+  window.open(url, '_blank');
+}
+
+function closeOverlay() {
+  document.getElementById('msg-overlay').classList.remove('show');
+}
+
+// ─── PARTICLES ────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function Particle() {
+    this.reset();
+  }
+  Particle.prototype.reset = function() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.r = Math.random() * 1.8 + 0.4;
+    this.vx = (Math.random() - 0.5) * 0.35;
+    this.vy = (Math.random() - 0.5) * 0.35;
+    this.alpha = Math.random() * 0.5 + 0.1;
+    this.color = Math.random() > 0.6 ? '#2979ff' : Math.random() > 0.5 ? '#00c6ff' : '#ffffff';
   };
-  for(var id in map){
-    var el = document.getElementById(id);
-    if(el) el.textContent = tr(map[id]);
-  }
-  // update lang buttons everywhere
-  document.querySelectorAll('.lbtn').forEach(function(b){
-    b.classList.toggle('act', b.textContent.trim().toLowerCase()===l);
-  });
-  // rebuild dynamic screens if active
-  if(document.getElementById('depart-body').innerHTML) buildDepart();
-  if(document.getElementById('arrive-body').innerHTML) buildArrive();
-  if(calY) buildCal();
-  if(document.getElementById('sum-box').innerHTML) buildContactScreen();
-  // rebuild btn-calok text
-  var btn = document.getElementById('btn-calok');
-  if(btn) btn.textContent = tr('calok');
-}
+  Particle.prototype.update = function() {
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x < -5 || this.x > W+5 || this.y < -5 || this.y > H+5) this.reset();
+  };
+  Particle.prototype.draw = function() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+    ctx.fillStyle = this.color;
+    ctx.globalAlpha = this.alpha;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  };
 
-// ══════════════════════════════════════════
-// NAVIGATION
-// ══════════════════════════════════════════
-var history = [];
-
-function go(id){
-  var cur = history.length ? history[history.length-1] : 'p-home';
-  document.getElementById(cur).classList.remove('on');
-  document.getElementById(id).classList.add('on');
-  history.push(id);
-  window.scrollTo(0,0);
-  // scroll each page to top
-  var el = document.getElementById(id);
-  if(el) el.scrollTop = 0;
-}
-
-function back(id){
-  var cur = history.length ? history[history.length-1] : null;
-  if(cur) document.getElementById(cur).classList.remove('on');
-  if(history.length) history.pop();
-  document.getElementById(id).classList.add('on');
-  var el = document.getElementById(id);
-  if(el) el.scrollTop = 0;
-}
-
-// ══════════════════════════════════════════
-// DATA
-// ══════════════════════════════════════════
-var RU = [
-  {ru:'Москва',uz:'Moskva',f:'🇷🇺',c:'MOW'},
-  {ru:'Санкт-Петербург',uz:'Sankt-Peterburg',f:'🇷🇺',c:'LED'},
-  {ru:'Екатеринбург',uz:'Yekaterinburg',f:'🇷🇺',c:'SVX'},
-  {ru:'Казань',uz:'Kazan',f:'🇷🇺',c:'KZN'},
-  {ru:'Новосибирск',uz:'Novosibirsk',f:'🇷🇺',c:'OVB'},
-  {ru:'Тюмень',uz:'Tyumen',f:'🇷🇺',c:'TJM'},
-  {ru:'Краснодар',uz:'Krasnodar',f:'🇷🇺',c:'KRR'},
-  {ru:'Уфа',uz:'Ufa',f:'🇷🇺',c:'UFA'},
-  {ru:'Сургут',uz:'Surgut',f:'🇷🇺',c:'SGC'},
-  {ru:'Нижний Новгород',uz:'Nijniy Novgorod',f:'🇷🇺',c:'GOJ'},
-  {ru:'Самара',uz:'Samara',f:'🇷🇺',c:'KUF'},
-  {ru:'Новый Уренгой',uz:"Noviy Urengoy",f:'🇷🇺',c:'NUX'}
-];
-var UZ = [
-  {ru:'Ташкент',uz:'Toshkent',f:'🇺🇿',c:'TAS'},
-  {ru:'Самарканд',uz:'Samarqand',f:'🇺🇿',c:'SKD'},
-  {ru:'Фергана',uz:"Farg'ona",f:'🇺🇿',c:'FEG'},
-  {ru:'Андижан',uz:'Andijon',f:'🇺🇿',c:'AZN'},
-  {ru:'Наманган',uz:'Namangan',f:'🇺🇿',c:'NMA'},
-  {ru:'Бухара',uz:'Buxoro',f:'🇺🇿',c:'BHK'},
-  {ru:'Навои',uz:'Navoiy',f:'🇺🇿',c:'NVI'},
-  {ru:'Карши',uz:'Qarshi',f:'🇺🇿',c:'KSQ'},
-  {ru:'Термез',uz:'Termiz',f:'🇺🇿',c:'TMZ'},
-  {ru:'Ургенч',uz:'Urganch',f:'🇺🇿',c:'UGC'}
-];
-
-function cname(city){ return lang==='uz' ? city.uz : city.ru; }
-
-// state
-var ST = { dir:null, from:null, to:null, date:null };
-
-// ══════════════════════════════════════════
-// DIRECTION
-// ══════════════════════════════════════════
-function pickDir(d){
-  ST.dir = d; ST.from = null; ST.to = null; ST.date = null;
-  buildDepart();
-  go('p-depart');
-}
-
-function buildDepart(){
-  var list, subKey;
-  if(ST.dir==='ru_uz'){ list=RU; subKey='dep_sub_ru'; }
-  else if(ST.dir==='uz_ru'){ list=UZ; subKey='dep_sub_uz'; }
-  else { list=RU.concat(UZ); subKey='dep_sub_ru'; }
-
-  var html = '<div class="stitle">'+tr('dep_title')+'</div>';
-  html += '<div class="ssub">'+tr(subKey)+'</div>';
-  html += '<div class="rgrid">';
-  list.forEach(function(c,i){
-    html += '<button class="rbtn" onclick="pickFrom(\''+c.c+'\')">';
-    html += '<span class="rflag">'+c.f+'</span><span>'+cname(c)+'</span></button>';
-  });
-  html += '</div>';
-  document.getElementById('depart-body').innerHTML = html;
-}
-
-function pickFrom(code){
-  var pool = ST.dir==='ru_uz' ? RU : ST.dir==='uz_ru' ? UZ : RU.concat(UZ);
-  ST.from = pool.filter(function(c){ return c.c===code; })[0];
-  buildArrive();
-  go('p-arrive');
-}
-
-function buildArrive(){
-  var list, subKey;
-  if(ST.dir==='ru_uz'){ list=UZ; subKey='arr_sub_uz'; }
-  else if(ST.dir==='uz_ru'){ list=RU; subKey='arr_sub_ru'; }
-  else {
-    var isRU = RU.filter(function(c){ return c.c===ST.from.c; }).length>0;
-    list = isRU ? UZ : RU;
-    subKey = isRU ? 'arr_sub_uz' : 'arr_sub_ru';
+  function init() {
+    resize();
+    particles = [];
+    const count = Math.floor((W * H) / 7000);
+    for (let i = 0; i < count; i++) particles.push(new Particle());
   }
 
-  var html = '<div class="stitle">'+tr('arr_title')+'</div>';
-  html += '<div class="ssub">'+tr(subKey)+'</div>';
-  html += '<div class="rgrid">';
-  list.forEach(function(c){
-    html += '<button class="rbtn" onclick="pickTo(\''+c.c+'\')">';
-    html += '<span class="rflag">'+c.f+'</span><span>'+cname(c)+'</span></button>';
-  });
-  html += '</div>';
-  document.getElementById('arrive-body').innerHTML = html;
-}
-
-function pickTo(code){
-  var pool;
-  if(ST.dir==='ru_uz') pool=UZ;
-  else if(ST.dir==='uz_ru') pool=RU;
-  else {
-    var isRU = RU.filter(function(c){ return c.c===ST.from.c; }).length>0;
-    pool = isRU ? UZ : RU;
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
   }
-  ST.to = pool.filter(function(c){ return c.c===code; })[0];
-  initCal();
-  go('p-calendar');
-}
 
-// ══════════════════════════════════════════
-// CALENDAR
-// ══════════════════════════════════════════
-var calY=0, calM=0, calSel=null;
+  window.addEventListener('resize', init);
+  init();
+  animate();
+})();
 
-function initCal(){
-  var n = new Date();
-  calY = n.getFullYear(); calM = n.getMonth(); calSel = null;
-  document.getElementById('btn-calok').disabled = true;
-  document.getElementById('btn-calok').textContent = tr('calok');
-  buildCal();
-}
-
-function buildCal(){
-  var months = tr('months');
-  var dows = tr('dows');
-  var now = new Date();
-  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  var first = new Date(calY, calM, 1);
-  var startDow = (first.getDay()+6)%7; // mon=0
-  var total = new Date(calY, calM+1, 0).getDate();
-
-  var h = '<div class="calhead">';
-  h += '<button class="calnav" onclick="calNav(-1)">‹</button>';
-  h += '<div class="calmy">'+months[calM]+' '+calY+'</div>';
-  h += '<button class="calnav" onclick="calNav(1)">›</button></div>';
-  h += '<div class="calgrid">';
-  dows.forEach(function(d){ h+='<div class="cdow">'+d+'</div>'; });
-  for(var i=0;i<startDow;i++) h+='<div class="cday emp"></div>';
-  for(var d=1;d<=total;d++){
-    var dt = new Date(calY,calM,d);
-    var past = dt < today;
-    var isToday = dt.getTime()===today.getTime();
-    var isSel = calSel && calSel.getTime()===dt.getTime();
-    var cls = 'cday';
-    if(past) cls+=' pst';
-    if(isToday) cls+=' tod';
-    if(isSel) cls+=' sel';
-    var click = past ? '' : 'onclick="calPick('+calY+','+calM+','+d+')"';
-    h+='<div class="'+cls+'" '+click+'>'+d+'</div>';
-  }
-  h+='</div>';
-  document.getElementById('cal-box').innerHTML = h;
-}
-
-function calNav(d){
-  calM += d;
-  if(calM<0){ calM=11; calY--; }
-  if(calM>11){ calM=0; calY++; }
-  buildCal();
-}
-
-function calPick(y,m,d){
-  calSel = new Date(y,m,d);
-  calY=y; calM=m;
-  buildCal();
-  document.getElementById('btn-calok').disabled = false;
-}
-
-function calConfirm(){
-  if(!calSel) return;
-  ST.date = calSel;
-  buildContactScreen();
-  go('p-contact');
-}
-
-function fmtDate(dt){
-  var months = tr('months');
-  return dt.getDate()+' '+months[dt.getMonth()]+' '+dt.getFullYear();
-}
-
-// ══════════════════════════════════════════
-// CONTACT SCREEN
-// ══════════════════════════════════════════
-function buildContactScreen(){
-  var fromName = ST.from ? cname(ST.from) : '?';
-  var toName = ST.to ? cname(ST.to) : '?';
-  var dateStr = ST.date ? fmtDate(ST.date) : '?';
-  var fromF = ST.from ? ST.from.f : '';
-  var toF = ST.to ? ST.to.f : '';
-
-  // summary
-  document.getElementById('sum-box').innerHTML =
-    '<div class="sumbox">'+
-    '<div class="sumlabel">✈️ '+tr('sumfrom')+' / '+tr('sumto')+' / '+tr('sumdate')+'</div>'+
-    '<div class="sumrow"><span class="sumk">'+tr('sumfrom')+'</span><span class="sumv">'+fromF+' '+fromName+'</span></div>'+
-    '<div class="sumrow"><span class="sumk">'+tr('sumto')+'</span><span class="sumv">'+toF+' '+toName+'</span></div>'+
-    '<div class="sumrow"><span class="sumk">'+tr('sumdate')+'</span><span class="sumv">📅 '+dateStr+'</span></div>'+
-    '</div>';
-
-  // message
-  var msg = tr('msghi')+'\n'+fromF+' '+fromName+' → '+toF+' '+toName+'\n📅 '+dateStr;
-  var enc = encodeURIComponent(msg);
-
-  document.getElementById('contact-links').innerHTML =
-    '<a class="ccard" href="https://t.me/OMAD_TOUR9094?text='+enc+'" target="_blank">'+
-    '<div class="cic bl">✈️</div><div class="ctxt"><div class="ctitle">Telegram</div><div class="cdesc">@OMAD_TOUR9094</div></div><div class="chev">›</div></a>'+
-    '<a class="ccard" href="https://wa.me/79811939094?text='+enc+'" target="_blank">'+
-    '<div class="cic gr">💬</div><div class="ctxt"><div class="ctitle">WhatsApp</div><div class="cdesc">+7 981 193 90 94</div></div><div class="chev">›</div></a>'+
-    '<a class="ccard" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk" target="_blank">'+
-    '<div class="cic pk">⚡</div><div class="ctxt"><div class="ctitle">Max</div><div class="cdesc">Открыть чат в Max</div></div><div class="chev">›</div></a>';
-
-  // update pill and title
-  document.getElementById('t-ctitle').textContent = tr('ctitle');
-  document.getElementById('t-csub').textContent = tr('csub');
-  document.getElementById('t-pill').textContent = tr('pill');
-}
-
-// init
-setLang('ru');
+// ─── INITIAL LANG APPLY ───────────────────────────────
+setLang('uz');
 </script>
 </body>
 </html>
