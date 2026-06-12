@@ -94,17 +94,7 @@
   /* ── HERO ── */
   .hero {
     text-align: center;
-    padding: 64px 20px 48px;
-  }
-  .plane-icon {
-    font-size: 52px; display: block;
-    animation: floatPlane 3.5s ease-in-out infinite;
-    filter: drop-shadow(0 0 22px rgba(124,58,237,.7));
-    margin-bottom: 16px;
-  }
-  @keyframes floatPlane {
-    0%,100% { transform: translateY(0) rotate(-4deg); }
-    50%      { transform: translateY(-11px) rotate(4deg); }
+    padding: 44px 20px 36px;
   }
   .hero-tag {
     font-size: 10.5px; font-weight: 700; letter-spacing: 4px;
@@ -135,7 +125,7 @@
   /* ── iOS-STYLE LIST ── */
   .menu-list {
     max-width: 600px; margin: 0 auto;
-    padding: 24px 16px 16px;
+    padding: 16px 16px 10px;
     display: flex; flex-direction: column; gap: 0;
     border-radius: 18px; overflow: hidden;
   }
@@ -143,7 +133,7 @@
     display: flex; align-items: center; gap: 14px;
     background: rgba(255,255,255,.05);
     border: none; border-bottom: 1px solid rgba(255,255,255,.06);
-    padding: 16px 18px;
+    padding: 13px 16px;
     cursor: pointer; transition: var(--transition);
     color: var(--white); text-align: left; width: 100%;
   }
@@ -262,6 +252,22 @@
 
   /* ── CONTACT LIST ── */
   .contact-list { display: flex; flex-direction: column; gap: 10px; }
+
+  /* 2x2 grid for send/bron contacts */
+  .contact-grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .contact-grid-2x2 .contact-btn {
+    border-radius: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .contact-grid-2x2 .contact-btn-inner { gap: 2px; }
+  .contact-grid-2x2 .contact-btn-arrow { display: none; }
   .contact-btn {
     display: flex; align-items: center; gap: 14px;
     background: rgba(255,255,255,.05);
@@ -345,7 +351,6 @@
 <!-- ═══════ HOME ═══════ -->
 <div class="screen active" id="screen-home">
   <div class="hero">
-    <span class="plane-icon">✈️</span>
     <p class="hero-tag" data-uz="Ishonchli aviakassa" data-ru="Надёжная авиакасса">Ishonchli aviakassa</p>
     <h1>OMAD TOUR</h1>
     <p class="hero-sub"
@@ -490,14 +495,13 @@
        data-uz="Xabaringiz tayyor — qaysi orqali yuborasiz?"
        data-ru="Сообщение готово — через что отправить?">Xabaringiz tayyor — qaysi orqali yuborasiz?</p>
     <div class="summary-card" id="summary-card"></div>
-    <div class="contact-list">
+    <div class="contact-grid-2x2">
       <a class="contact-btn" href="#" onclick="sendVia('wa');return false;">
         <div class="contact-icon ci-wa">💬</div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">WhatsApp</span>
           <span class="contact-btn-val">+7 981 193-90-94</span>
         </div>
-        <span class="contact-btn-arrow">›</span>
       </a>
       <a class="contact-btn" href="#" onclick="sendVia('tg');return false;">
         <div class="contact-icon ci-tg">✈️</div>
@@ -505,15 +509,6 @@
           <span class="contact-btn-name">Telegram</span>
           <span class="contact-btn-val">@OMAD_TOUR9094</span>
         </div>
-        <span class="contact-btn-arrow">›</span>
-      </a>
-      <a class="contact-btn" href="#" onclick="sendVia('mx');return false;">
-        <div class="contact-icon ci-mx">💙</div>
-        <div class="contact-btn-inner">
-          <span class="contact-btn-name">Max</span>
-          <span class="contact-btn-val">max.ru</span>
-        </div>
-        <span class="contact-btn-arrow">›</span>
       </a>
       <a class="contact-btn" id="sms-send-btn" href="#">
         <div class="contact-icon ci-sms">💬</div>
@@ -521,7 +516,13 @@
           <span class="contact-btn-name">SMS</span>
           <span class="contact-btn-val">+7 981 193-90-94</span>
         </div>
-        <span class="contact-btn-arrow">›</span>
+      </a>
+      <a class="contact-btn" href="#" onclick="sendVia('mx');return false;">
+        <div class="contact-icon ci-mx">💙</div>
+        <div class="contact-btn-inner">
+          <span class="contact-btn-name">Max</span>
+          <span class="contact-btn-val">max.ru</span>
+        </div>
       </a>
     </div>
   </div>
@@ -539,14 +540,13 @@
        data-uz="Tezkor bron uchun qulay aloqani tanlang va biz bilan bog'laning"
        data-ru="Выберите удобный способ и свяжитесь с нами для быстрого бронирования">
       Tezkor bron uchun qulay aloqani tanlang va biz bilan bog'laning</p>
-    <div class="contact-list">
+    <div class="contact-grid-2x2">
       <a class="contact-btn" href="https://t.me/OMAD_TOUR9094" target="_blank">
         <div class="contact-icon ci-tg">✈️</div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">Telegram</span>
           <span class="contact-btn-val">@OMAD_TOUR9094</span>
         </div>
-        <span class="contact-btn-arrow">›</span>
       </a>
       <a class="contact-btn" href="https://wa.me/79811939094" target="_blank">
         <div class="contact-icon ci-wa">💬</div>
@@ -554,7 +554,6 @@
           <span class="contact-btn-name">WhatsApp</span>
           <span class="contact-btn-val">+7 981 193-90-94</span>
         </div>
-        <span class="contact-btn-arrow">›</span>
       </a>
       <a class="contact-btn" href="sms:+79811939094">
         <div class="contact-icon ci-sms">💬</div>
@@ -562,7 +561,6 @@
           <span class="contact-btn-name">SMS</span>
           <span class="contact-btn-val">+7 981 193-90-94</span>
         </div>
-        <span class="contact-btn-arrow">›</span>
       </a>
       <a class="contact-btn" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk" target="_blank">
         <div class="contact-icon ci-mx">💙</div>
@@ -570,9 +568,10 @@
           <span class="contact-btn-name">Max</span>
           <span class="contact-btn-val">max.ru/u/...</span>
         </div>
-        <span class="contact-btn-arrow">›</span>
       </a>
-      <a class="contact-btn" href="tel:+79811939094">
+    </div>
+    <div style="margin-top:10px;">
+      <a class="contact-btn" href="tel:+79811939094" style="border-radius:15px;">
         <div class="contact-icon ci-tel">📞</div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name" data-uz="Qo'ng'iroq" data-ru="Позвонить">Qo'ng'iroq</span>
