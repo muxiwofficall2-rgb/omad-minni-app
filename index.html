@@ -146,8 +146,9 @@
   .menu-icon-wrap {
     width: 46px; height: 46px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 22px; flex-shrink: 0;
+    flex-shrink: 0;
   }
+  .menu-icon-wrap svg { width: 26px; height: 26px; }
   .mi-purple { background: linear-gradient(135deg, #7c3aed, #a855f7); }
   .mi-blue   { background: linear-gradient(135deg, #1e40af, #3b82f6); }
   .mi-teal   { background: linear-gradient(135deg, #0e7490, #06b6d4); }
@@ -369,7 +370,10 @@
   <div class="sec-label" data-uz="ASOSIY XIZMATLAR" data-ru="ОСНОВНЫЕ УСЛУГИ">ASOSIY XIZMATLAR</div>
   <div class="menu-list">
     <button class="menu-item" onclick="goScreen('screen-ticket')">
-      <div class="menu-icon-wrap mi-purple">✈️</div>
+      <div class="menu-icon-wrap mi-purple"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M2 9.5V7a2 2 0 012-2h16a2 2 0 012 2v2.5a2.5 2.5 0 010 5V17a2 2 0 01-2 2H4a2 2 0 01-2-2v-2.5a2.5 2.5 0 010-5z" fill="white" fill-opacity="0.9"/>
+  <path d="M9 12h6M9 9.5h2M13 9.5h2M9 14.5h2M13 14.5h2" stroke="#7c3aed" stroke-width="1.4" stroke-linecap="round"/>
+</svg></div>
       <div class="menu-text">
         <div class="menu-title" data-uz="Online bilet narxi" data-ru="Цены на билеты онлайн">Online bilet narxi</div>
         <div class="menu-desc" data-uz="Rossiya ↔ Uzbekiston reyslar narxlari" data-ru="Цены на рейсы Россия ↔ Узбекистан">Rossiya ↔ Uzbekiston reyslar narxlari</div>
@@ -377,7 +381,9 @@
       <span class="menu-arrow">›</span>
     </button>
     <button class="menu-item" onclick="goScreen('screen-bron')">
-      <div class="menu-icon-wrap mi-blue">📞</div>
+      <div class="menu-icon-wrap mi-blue"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="white"/>
+</svg></div>
       <div class="menu-text">
         <div class="menu-title" data-uz="Aviabilet bron" data-ru="Бронирование билетов">Aviabilet bron</div>
         <div class="menu-desc" data-uz="Tezkor bog'lanish va bron" data-ru="Быстрая связь и бронирование">Tezkor bog'lanish va bron</div>
@@ -385,7 +391,12 @@
       <span class="menu-arrow">›</span>
     </button>
     <button class="menu-item" onclick="goScreen('screen-groups')">
-      <div class="menu-icon-wrap mi-teal">👥</div>
+      <div class="menu-icon-wrap mi-teal"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="9" cy="7" r="3" fill="white"/>
+  <circle cx="17" cy="8" r="2.5" fill="white" fill-opacity="0.7"/>
+  <path d="M3 19c0-3.31 2.69-6 6-6s6 2.69 6 6" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M17 13c2.21 0 4 1.79 4 4" stroke="white" stroke-width="2" stroke-linecap="round" fill-opacity="0.7"/>
+</svg></div>
       <div class="menu-text">
         <div class="menu-title" data-uz="Guruhlarimiz" data-ru="Наши группы">Guruhlarimiz</div>
         <div class="menu-desc" data-uz="Telegram, WhatsApp, Max" data-ru="Telegram, WhatsApp, Max">Telegram, WhatsApp, Max</div>
@@ -393,7 +404,10 @@
       <span class="menu-arrow">›</span>
     </button>
     <button class="menu-item" onclick="goScreen('screen-address')">
-      <div class="menu-icon-wrap mi-red">📍</div>
+      <div class="menu-icon-wrap mi-red"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="white"/>
+  <circle cx="12" cy="9" r="2.5" fill="#e53935"/>
+</svg></div>
       <div class="menu-text">
         <div class="menu-title" data-uz="Manzilimiz" data-ru="Наш адрес">Manzilimiz</div>
         <div class="menu-desc" data-uz="Texnologiya instituti, Krasnoarmeyskaya 3" data-ru="Технологический институт, Красноармейская 3">Texnologiya instituti, Krasnoarmeyskaya 3</div>
@@ -521,7 +535,18 @@
         </div>
       </a>
       <a class="contact-btn" href="#" onclick="sendVia('mx');return false;">
-        <div class="contact-icon ci-mx"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M4 18V7l5.5 6L15 7v11h-2V11.2l-3.5 4-3.5-4V18H4z"/><path d="M16 7h2l-3 5.5 3 5.5h-2l-2-3.7-2 3.7h-2l3-5.5z" fill="rgba(255,255,255,0.6)"/></svg></div>
+        <div class="contact-icon ci-mx"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="maxG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4FC3F7"/>
+      <stop offset="50%" stop-color="#7C4DFF"/>
+      <stop offset="100%" stop-color="#B040B0"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#maxG)"/>
+  <path d="M20 8C13.37 8 8 12.92 8 19c0 3.27 1.47 6.22 3.84 8.33L11 32l5.05-1.58C17.29 30.78 18.62 31 20 31c6.63 0 12-4.92 12-11S26.63 8 20 8z" fill="white"/>
+  <circle cx="20" cy="19.5" r="5" fill="url(#maxG)"/>
+</svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">Max</span>
           <span class="contact-btn-val">max.ru</span>
@@ -566,7 +591,18 @@
         </div>
       </a>
       <a class="contact-btn" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk" target="_blank">
-        <div class="contact-icon ci-mx"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M4 18V7l5.5 6L15 7v11h-2V11.2l-3.5 4-3.5-4V18H4z"/><path d="M16 7h2l-3 5.5 3 5.5h-2l-2-3.7-2 3.7h-2l3-5.5z" fill="rgba(255,255,255,0.6)"/></svg></div>
+        <div class="contact-icon ci-mx"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="maxG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4FC3F7"/>
+      <stop offset="50%" stop-color="#7C4DFF"/>
+      <stop offset="100%" stop-color="#B040B0"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#maxG)"/>
+  <path d="M20 8C13.37 8 8 12.92 8 19c0 3.27 1.47 6.22 3.84 8.33L11 32l5.05-1.58C17.29 30.78 18.62 31 20 31c6.63 0 12-4.92 12-11S26.63 8 20 8z" fill="white"/>
+  <circle cx="20" cy="19.5" r="5" fill="url(#maxG)"/>
+</svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">Max</span>
           <span class="contact-btn-val">max.ru/u/...</span>
@@ -616,7 +652,18 @@
         <span class="contact-btn-arrow">›</span>
       </a>
       <a class="contact-btn" href="https://max.ru/join/M4-SsjF594_qN-XYZd8YabTAqxvGFRzd30p_N2hRh7c" target="_blank">
-        <div class="contact-icon ci-mx"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M4 18V7l5.5 6L15 7v11h-2V11.2l-3.5 4-3.5-4V18H4z"/><path d="M16 7h2l-3 5.5 3 5.5h-2l-2-3.7-2 3.7h-2l3-5.5z" fill="rgba(255,255,255,0.6)"/></svg></div>
+        <div class="contact-icon ci-mx"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="maxG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4FC3F7"/>
+      <stop offset="50%" stop-color="#7C4DFF"/>
+      <stop offset="100%" stop-color="#B040B0"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#maxG)"/>
+  <path d="M20 8C13.37 8 8 12.92 8 19c0 3.27 1.47 6.22 3.84 8.33L11 32l5.05-1.58C17.29 30.78 18.62 31 20 31c6.63 0 12-4.92 12-11S26.63 8 20 8z" fill="white"/>
+  <circle cx="20" cy="19.5" r="5" fill="url(#maxG)"/>
+</svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">Max</span>
           <span class="contact-btn-val">max.ru/join/...</span>
@@ -643,7 +690,7 @@
         🏢 <strong>Офис ОМАД ТУР</strong>
       </div>
       <div class="map-btns">
-        <a class="map-btn" href="https://yandex.ru/maps/-/CLaRUCPW" target="_blank">➤ 📍  Yandex Maps</a>
+        <a class="map-btn" href="https://yandex.ru/maps/-/CLaRUCPW" target="_blank">➤🗺 Yandex Maps</a>
         <a class="map-btn" href="https://maps.apple/p/GQw0MY4gCth._6" target="_blank"> Apple Maps</a>
       </div>
     </div>
