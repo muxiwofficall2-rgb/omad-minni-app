@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aviakassa</title>
+<title>OMAD TOUR — Aviakassa</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600&display=swap');
 
@@ -285,11 +285,14 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 21px; flex-shrink: 0;
   }
-  .ci-wa  { background: rgba(37,211,102,.18); }
-  .ci-tg  { background: rgba(0,136,204,.18); }
-  .ci-mx  { background: rgba(255,100,50,.18); }
-  .ci-sms { background: rgba(90,200,250,.18); }
-  .ci-tel { background: rgba(124,58,237,.22); }
+  .ci-wa  { background: #25D366; }
+  .ci-tg  { background: #229ED9; }
+  .ci-mx  { background: #FF6432; }
+  .ci-sms { background: rgba(90,200,250,.25); border: 1px solid rgba(90,200,250,.35); }
+  .ci-tel { background: linear-gradient(135deg,#7c3aed,#a855f7); }
+  .ci-loc { background: #e53935; }
+
+  .contact-icon svg { width: 24px; height: 24px; display: block; }
 
   .contact-btn-inner { display: flex; flex-direction: column; gap: 1px; flex: 1; }
   .contact-btn-name  { font-size: 15px; font-weight: 700; color: #fff; }
@@ -497,28 +500,28 @@
     <div class="summary-card" id="summary-card"></div>
     <div class="contact-grid-2x2">
       <a class="contact-btn" href="#" onclick="sendVia('wa');return false;">
-        <div class="contact-icon ci-wa">💬</div>
+        <div class="contact-icon ci-wa"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">WhatsApp</span>
           <span class="contact-btn-val">+7 981 193-90-94</span>
         </div>
       </a>
       <a class="contact-btn" href="#" onclick="sendVia('tg');return false;">
-        <div class="contact-icon ci-tg">✈️</div>
+        <div class="contact-icon ci-tg"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">Telegram</span>
           <span class="contact-btn-val">@OMAD_TOUR9094</span>
         </div>
       </a>
       <a class="contact-btn" id="sms-send-btn" href="#">
-        <div class="contact-icon ci-sms">💬</div>
+        <div class="contact-icon ci-sms"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(90,200,250,0.9)" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">SMS</span>
           <span class="contact-btn-val">+7 981 193-90-94</span>
         </div>
       </a>
       <a class="contact-btn" href="#" onclick="sendVia('mx');return false;">
-        <div class="contact-icon ci-mx">💙</div>
+        <div class="contact-icon ci-mx"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M4 18V7l5.5 6L15 7v11h-2V11.2l-3.5 4-3.5-4V18H4z"/><path d="M16 7h2l-3 5.5 3 5.5h-2l-2-3.7-2 3.7h-2l3-5.5z" fill="rgba(255,255,255,0.6)"/></svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">Max</span>
           <span class="contact-btn-val">max.ru</span>
@@ -542,28 +545,28 @@
       Tezkor bron uchun qulay aloqani tanlang va biz bilan bog'laning</p>
     <div class="contact-grid-2x2">
       <a class="contact-btn" href="https://t.me/OMAD_TOUR9094" target="_blank">
-        <div class="contact-icon ci-tg">✈️</div>
+        <div class="contact-icon ci-tg"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">Telegram</span>
           <span class="contact-btn-val">@OMAD_TOUR9094</span>
         </div>
       </a>
       <a class="contact-btn" href="https://wa.me/79811939094" target="_blank">
-        <div class="contact-icon ci-wa">💬</div>
+        <div class="contact-icon ci-wa"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">WhatsApp</span>
           <span class="contact-btn-val">+7 981 193-90-94</span>
         </div>
       </a>
       <a class="contact-btn" href="sms:+79811939094">
-        <div class="contact-icon ci-sms">💬</div>
+        <div class="contact-icon ci-sms"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(90,200,250,0.9)" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">SMS</span>
           <span class="contact-btn-val">+7 981 193-90-94</span>
         </div>
       </a>
       <a class="contact-btn" href="https://max.ru/u/f9LHodD0cOLLpEmAWC_I3iUUWcn5IO6DFYg0IVz4jEXfm6BJP6OL-L7V0jk" target="_blank">
-        <div class="contact-icon ci-mx">💙</div>
+        <div class="contact-icon ci-mx"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M4 18V7l5.5 6L15 7v11h-2V11.2l-3.5 4-3.5-4V18H4z"/><path d="M16 7h2l-3 5.5 3 5.5h-2l-2-3.7-2 3.7h-2l3-5.5z" fill="rgba(255,255,255,0.6)"/></svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">Max</span>
           <span class="contact-btn-val">max.ru/u/...</span>
@@ -572,7 +575,7 @@
     </div>
     <div style="margin-top:10px;">
       <a class="contact-btn" href="tel:+79811939094" style="border-radius:15px;">
-        <div class="contact-icon ci-tel">📞</div>
+        <div class="contact-icon ci-tel"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name" data-uz="Qo'ng'iroq" data-ru="Позвонить">Qo'ng'iroq</span>
           <span class="contact-btn-val">+7 981 193-90-94</span>
@@ -597,7 +600,7 @@
       Qo'shiling — oylik guruh safarlarida chegirmali narxlar!</p>
     <div class="contact-list">
       <a class="contact-btn" href="https://t.me/+uJn1nFmpzjoxMGEy" target="_blank">
-        <div class="contact-icon ci-tg">✈️</div>
+        <div class="contact-icon ci-tg"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">Telegram</span>
           <span class="contact-btn-val">t.me/+uJn1nFmpzjoxMGEy</span>
@@ -605,7 +608,7 @@
         <span class="contact-btn-arrow">›</span>
       </a>
       <a class="contact-btn" href="https://chat.whatsapp.com/KgnvfhpMYso6lSX3kbNd4l" target="_blank">
-        <div class="contact-icon ci-wa">💬</div>
+        <div class="contact-icon ci-wa"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">WhatsApp</span>
           <span class="contact-btn-val">chat.whatsapp.com/...</span>
@@ -613,7 +616,7 @@
         <span class="contact-btn-arrow">›</span>
       </a>
       <a class="contact-btn" href="https://max.ru/join/M4-SsjF594_qN-XYZd8YabTAqxvGFRzd30p_N2hRh7c" target="_blank">
-        <div class="contact-icon ci-mx">💙</div>
+        <div class="contact-icon ci-mx"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M4 18V7l5.5 6L15 7v11h-2V11.2l-3.5 4-3.5-4V18H4z"/><path d="M16 7h2l-3 5.5 3 5.5h-2l-2-3.7-2 3.7h-2l3-5.5z" fill="rgba(255,255,255,0.6)"/></svg></div>
         <div class="contact-btn-inner">
           <span class="contact-btn-name">Max</span>
           <span class="contact-btn-val">max.ru/join/...</span>
@@ -640,7 +643,7 @@
         🏢 <strong>Офис ОМАД ТУР</strong>
       </div>
       <div class="map-btns">
-        <a class="map-btn" href="https://yandex.ru/maps/-/CLaRUCPW" target="_blank">➤ Yandex Maps</a>
+        <a class="map-btn" href="https://yandex.ru/maps/-/CLaRUCPW" target="_blank">➤ 📍  Yandex Maps</a>
         <a class="map-btn" href="https://maps.apple/p/GQw0MY4gCth._6" target="_blank"> Apple Maps</a>
       </div>
     </div>
