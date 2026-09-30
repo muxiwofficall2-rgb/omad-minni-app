@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <meta name="theme-color" content="#922469">
+    <meta name="description" content="OMAD TOUR — Aviakassa, viza va mijozlarga xizmat">
+
+    <title>OMAD TOUR</title>
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Telegram Mini App -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+
+    <!-- HEADER -->
+    <header class="topbar">
+        <button class="icon-btn hidden" id="backBtn" onclick="goBack()">
+            <svg viewBox="0 0 24 24">
+                <path d="M15 18l-6-6 6-6"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <div class="brand" onclick="logoClick()">
+            <img src="assets/logo.png" alt="OMAD TOUR">
+            <div>
+                <strong>OMAD TOUR</strong>
+                <span id="pageTitle">Главная</span>
+            </div>
+        </div>
+
+        <button class="icon-btn" onclick="toggleTheme()">
+            <svg viewBox="0 0 24 24">
+                <path d="M21 15.5A9 9 0 0 1 8.5 3
+                         9 9 0 1 0 21 15.5z"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"/>
+            </svg>
+        </button>
+    </header>
+
+
+    <!-- MAIN -->
+    <main id="screen"></main>
+
+
+    <!-- LANGUAGE -->
+    <div class="language-box hidden" id="languageBox">
+        <button onclick="setLanguage('uz')">🇺🇿 O‘zbekcha</button>
+        <button onclick="setLanguage('ru')">🇷🇺 Русский</button>
+        <button onclick="setLanguage('tk')">🇹🇲 Türkmençe</button>
+        <button onclick="setLanguage('en')">🇬🇧 English</button>
+    </div>
+
+
+    <!-- ADMIN PASSWORD -->
+    <div class="modal hidden" id="adminModal">
+        <div class="modal-card">
+
+            <button class="modal-close" onclick="closeAdmin()">×</button>
+
+            <div class="modal-logo">
+                <img src="assets/logo.png" alt="">
+            </div>
+
+            <h2>Admin</h2>
+            <p>Admin panelga kirish</p>
+
+            <input
+                id="adminPassword"
+                type="password"
+                placeholder="Parol">
+
+            <button class="primary-btn" onclick="loginAdmin()">
+                Kirish
+            </button>
+
+            <div id="adminError" class="error"></div>
+
+        </div>
+    </div>
+
+
+    <!-- TOAST -->
+    <div id="toast"></div>
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
