@@ -2,872 +2,1868 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#07091a" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="OMAD TOUR" />
+<meta name="mobile-web-app-capable" content="yes" />
 <title>OMAD TOUR</title>
+
 <style>
-  :root {
-    --bg: #ffffff;
-    --text: #111111;
-    --muted: #6b7280;
-    --card: #f3f4f6;
-    --border: #e5e7eb;
-    --accent: #007aff;
-    --danger: #ff3b30;
-    --success: #34c759;
-  }
-  body.dark {
-    --bg: #000000;
-    --text: #f9fafb;
-    --muted: #9ca3af;
-    --card: #1c1c1e;
-    --border: #2c2c2e;
-    --accent: #0a84ff;
-  }
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html, body { margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.4;
-    transition: background 0.2s, color 0.2s;
-    min-height: 100vh;
-  }
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    padding: 10px 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-  header .title {
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.5px;
-  }
-  header .actions {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-  select, button {
-    font-family: inherit;
-    font-size: 15px;
-    cursor: pointer;
-  }
-  .icon-btn {
-    background: var(--card);
-    border: none;
-    color: var(--text);
-    border-radius: 10px;
-    width: 38px;
-    height: 38px;
-    font-size: 18px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-  select {
-    background: var(--card);
-    color: var(--text);
-    border: none;
-    border-radius: 10px;
-    padding: 10px 12px;
-  }
-  .container {
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 20px 16px 60px;
-  }
-  .screen { display: none; animation: fade 0.2s ease; }
-  .screen.active { display: block; }
-  @keyframes fade {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: none; }
-  }
-  .back-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    color: var(--accent);
-    font-weight: 500;
-    width: fit-content;
-  }
-  .logo {
-    display: block;
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    margin: 10px auto 20px;
-    object-fit: cover;
-    background: var(--card);
-    user-select: none;
-    cursor: pointer;
-  }
-  h1 {
-    text-align: center;
-    font-size: 22px;
-    letter-spacing: 2px;
-    margin: 0 0 28px;
-  }
-  h2 { font-size: 20px; margin: 0 0 16px; }
-  h3 { font-size: 16px; margin: 24px 0 10px; color: var(--muted); font-weight: 500; }
-  .menu-btn {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    width: 100%;
-    padding: 16px 18px;
-    margin-bottom: 12px;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    background: var(--card);
-    color: var(--text);
-    font-size: 16px;
-    text-align: left;
-    font-weight: 500;
-    transition: transform 0.1s, border-color 0.2s;
-  }
-  .menu-btn:active { transform: scale(0.97); border-color: var(--accent); }
-  .menu-btn svg { width: 26px; height: 26px; flex-shrink: 0; }
-  .field {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    background: var(--card);
-    color: var(--text);
-    font-size: 16px;
-    margin-bottom: 16px;
-    font-family: inherit;
-  }
-  .field:focus { outline: none; border-color: var(--accent); }
-  textarea.field { min-height: 120px; resize: vertical; }
-  .primary {
-    display: block;
-    width: 100%;
-    padding: 16px;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 14px;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 8px;
-  }
-  .primary:disabled { opacity: 0.4; cursor: not-allowed; }
-  .secondary {
-    display: block;
-    width: 100%;
-    padding: 14px;
-    background: var(--card);
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 10px;
-  }
-  .row-btns { display: flex; gap: 10px; margin-top: 8px; }
-  .row-btns > button { flex: 1; }
-  /* Calendar */
-  .calendar {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 14px;
-    margin-bottom: 16px;
-  }
-  .calendar-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-    font-weight: 600;
-  }
-  .calendar-head button {
-    background: transparent;
-    border: none;
-    color: var(--accent);
-    font-size: 20px;
-    padding: 4px 10px;
-  }
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-    text-align: center;
-  }
-  .calendar-grid .dow {
-    color: var(--muted);
-    font-size: 12px;
-    padding: 4px 0;
-    font-weight: 500;
-  }
-  .calendar-grid .day {
-    padding: 10px 0;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    background: transparent;
-    border: none;
-    color: var(--text);
-  }
-  .calendar-grid .day:hover { background: var(--border); }
-  .calendar-grid .day.selected {
-    background: var(--accent);
-    color: #fff;
-    font-weight: 600;
-  }
-  .calendar-grid .day.empty { cursor: default; }
-  /* Contact buttons */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 14px;
-  }
-  .contact-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 10px;
-    border-radius: 14px;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-  }
-  .contact-btn svg { width: 20px; height: 20px; }
-  .tg { background: #0088cc; }
-  .wa { background: #25D366; }
-  .mx { background: #6c5ce7; }
-  .sms-b { background: #ff9500; }
-  .call-b { background: #34c759; grid-column: span 2; }
-  .summary {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 16px;
-    font-size: 15px;
-    line-height: 1.7;
-    margin-bottom: 16px;
-    white-space: pre-line;
-  }
-  .request-card {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 14px;
-    margin-bottom: 12px;
-    border: 1px solid var(--border);
-  }
-  .request-card .meta {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
-  .badge {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 600;
-  }
-  .badge.new { background: #fff3cd; color: #856404; }
-  .badge.done { background: #d1e7dd; color: #0f5132; }
-  .delete-btn {
-    margin-top: 10px;
-    padding: 8px 14px;
-    background: transparent;
-    color: var(--danger);
-    border: 1px solid var(--danger);
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 500;
-  }
-  .empty-state {
-    text-align: center;
-    color: var(--muted);
-    padding: 40px 20px;
-    font-size: 15px;
-  }
-  .note {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 16px;
-    line-height: 1.5;
-  }
+/* ============================================================
+   DESIGN TOKENS
+============================================================ */
+:root {
+  --bg-1: #07091a;
+  --bg-2: #0e1230;
+  --bg-3: #1a1440;
+  --surface: rgba(255,255,255,0.06);
+  --surface-2: rgba(255,255,255,0.10);
+  --stroke: rgba(255,255,255,0.10);
+  --stroke-strong: rgba(255,255,255,0.18);
+  --text: #ffffff;
+  --text-dim: rgba(255,255,255,0.62);
+  --text-mute: rgba(255,255,255,0.42);
+  --accent-1: #6f8cff;
+  --accent-2: #a855f7;
+  --accent-3: #ec4899;
+  --gold: #fbbf24;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --grad-primary: linear-gradient(135deg, #6f8cff 0%, #a855f7 55%, #ec4899 100%);
+  --grad-cool: linear-gradient(135deg, #22d3ee 0%, #6f8cff 100%);
+  --grad-warm: linear-gradient(135deg, #fbbf24 0%, #f472b6 100%);
+  --radius-xl: 28px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+  --shadow-card: 0 20px 60px -20px rgba(0,0,0,0.6);
+  --shadow-btn: 0 12px 32px -8px rgba(111,140,255,0.55);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --nav-h: 74px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Light theme */
+body.light {
+  --bg-1: #f5f6fc;
+  --bg-2: #eef0fa;
+  --bg-3: #e6e9f7;
+  --surface: rgba(255,255,255,0.75);
+  --surface-2: rgba(255,255,255,0.9);
+  --stroke: rgba(10,14,39,0.08);
+  --stroke-strong: rgba(10,14,39,0.16);
+  --text: #0a0e27;
+  --text-dim: rgba(10,14,39,0.65);
+  --text-mute: rgba(10,14,39,0.4);
+  --shadow-card: 0 20px 60px -24px rgba(80,90,160,0.28);
+}
+
+/* ============================================================
+   BASE
+============================================================ */
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+body {
+  background: var(--bg-1);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: color 0.3s var(--ease);
+}
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+button { cursor: pointer; border: none; background: none; padding: 0; }
+input, textarea { outline: none; }
+a { color: inherit; text-decoration: none; }
+
+/* Ambient background orbs */
+.bg-orbs {
+  position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  background: radial-gradient(ellipse at top, var(--bg-2), var(--bg-1) 60%);
+  transition: background 0.3s var(--ease);
+}
+.bg-orbs::before, .bg-orbs::after {
+  content: ''; position: absolute; border-radius: 50%;
+  filter: blur(90px); opacity: 0.55;
+}
+.bg-orbs::before {
+  width: 380px; height: 380px; top: -120px; right: -120px;
+  background: linear-gradient(135deg, #6f8cff, #a855f7);
+  animation: float1 18s ease-in-out infinite;
+}
+.bg-orbs::after {
+  width: 420px; height: 420px; bottom: -160px; left: -140px;
+  background: linear-gradient(135deg, #ec4899, #f472b6);
+  animation: float2 22s ease-in-out infinite;
+}
+body.light .bg-orbs::before { opacity: 0.35; }
+body.light .bg-orbs::after { opacity: 0.28; }
+@keyframes float1 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(-40px, 60px) scale(1.15); }
+}
+@keyframes float2 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(50px, -50px) scale(1.1); }
+}
+
+/* ============================================================
+   APP SHELL
+============================================================ */
+.app {
+  position: relative; z-index: 1;
+  height: 100vh; height: 100dvh;
+  display: flex; flex-direction: column;
+  max-width: 500px; margin: 0 auto;
+  overflow: hidden;
+}
+
+/* Splash */
+.splash {
+  position: fixed; inset: 0; z-index: 999;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  background: radial-gradient(circle at center, #1a1440, #07091a 70%);
+  transition: opacity 0.6s var(--ease), visibility 0.6s;
+}
+.splash.hide { opacity: 0; visibility: hidden; }
+.splash-logo {
+  width: 130px; height: 130px; border-radius: 34px;
+  background: var(--grad-primary);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 30px 80px -20px rgba(168,85,247,0.7);
+  animation: popIn 0.7s var(--ease);
+}
+.splash-logo svg { width: 70%; height: 70%; color: #fff; }
+.splash-title {
+  margin-top: 28px; font-size: 20px; font-weight: 800;
+  letter-spacing: 6px; color: #fff;
+  animation: fadeUp 0.7s 0.2s var(--ease) both;
+}
+.splash-sub {
+  margin-top: 6px; font-size: 12px; letter-spacing: 3px;
+  color: rgba(255,255,255,0.5); font-weight: 500;
+  animation: fadeUp 0.7s 0.35s var(--ease) both;
+}
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes fadeUp {
+  0% { transform: translateY(12px); opacity: 0; }
+  100% { transform: none; opacity: 1; }
+}
+
+/* Header */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: calc(var(--safe-top) + 14px) 20px 14px;
+  flex-shrink: 0;
+}
+.topbar-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 3px;
+  color: var(--text-dim);
+}
+.topbar-actions { display: flex; gap: 8px; }
+.icon-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text);
+  transition: transform 0.15s var(--ease), background 0.2s;
+}
+.icon-btn:active { transform: scale(0.9); }
+.icon-btn svg { width: 18px; height: 18px; }
+
+/* Main scroll area */
+.main {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  padding: 0 20px calc(var(--nav-h) + var(--safe-bottom) + 24px);
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+.main::-webkit-scrollbar { display: none; }
+
+/* Screens */
+.screen { display: none; }
+.screen.active { display: block; animation: slideUp 0.42s var(--ease); }
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   HOME
+============================================================ */
+.home-hero {
+  padding: 8px 0 24px;
+  display: flex; flex-direction: column; align-items: center;
+}
+.home-greeting {
+  font-size: 14px; color: var(--text-dim); margin-bottom: 4px;
+  font-weight: 500;
+}
+.home-title {
+  font-size: 30px; font-weight: 800; letter-spacing: -0.5px;
+  background: var(--grad-primary);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+.home-logo {
+  width: 110px; height: 110px; border-radius: 30px;
+  background: var(--grad-primary);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 20px 60px -15px rgba(168,85,247,0.6);
+  margin-bottom: 22px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s var(--ease);
+}
+.home-logo:active { transform: scale(0.95); }
+.home-logo svg { width: 62%; height: 62%; color: #fff; }
+.home-logo::after {
+  content: ''; position: absolute; inset: -6px;
+  border-radius: 36px;
+  background: var(--grad-primary); opacity: 0.4;
+  filter: blur(20px); z-index: -1;
+}
+
+/* Quick actions grid */
+.section-label {
+  font-size: 12px; font-weight: 700; letter-spacing: 2px;
+  color: var(--text-mute); text-transform: uppercase;
+  margin: 28px 4px 12px;
+}
+.quick-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.quick-card {
+  position: relative; overflow: hidden;
+  padding: 20px 16px 18px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  box-shadow: var(--shadow-card);
+  text-align: left;
+  display: flex; flex-direction: column; gap: 14px;
+  transition: transform 0.18s var(--ease), border-color 0.2s;
+}
+.quick-card:active { transform: scale(0.97); border-color: var(--stroke-strong); }
+.quick-card-icon {
+  width: 46px; height: 46px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+}
+.quick-card-icon svg { width: 24px; height: 24px; }
+.quick-card[data-color="blue"] .quick-card-icon { background: linear-gradient(135deg,#4f8fff,#6f8cff); }
+.quick-card[data-color="purple"] .quick-card-icon { background: linear-gradient(135deg,#a855f7,#d946ef); }
+.quick-card[data-color="pink"] .quick-card-icon { background: linear-gradient(135deg,#ec4899,#f472b6); }
+.quick-card[data-color="amber"] .quick-card-icon { background: linear-gradient(135deg,#fbbf24,#f97316); }
+.quick-card-title {
+  font-size: 15px; font-weight: 700; color: var(--text);
+  line-height: 1.3;
+}
+.quick-card-sub {
+  font-size: 12px; color: var(--text-dim); margin-top: -10px;
+  line-height: 1.4;
+}
+
+/* List rows */
+.list { display: flex; flex-direction: column; gap: 8px; }
+.list-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  text-align: left; width: 100%;
+  transition: transform 0.15s var(--ease);
+}
+.list-row:active { transform: scale(0.98); }
+.list-row-icon {
+  width: 40px; height: 40px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--surface-2);
+  color: var(--text); flex-shrink: 0;
+}
+.list-row-icon svg { width: 20px; height: 20px; }
+.list-row-body { flex: 1; min-width: 0; }
+.list-row-title { font-size: 15px; font-weight: 600; color: var(--text); }
+.list-row-sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+.list-row-arrow { color: var(--text-mute); flex-shrink: 0; }
+.list-row-arrow svg { width: 18px; height: 18px; }
+
+/* ============================================================
+   PAGE HEADER (for sub-screens)
+============================================================ */
+.page-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 0 20px;
+}
+.back-btn {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text); flex-shrink: 0;
+  transition: transform 0.15s var(--ease);
+}
+.back-btn:active { transform: scale(0.9); }
+.back-btn svg { width: 20px; height: 20px; }
+.page-title {
+  font-size: 22px; font-weight: 800; letter-spacing: -0.4px;
+  flex: 1; min-width: 0;
+}
+
+/* Progress bar */
+.progress {
+  display: flex; gap: 6px; margin-bottom: 20px;
+}
+.progress-seg {
+  flex: 1; height: 4px; border-radius: 2px;
+  background: var(--stroke);
+  overflow: hidden;
+}
+.progress-seg::after {
+  content: ''; display: block; height: 100%;
+  background: var(--grad-primary);
+  border-radius: 2px;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+.progress-seg.on::after { transform: scaleX(1); }
+
+/* ============================================================
+   FORM ELEMENTS
+============================================================ */
+.field-wrap { margin-bottom: 16px; }
+.field-label {
+  display: block;
+  font-size: 12px; font-weight: 600; letter-spacing: 1.2px;
+  color: var(--text-mute); text-transform: uppercase;
+  margin-bottom: 8px; padding-left: 4px;
+}
+.field {
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  font-size: 16px; color: var(--text);
+  transition: border-color 0.2s, background 0.2s;
+}
+.field::placeholder { color: var(--text-mute); }
+.field:focus { border-color: var(--accent-1); background: var(--surface-2); }
+textarea.field { min-height: 120px; resize: vertical; line-height: 1.5; }
+
+/* Primary button */
+.btn-primary {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 18px;
+  border-radius: var(--radius-md);
+  background: var(--grad-primary);
+  color: #fff; font-size: 16px; font-weight: 700;
+  box-shadow: var(--shadow-btn);
+  transition: transform 0.15s var(--ease), opacity 0.2s;
+}
+.btn-primary:active { transform: scale(0.97); }
+.btn-primary:disabled { opacity: 0.35; cursor: not-allowed; box-shadow: none; }
+.btn-primary svg { width: 20px; height: 20px; }
+
+.btn-ghost {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 16px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  color: var(--text); font-size: 15px; font-weight: 600;
+  transition: transform 0.15s var(--ease);
+}
+.btn-ghost:active { transform: scale(0.97); }
+.btn-ghost svg { width10: 20px; height: 20px; }
+
+/* Choice cards (Yes/No) */
+.choice-row { display: flex; gap: 12px; }
+.choice-btn {
+  flex: 1; padding: 32px 16px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1.5px solid var(--stroke);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  color: var(--text); font-size: 16px; font-weight: 600;
+  transition: transform 0.15s var(--ease), border-color 0.2s, background 0.2s;
+}
+.choice-btn:active { transform: scale(0.96); }
+.choice-btn:hover { border-color: var(--stroke-strong); }
+.choice-btn .ico { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+.choice-btn.yes .ico { background: linear-gradient(135deg,#22c55e,#16a34a); color:#fff; }
+.choice-btn.no  .ico { background: linear-gradient(135deg,#64748b,#475569); color:#fff; }
+.choice-btn .ico svg { width: 22px; height: 22px; }
+
+/* Counter row */
+.counter-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  margin-bottom: px;
+}
+.counter-info { display: flex; align-items: center; gap: 14px; }
+.counter-icon {
+  width: 42px; height: 42px; border-radius: 12px;
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text); flex-shrink: 0;
+}
+.counter-icon svg { width: 22px; height: 22px; }
+.counter-label { font-size: 15px; font-weight: 600; }
+.counter-sub { font-size: 12px; color: var(--text-dim); margin-top: 1px; }
+.counter-controls { display: flex; align-items: center; gap: 6px; }
+.counter-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--stroke);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text);
+  transition: transform 0.12s var(--ease);
+}
+.counter-btn:active { transform: scale(0.85); }
+.counter-btn:disabled { opacity: 0.3; }
+.counter-btn svg { width: 16px; height: 16px; }
+.counter-val {
+  min-width: 28px; text-align: center;
+  font-size: 17px; font-weight: 700;
+}
+
+/* ============================================================
+   CALENDAR
+============================================================ */
+.cal {
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-lg);
+  padding: 18px 14px;
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  margin-bottom: 16px;
+}
+.cal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 6px 14px;
+}
+.cal-title {
+  font-size: 17px; font-weight: 700;
+  text-transform: capitalize;
+}
+.cal-nav {
+  display: flex; gap: 4px;
+}
+.cal-nav button {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text);
+  transition: transform 0.12s var(--ease);
+}
+.cal-nav button:active { transform: scale(0.85); }
+.cal-nav svg { width: 16px; height: 16px; }
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.cal-dow {
+  text-align: center;
+  font-size: 11px; font-weight: 700;
+  color: var(--text-mute);
+  letter-spacing: 0.5px;
+  padding: 8px 0;
+  text-transform: uppercase;
+}
+.cal-day {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 500;
+  color: var(--text);
+  background: transparent;
+  transition: background 0.15s, transform 0.12s;
+}
+.cal-day:hover { background: var(--surface-2); }
+.cal-day:active { transform: scale(0.9); }
+.cal-day.empty { visibility: hidden; }
+.cal-day.today { color: var(--accent-1); font-weight: 700; }
+.cal-day.today::after {
+  content: ''; position: absolute; bottom: 6px;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--accent-1);
+}
+.cal-day.selected {
+  background: var(--grad-primary);
+  color: #fff; font-weight: 700;
+  box-shadow: 0 8px 24px -6px rgba(168,85,247,0.65);
+}
+.cal-day.selected::after { display: none; }
+.cal-day.past { color: var(--text-mute); opacity: 0.35; pointer-events: none; }
+
+/* ============================================================
+   CONTACT BUTTONS
+============================================================ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.contact-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 15px 12px;
+  border-radius: var(--radius-md);
+  color: #fff;
+  font-weight: 700; font-size: 14px;
+  transition: transform 0.15s var(--ease);
+  box-shadow: 0 8px 22px -10px rgba(0,0,0,0.5);
+}
+.contact-btn:active { transform: scale(0.96); }
+.contact-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+.contact-btn.tg { background: linear-gradient(135deg,#0088cc,#006ba8); }
+.contact-btn.wa { background: linear-gradient(135deg,#25D366,#1eaa52); }
+.contact-btn.mx { background: linear-gradient(135deg,#6c5ce7,#4834d4); }
+.contact-btn.sms { background: linear-gradient(135deg,#ff9500,#e08200); }
+.contact-btn.call {
+  grid-column: span 2;
+  background: linear-gradient(135deg,#34c759,#22a946);
+}
+
+/* ============================================================
+   SUMMARY / REQUEST CARDS
+============================================================ */
+.summary-card {
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  margin-bottom: 16px;
+}
+.summary-row {
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--stroke);
+  font-size: 14px;
+}
+.summary-row:last-child { border-bottom: none; padding-bottom: 0; }
+.summary-row:first-child { padding-top: 0; }
+.summary-key { color: var(--text-dim); }
+.summary-val { font-weight: 600; text-align: right; }
+
+/* Request item */
+.request-item {
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 10px;
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+}
+.request-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.request-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.request-badge.new {
+  background: rgba(251,191,36,0.16);
+  color: #fbbf24;
+}
+.request-badge.done {
+  background: rgba(34,197,94,0.16);
+  color: #22c55e;
+}
+.request-id { font-size: 12px; color: var(--text-mute); font-weight: 600; }
+.request-text { font-size: 14px; line-height: 1.5; color: var(--text); margin-bottom: 12px; }
+.request-actions { display: flex; gap: 8px; }
+.request-btn {
+  flex: 1; padding: 10px;
+  border-radius: 10px;
+  font-size: 13px; font-weight: 600;
+  transition: transform 0.15s var(--ease);
+}
+.request-btn:active { transform: scale(0.96); }
+.request-btn.danger {
+  background: rgba(239,68,68,0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239,68,68,0.28);
+}
+.request-btn.neutral {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--stroke);
+}
+
+/* Empty state */
+.empty {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--text-dim);
+}
+.empty-icon {
+  width: 72px; height: 72px; border-radius: 24px;
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+  color: var(--text-mute);
+}
+.empty-icon svg { width: 32px; height: 32px; }
+.empty-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.empty-sub { font-size: 13px; line-height: 1.5; }
+
+/* ============================================================
+   BOTTOM NAVIGATION
+============================================================ */
+.bottom-nav {
+  position: absolute;
+  left: 12px; right: 12px;
+  bottom: calc(var(--safe-bottom) + 12px);
+  height: var(--nav-h);
+  border-radius: 24px;
+  background: rgba(20,24,50,0.72);
+  border: 1px solid var(--stroke);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  display: flex; align-items: center; justify-content: space-around;
+  box-shadow: 0 20px 50px -20px rgba(0,0,0,0.8);
+  z-index: 50;
+}
+body.light .bottom-nav { background: rgba(255,255,255,0.82); }
+.nav-item {
+  flex: 1;
+  height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px;
+  color: var(--text-mute);
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.2px;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-item svg { width: 22px; height: 22px; transition: transform 0.2s var(--ease); }
+.nav-item:active svg { transform: scale(0.85); }
+.nav-item.active { color: var(--text); }
+.nav-item.active svg { color: var(--accent-1); }
+.nav-item.active::after {
+  content: ''; position: absolute;
+  bottom: 8px;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--accent-1);
+  box-shadow: 0 0 12px var(--accent-1);
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  left: 50%; bottom: calc(var(--nav-h) + var(--safe-bottom) + 30px);
+  transform: translateX(-50%) translateY(30px);
+  background: rgba(20,24,50,0.95);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 14px;
+  font-size: 14px; font-weight: 500;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  border: 1px solid var(--stroke);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s var(--ease);
+  z-index: 1000;
+  max-width: 90vw; text-align: center;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  display: none; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.modal-overlay.show { display: flex; animation: fadeIn 0.25s var(--ease); }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  width: 100%; max-width: 380px;
+  background: rgba(20,24,50,0.95);
+  border: 1px solid var(--stroke-strong);
+  border-radius: 26px;
+  padding: 26px 22px 20px;
+  backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+  animation: modalPop 0.35s var(--ease);
+}
+body.light .modal { background: rgba(255,255,255,0.96); }
+@keyframes modalPop {
+  0% { transform: scale(0.92); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.modal-title { font-size: 19px; font-weight: 700; margin-bottom: 6px; }
+.modal-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 18px; line-height: 1.5; }
+.modal-actions { display: flex; gap: 10px; margin-top: 14px; }
+.modal-actions button { flex: 1; }
+
+/* File picker button */
+.file-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 15px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1.5px dashed var(--stroke-strong);
+  color: var(--text-dim);
+  font-size: 14px; font-weight: 600;
+  margin-bottom: 10px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.file-btn:active { background: var(--surface-2); }
+.file-btn svg { width: 20px; height: 20px; }
+
+/* Language pills */
+.lang-row {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.lang-pill {
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  font-size: 13px; font-weight: 600;
+  color: var(--text-dim);
+  transition: all 0.15s var(--ease);
+}
+.lang-pill.active {
+  background: var(--grad-primary);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: var(--shadow-btn);
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="title">OMAD TOUR</div>
-  <div class="actions">
-    <select id="langSelect">
-      <option value="ru">🇷🇺 RU</option>
-      <option value="uz">🇺🇿 UZ</option>
-      <option value="tk">🇹🇲 TK</option>
-      <option value="en">🇬🇧 EN</option>
-    </select>
-    <button class="icon-btn" id="themeBtn" title="Theme">🌙</button>
-  </div>
-</header>
-
-<div class="container">
-
-  <!-- ================= HOME ================= -->
-  <div class="screen active" id="screen-home">
-    <svg class="logo" id="logoClick" viewBox="0 0 120 120">
-      <defs>
-        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#0a84ff"/>
-          <stop offset="100%" stop-color="#6c5ce7"/>
-        </linearGradient>
-      </defs>
-      <circle cx="60" cy="60" r="58" fill="url(#g1)"/>
-      <path d="M60 30 L72 60 L60 55 L48 60 Z" fill="#fff"/>
-      <text x="60" y="92" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="sans-serif" letter-spacing="1">OMAD</text>
-      <text x="60" y="104" text-anchor="middle" font-size="9" font-weight="600" fill="#fff" font-family="sans-serif" letter-spacing="2">TOUR</text>
+<!-- Splash -->
+<div class="splash" id="splash">
+  <div class="splash-logo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 16l20-8-9 9-2 5-2-6-7z"/>
     </svg>
-    <h1>OMAD TOUR</h1>
+  </div>
+  <div class="splash-title">OMAD TOUR</div>
+  <div class="splash-sub">PREMIUM TRAVEL</div>
+</div>
 
-    <button class="menu-btn" data-nav="screen-flight-1">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.4-.2c.4-.2.6-.6.5-1.1z"/></svg>
-      <span data-i18n="avia">Авиабилеты</span>
-    </button>
-    <button class="menu-btn" data-nav="screen-visa">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.2"/><path d="M15 10h4M15 14h4M6 10v4"/></svg>
-      <span data-i18n="visa">Визовый вопрос</span>
-    </button>
-    <button class="menu-btn" data-nav="screen-support">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1"/></svg>
-      <span data-i18n="support">Помощь</span>
-    </button>
-    <button class="menu-btn" data-nav="screen-cabinet">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <span data-i18n="cabinet">Личный кабинет</span>
-    </button>
+<!-- Ambient bg -->
+<div class="bg-orbs"></div>
 
-    <h3 data-i18n="more">Ещё</h3>
-    <button class="menu-btn" id="btnGroups">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <span data-i18n="groups">Полезные группы</span>
-    </button>
-    <button class="menu-btn" id="btnAddress">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      <span data-i18n="address">Наш адрес</span>
-    </button>
+<!-- App -->
+<div class="app">
 
-    <p class="note" data-i18n="admin_hint">Admin: нажмите логотип 5 раз</p>
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="topbar-title">OMAD TOUR</div>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
   </div>
 
-  <!-- ================= FLIGHT STEP 1 ================= -->
-  <div class="screen" id="screen-flight-1">
-    <div class="back-row" data-back>
-      <span>←</span><span data-i18n="back">Назад</span>
-    </div>
-    <h2 data-i18n="from">Откуда вылетаете?</h2>
-    <input class="field" id="flightFrom" placeholder="Санкт-Петербург" />
-    <button class="primary" data-nav="screen-flight-2" data-i18n="next">Далее</button>
-  </div>
+  <!-- Main content -->
+  <div class="main" id="mainScroll">
 
-  <!-- ================= FLIGHT STEP 2 ================= -->
-  <div class="screen" id="screen-flight-2">
-    <div class="back-row" data-back>
-      <span>←</span><span data-i18n="back">Назад</span>
-    </div>
-    <h2 data-i18n="to">Куда летите?</h2>
-    <input class="field" id="flightTo" placeholder="Самарканд" />
-    <button class="primary" data-nav="screen-flight-3" data-i18n="next">Далее</button>
-  </div>
-
-  <!-- ================= FLIGHT STEP 3 (Calendar) ================= -->
-  <div class="screen" id="screen-flight-3">
-    <div class="back-row" data-back>
-      <span>←</span><span data-i18n="back">Назад</span>
-    </div>
-    <h2 data-i18n="pick_date">Выберите дату</h2>
-    <div class="calendar">
-      <div class="calendar-head">
-        <button id="calPrev">‹</button>
-        <span id="calMonth">—</span>
-        <button id="calNext">›</button>
+    <!-- ============ HOME ============ -->
+    <div class="screen active" id="screen-home" data-nav="home">
+      <div class="home-hero">
+        <div class="home-greeting" data-i18n="greeting">Xush kelibsiz</div>
+        <div class="home-title" data-i18n="greeting_sub">Sayohatingizni boshlaymiz</div>
+        <div class="home-logo" id="logoClick">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 16l20-8-9 9-2 5-2-6-7z"/>
+          </svg>
+        </div>
       </div>
-      <div class="calendar-grid" id="calGrid"></div>
+
+      <div class="section-label" data-i18n="services">Xizmatlar</div>
+      <div class="quick-grid">
+        <button class="quick-card" data-color="blue" data-nav="screen-flight">
+          <div class="quick-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.4-.2c.4-.2.6-.6.5-1.1z"/></svg>
+          </div>
+          <div>
+            <div class="quick-card-title" data-i18n="avia">Aviabiletlar</div>
+            <div class="quick-card-sub" data-i18n="avia_sub">Eng qulay narxlar</div>
+          </div>
+        </button>
+        <button class="quick-card" data-color="purple" data-nav="screen-visa">
+          <div class="quick-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.2"/><path d="M15 10h4M15 14h4M6 10v4"/></svg>
+          </div>
+          <div>
+            <div class="quick-card-title" data-i18n="visa">Viza</div>
+            <div class="quick-card-sub" data-i18n="visa_sub">Javobni tekshirish</div>
+          </div>
+        </button>
+        <button class="quick-card" data-color="pink" data-nav="screen-support">
+          <div class="quick-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          </div>
+          <div>
+            <div class="quick-card-title" data-i18n="support">Yordam</div>
+            <div class="quick-card-sub" data-i18n="support_sub">24/7 aloqada</div>
+          </ div>
+        </button>
+        <button class="quick-card" data-color="amber" data-nav="screen-account">
+          <div class="quick-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a44 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div>
+            <div class="quick-card-title" data-i18n="cabinet">Kabinet</div>
+            <div class="quick-card-sub" data-i18n="cabinet_sub">So'rovlarim</div>
+          </div>
+        </button>
+      </div>
+
+      <div class="section-label" data-i18n="more">Boshqa</div>
+      <div class="list">
+        <button class="list-row" id="btnGroups">
+          <div class="list-row-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="list-row-body">
+            <div class="list-row-title" data-i18n="groups">Foydali guruhlar</div>
+            <div class="list-row-sub" data-i18n="groups_sub">Telegram kanallar</div>
+          </div>
+          <div class="list-row-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+        </button>
+        <button class="list-row" id="btnAddress">
+          <div class="list-row-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="list-row-body">
+            <div class="list-row-title" data-i18n="address">Manzilimiz</div>
+            <div class="list-row-sub" data-i18n="address_sub">Sankt-Peterburg</div>
+          </div>
+          <div class="list-row-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+        </button>
+      </div>
     </div>
-    <button class="primary" data-nav="screen-flight-4" id="calConfirm" data-i18n="next">Далее</button>
+
+    <!-- ============ FLIGHT STEP 1 ============ -->
+    <div class="screen" id="screen-flight" data-nav="flight">
+      <div class="page-head">
+        <button class="back-btn" data-back>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="page-title" data-i18n="avia">Aviabiletlar</div>
+      </div>
+      <div class="progress" id="flightProgress">
+        <div class="progress-seg on"></div>
+        <div class="progress-seg"></div>
+        <div class="progress-seg"></div>
+        <div class="progress-seg"></div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="screen active" id="fstep-1">
+        <div class="field-wrap">
+          <label class="field-label" data-i18n="from">Qayerdan</label>
+          <input class="field" id="flightFrom" placeholder="Sankt-Peterburg" autocomplete="off" />
+        </div>
+        <button class="btn-primary" id="btnF1Next" disabled>
+          <span data-i18n="next">Davom etish</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="screen" id="fstep-2">
+        <div class="field-wrap">
+          <label class="field-label" data-i18n="to">Qayerga</label>
+          <input class="field" id="flightTo" placeholder="Samarqand" autocomplete="off" />
+        </div>
+        <button class="btn-primary" id="btnF2Next" disabled>
+          <span data-i18n="next">Davom etish</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <!-- Step 3 - Calendar -->
+      <div class="screen" id="fstep-3">
+        <div class="field-wrap">
+          <label class="field-label" data-i18n="pick_date">Sanani tanlang</label>
+          <div class="cal">
+            <div class="cal-head">
+              <div class="cal-title" id="calTitle">—</div>
+              <div class="cal-nav">
+                <button id="calPrev" aria-label="prev">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <button id="calNext" aria-label="next">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="cal-grid" id="calGrid"></div>
+          </div>
+        </div>
+        <button class="btn-primary" id="btnF3Next" disabled>
+          <span data-i18n="next">Davom etish</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <!-- Step 4 - With child? -->
+      <div class="screen" id="fstep-4">
+        <div class="field-wrap">
+          <label class="field-label" data-i18n="with_child">Bola bilan uchasizmi?</label>
+          <div class="choice-row">
+            <button class="choice-btn yes" data-child="yes">
+              <div class="ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              </div>
+              <span data-i18n="yes">Ha</span>
+            </button>
+            <button class="choice-btn no" data-child="no">
+              <div class="ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              </div>
+              <span data-i18n="no">Yo'q</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 - Passengers -->
+      <div class="screen" id="fstep-5">
+        <div class="field-wrap">
+          <label class="field-label" data-i18n="passengers">Yo'lovchilar</label>
+          <div class="counter-row">
+            <div class="counter-info">
+              <div class="counter-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v2"/></svg>
+              </div>
+              <div>
+                <div class="counter-label" data-i18n="adult">Katta</div>
+                <div class="counter-sub">12+</div>
+              </div>
+            </div>
+            <div class="counter-controls">
+              <button class="counter-btn" data-counter="adult" data-dir="-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg>
+              </button>
+              <div class="counter-val" id="cntAdult">1</div>
+              <button class="counter-btn" data-counter="adult" data-dir="1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="counter-row">
+            <div class="counter-info">
+              <div class="counter-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3.5"/><path d="M6 21v-1a6 6 0 0 1 12 0v1"/></svg>
+              </div>
+              <div>
+                <div class="counter-label" data-i18n="child">Bola</div>
+                <div class="counter-sub">2–12</div>
+              </div>
+            </div>
+            <div class="counter-controls">
+              <button class="counter-btn" data-counter="child" data-dir="-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg>
+              </button>
+              <div class="counter-val" id="cntChild">0</div>
+              <button class="counter-btn" data-counter="child" data-dir="1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="counter-row">
+            <div class="counter-info">
+              <div class="counter-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="3"/><path d="M9 21v-1a3 3 0 0 1 6 0v1M5 9l2-2M19 9l-2-2"/></svg>
+              </div>
+              <div>
+                <div class="counter-label" data-i18n="infant">Chaqaloq</div>
+                <div class="counter-sub">0–2</div>
+              </div>
+            </div>
+            <div class="counter-controls">
+              <button class="counter-btn" data-counter="infant" data-dir="-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg>
+              </button>
+              <div class="counter-val" id="cntInfant">0</div>
+              <button class="counter-btn" data-counter="infant" data-dir="1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary" id="btnF5Next">
+          <span data-i18n="next">Davom etish</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <!-- Step 6 - Confirm -->
+      <div class="screen" id="fstep-6">
+        <div class="field-wrap">
+          <label class="field-label" data-i18n="confirm">Tasdiqlash</label>
+          <div class="summary-card" id="flightSummary"></div>
+        </div>
+        <label class="field-label" data-i18n="send_via">Yuborish</label>
+        <div class="contact-grid">
+          <a class="contact-btn tg" id="sendTg" href="#" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 4.5 2.6 11.7c-.9.3-.9 1.5 0 1.8l4.7 1.5 1.8 5.6c.2.6.9.8 1.4.4l2.6-2.2 4.9 3.6c.5.4 1.2.1 1.4-.5L23 5.6c.2-.9-.7-1.5-1.5-1.1z"/></svg>
+            Telegram
+          </a>
+          <a class="contact-btn wa" id="sendWa" href="#" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 3.5 17.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.5-6.1c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.5.1-.7-.3-1.5-.8-2.1-1.7-.5-.7-.5-1.1-.4-1.3.1-.1.3-.4.4-.5.1-.1.2-.3.3-.4.1-.2 0-.3 0-.5l-.7-1.6c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2 0 1.2.9 2.4 1 2.6.1.2 1.7 2.7 4.2 3.8 2.1.9 2.5.7 3 .7.5 0 1.5-.6 1.7-1.2.2-.6.2-1 .1-1.1-.1-.1-.2-.1-.4-.2z"/></svg>
+            WhatsApp
+          </a>
+          <a class="contact-btn mx" id="sendMx" href="#" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="4"/><text x="12" y="16" text-anchor="middle" font-size="8" fill="#000" font-family="sans-serif" font-weight="800">MAX</text></svg>
+            MAX
+          </a>
+          <a class="contact-btn sms" id="sendSms" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            SMS
+          </a>
+          <a class="contact-btn call" href="tel:+79811939094">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c1 .3 2 .6 3 .7a2 2 0 0 1 1.7 2z"/></svg>
+            <span data-i18n="call">Qo'ng'iroq</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ VISA ============ -->
+    <div class="screen" id="screen-visa" data-nav="visa">
+      <div class="page-head">
+        <button class="back-btn" data-back>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="page-title" data-i18n="visa">Viza</div>
+      </div>
+
+      <button class="btn-ghost" style="margin-bottom:12px" id="btnVisaSite">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+        <span data-i18n="visa_official">Rasmiy saytda tekshirish</span>
+      </button>
+
+      <div class="field-wrap" style="margin-top:16px">
+        <label class="field-label" data-i18n="visa_scan_block">Anketani yuklang</label>
+        <label class="file-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+          <span data-i18n="attach">Rasm biriktirish</span>
+          <input type="file" accept="image/*" style="display:none" id="visaFile" />
+        </label>
+        <button class="file-btn" id="btnScan" style="border-style:solid">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 8v8M10 8v8M13 8v8M16 8v8"/></svg>
+          <span data-i18n="visa_scan">Shtrix-kodni skanerlash</span>
+        </button>
+      </div>
+
+      <div class="field-wrap">
+        <label class="field-label" data-i18n="barcode">Shtrix-kod raqami</label>
+        <input class="field" id="visaBarcode" placeholder="1234567890" />
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" data-i18n="phone">Telefon raqamingiz</label>
+        <input class="field" id="visaPhone" placeholder="+7 981 193 90 94" />
+      </div>
+
+      <label class="field-label" data-i18n="send_via">Yuborish</label>
+      <div class="contact-grid">
+        <a class="contact-btn tg" id="visaTg" href="#" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 4.5 2.6 11.7c-.9.3-.9 1.5 0 1.8l4.7 1.5 1.8 5.6c.2.6.9.8 1.4.4l2.6-2.2 4.9 3.6c.5.4 1.2.1 1.4-.5L23 5.6c.2-.9-.7-1.5-1.5-1.1z"/></svg>
+          Telegram
+        </a>
+        <a class="contact-btn wa" id="visaWa" href="#" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 3.5 17.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20z"/></svg>
+          WhatsApp
+        </a>
+        <a class="contact-btn mx" id="visaMx" href="#" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="4"/><text x="12" y="16" text-anchor="middle" font-size="8" fill="#000" font-family="sans-serif" font-weight="800">MAX</text></svg>
+          MAX
+        </a>
+        <a class="contact-btn sms" id="visaSms" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          SMS
+        </a>
+        <a class="contact-btn call" href="tel:+79811939094">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c1 .3 2 .6 3 .7a2 2 0 0 1 1.7 2z"/></svg>
+          <span data-i18n="call">Qo'ng'iroq</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============ SUPPORT ============ -->
+    <div class="screen" id="screen-support" data-nav="support">
+      <div class="page-head">
+        <button class="back-btn" data-back>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="page-title" data-i18n="support">Yordam</div>
+      </div>
+
+      <div class="field-wrap">
+        <label class="field-label" data-i18n="support_msg">Muammoni tasvirlab bering</label>
+        <textarea class="field" id="supportText" placeholder="..."></textarea>
+      </div>
+
+      <label class="file-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+        <span data-i18n="attach">Rasm biriktirish</span>
+        <input type="file" accept="image/*" style="display:none" id="supportFile" />
+      </label>
+
+      <label class="field-label" style="margin-top:16px" data-i18n="contact_operator">Operator bilan bog'lanish</label>
+      <div class="contact-grid">
+        <a class="contact-btn tg" id="supTg" href="#" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 4.5 2.6 11.7c-.9.3-.9 1.5 0 1.8l4.7 1.5 1.8 5.6c.2.6.9.8 1.4.4l2.6-2.2 4.9 3.6c.5.4 1.2.1 1.4-.5L23 5.6c.2-.9-.7-1.5-1.5-1.1z"/></svg>
+          Telegram
+        </a>
+        <a class="contact-btn wa" id="supWa" href="#" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 3.5 17.2L2 22l4.9-1.5A10 10 0 1 0 12 2z"/></svg>
+          WhatsApp
+        </a>
+        <a class="contact-btn mx" id="supMx" href="#" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="4"/><text x="12" y="16" text-anchor="middle" font-size="8" fill="#000" font-family="sans-serif" font-weight="800">MAX</text></svg>
+          MAX
+        </a>
+        <a class="contact-btn sms" id="supSms" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          SMS
+        </a>
+        <a class="contact-btn call" href="tel:+79379499094">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c1 .3 2 .6 3 .7a2 2 0 0 1 1.7 2z"/></svg>
+          <span data-i18n="call">Qo'ng'iroq</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============ ACCOUNT ============ -->
+    <div class="screen" id="screen-account" data-nav="account">
+      <div class="page-head">
+        <button class="back-btn" data-back>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="page-title" data-i18n="cabinet">Kabinet</div>
+      </div>
+
+      <div class="section-label" data-i18n="my_requests">Mening so'rovlarim</div>
+      <div id="myRequests"></div>
+
+      <div class="section-label" style="margin-top:24px" data-i18n="settings">Sozlamalar</div>
+      <div class="field-wrap">
+        <label class="field-label" data-i18n="language">Til</label>
+        <div class="lang-row">
+          <button class="lang-pill" data-lang="ru">🇷🇺 Русский</button>
+          <button class="lang-pill" data-lang="uz">🇺🇿 O'zbek</button>
+          <button class="lang-pill" data-lang="tk">🇹🇲 Türkmen</button>
+          <button class="lang-pill" data-lang="en">🇬🇧 English</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ADMIN ============ -->
+    <div class="screen" id="screen-admin" data-nav="admin">
+      <div class="page-head">
+        <button class="back-btn" data-back>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="page-title">Admin</div>
+      </div>
+      <div class="empty">
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="empty-title">Admin panel</div>
+        <div class="empty-sub">Bu demo versiyada barcha so'rovlar shu yerga yig'iladi (keyingi versiyada).</div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- ================= FLIGHT STEP 4 ================= -->
-  <div class="screen" id="screen-flight-4">
-    <div class="back-row" data-back>
-      <span>←</span><span data-i18n="back">Назад</span>
-    </div>
-    <h2 data-i18n="with_child">Летите с ребёнком?</h2>
-    <button class="secondary" data-nav="screen-flight-5" data-with-child="yes" data-i18n="yes">Да</button>
-    <button class="secondary" data-nav="screen-flight-6" data-with-child="no" data-i18n="no">Нет</button>
+  <!-- Bottom navigation -->
+  <div class="bottom-nav" id="bottomNav">
+    <button class="nav-item active" data-nav="screen-home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+      <span data-i18n="nav_home">Bosh</span>
+    </button>
+    <button class="nav-item" data-nav="screen-flight">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.4-.2c.4-.2.6-.6.5-1.1z"/></svg>
+      <span data-i18n="nav_flight">Bilet</span>
+    </button>
+    <button class="nav-item" data-nav="screen-visa">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.2"/><path d="M15 10h4M15 14h4M6 10v4"/></svg>
+      <span data-i18n="nav_visa">Viza</span>
+    </button>
+    <button class="nav-item" data-nav="screen-account">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span data-i18n="nav_profile">Profil</span>
+    </button>
   </div>
+</div>
 
-  <!-- ================= FLIGHT STEP 5 (Passengers) ================= -->
-  <div class="screen" id="screen-flight-5">
-    <div class="back-row" data-back>
-      <span>←</span><span data-i18n="back">Назад</span>
-    </div>
-    <h2 data-i18n="passengers">Пассажиры</h2>
-    <label class="note" data-i18n="infant">Младенец (0–2)</label>
-    <input class="field" type="number" min="0" value="0" id="cntInfant" />
-    <label class="note" data-i18n="child">Ребёнок (2–12)</label>
-    <input class="field" type="number" min="0" value="0" id="cntChild" />
-    <label class="note" data-i18n="adult">Взрослый</label>
-    <input class="field" type="number" min="1" value="1" id="cntAdult" />
-    <button class="primary" data-nav="screen-flight-6" data-i18n="finish">Отправить</button>
-  </div>
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
-  <!-- ================= FLIGHT STEP 6 (Confirm) ================= -->
-  <div class="screen" id="screen-flight-6">
-    <div class="back-row" data-back>
-      <span>←</span><span data-i18n="back">Назад</span>
-    </div>
-    <h2 data-i18n="confirm">Подтверждение заявки</h2>
-    <div class="summary" id="flightSummary">—</div>
-    <p class="note" data-i18n="send_via">Отправить через:</p>
-    <div class="contact-grid">
-      <a class="contact-btn tg" href="https://t.me/OMAD_TOUR9094" target="_blank" rel="noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 4.5 2.6 11.7c-.9.3-.9 1.5 0 1.8l4.7 1.5 1.8 5.6c.2.6.9.8 1.4.4l2.6-2.2 4.9 3.6c.5.4 1.2.1 1.4-.5L23 5.6c.2-.9-.7-1.5-1.5-1.1z"/></svg>
-        Telegram
-      </a>
-      <a class="contact-btn wa" href="https://wa.me/79811939094" target="_blank" rel="noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 3.5 17.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.5-6.1c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.5.1-.7-.3-1.5-.8-2.1-1.7-.5-.7-.5-1.1-.4-1.3.1-.1.3-.4.4-.5.1-.1.2-.3.3-.4.1-.2 0-.3 0-.5l-.7-1.6c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2 0 1.2.9 2.4 1 2.6.1.2 1.7 2.7 4.2 3.8 2.1.9 2.5.7 3 .7.5 0 1.5-.6 1.7-1.2.2-.6.2-1 .1-1.1-.1-.1-.2-.1-.4-.2z"/></svg>
-        WhatsApp
-      </a>
-      <a class="contact-btn mx" href="https://max.ru/u/f9LHodD0cOLdbuGpTx71gF1lKZN5kU8yUUSak1S5b7PAPNv3_lID0dB_rW0" target="_blank" rel="noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="4"/><text x="12" y="16" text-anchor="middle" font-size="9" fill="#000" font-family="sans-serif" font-weight="700">MAX</text></svg>
-        MAX
-      </a>
-      <a class="contact-btn sms-b" href="sms:+79811939094">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        SMS
-      </a>
-      <a class="contact-btn call-b" href="tel:+79811939094">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c1 .3 2 .6 3 .7a2 2 0 0 1 1.7 2z"/></svg>
-        <span data-i18n="call">Позвонить</span>
-      </a>
+<!-- Admin password modal -->
+<div class="modal-overlay" id="adminModal">
+  <div class="modal">
+    <div class="modal-title">🔐 Admin</div>
+    <div class="modal-sub">Parolni kiriting</div>
+    <input class="field" id="adminPass" type="password" placeholder="••••••••" />
+    <div class="modal-actions">
+      <button class="btn-ghost" id="adminCancel">Bekor</button>
+      <button class="btn-primary" id="adminOk">Kirish</button>
     </div>
   </div>
-
-  <!-- ================= VISA ================= -->
-  <div class="screen" id="screen-visa">
-    <div class="back-row" data-back>
-      <span>←</span><span data-i18n="back">Назад</span>
-    </div>
-    <h2 data-i18n="visa_title">Проверка визы</h2>
-    <button class="secondary" id="btnVisaSite" data-i18n="visa_official">Проверить на официальном сайте</button>
-    <h3 data-i18n="visa_upload">Загрузить фото анкеты</h3>
-    <label class="secondary" style="text-align:center;display:block;">
-      <span data-i18n="attach">Прикрепить фото</span>
-      <input type="file" accept="image/*" style="display:none;" id="visaFile" />
-    </label>
-    <button class="secondary" id="btnScan" data-i18n="visa_scan">Сканировать штрих-код</button>
-    <input class="field" id="visaBarcode" data-i18n-ph="barcode" placeholder="Номер штрих-кода" />
-    <input class="field" id="visaPhone" data-i18n-ph="phone" placeholder="Ваш номер +7" />
-    <p class="note" data-i18n="send_via">Отправить через:</p>
-    <div class="contact-grid">
-      <a class="contact-btn tg" href="https://t.me/OMAD_TOUR9094" target="_blank" rel="noreferrer">Telegram</a>
-      <a class="contact-btn wa" href="https://wa.me/79811939094" target="_blank" rel="noreferrer">WhatsApp</a>
-      <a class="contact-btn mx" href="https://max.ru/u/f9LHodD0cOLdbuGpTx71gF1lKZN5kU8yUUSak1S5b7PAPNv3_lID0dB_rW0" target="_blank" rel="noreferrer">MAX</a>
-      <a class="contact-btn sms-b" href="sms:+79811939094">SMS</a>
-      <a class="contact-btn call-b" href="tel:+79811939094" data-i18n="call">Позвонить</a>
-    </div>
-  </div>
-
-  <!-- ================= SUPPORT ================= -->
-  <div class="screen" id="screen-support">
-    <div class="back-row" data-back>
-      <span>←</span><span data-i18n="back">Назад</span>
-    </div>
-    <h2 data-i18n="support_title">Помощь</h2>
-    <textarea class="field" id="supportText" data-i18n-ph="support_placeholder" placeholder="Опишите проблему..."></textarea>
-    <label class="secondary" style="text-align:center;display:block;">
-      <span data-i18n="attach">Прикрепить фото</span>
-      <input type="file" accept="image/*" style="display:none;" id="supportFile" />
-    </label>
-    <p class="note" data-i18n="send_via">Отправить через:</p>
-    <div class="contact-grid">
-      <a class="contact-btn tg" href="https://t.me/AVIAKASSA9094" target="_blank" rel="noreferrer">Telegram</a>
-      <a class="contact-btn wa" href="https://wa.me/79379499094" target="_blank" rel="noreferrer">WhatsApp</a>
-      <a class="contact-btn mx" href="https://max.ru/u/f9LHodD0cOLdbuGpTx71gF1lKZN5kU8yUUSak1S5b7PAPNv3_lID0dB_rW0" target="_blank" rel="noreferrer">MAX</a>
-      <a class="contact-btn sms-b" href="sms:+79379499094">SMS</a>
-      <a class="contact-btn call-b" href="tel:+79379499094" data-i18n="call">Позвонить</a>
-    </div>
-  </div>
-
-  <!-- ================= CABINET ================= -->
-  <div class="screen" id="screen-cabinet">
-    <div class="back-row" data-back>
-      <span>←</span><span data-i18n="back">Назад</span>
-    </div>
-    <h2 data-i18n="cabinet_title">Личный кабинет</h2>
-    <h3 data-i18n="my_requests">Мои заявки</h3>
-    <div id="myRequests"></div>
-  </div>
-
-  <!-- ================= ADMIN ================= -->
-  <div class="screen" id="screen-admin">
-    <div class="back-row" data-back>
-      <span>←</span><span data-i18n="back">Назад</span>
-    </div>
-    <h2 data-i18n="admin_title">Админ-панель</h2>
-    <div class="empty-state">— прототип: здесь будет список всех заявок —</div>
-  </div>
-
 </div>
 
 <script>
-  /* ============================================================
-     TIL PAKETI
-  ============================================================ */
-  const i18n = {
-    ru: {
-      avia: 'Авиабилеты', visa: 'Визовый вопрос', support: 'Помощь',
-      cabinet: 'Личный кабинет', more: 'Ещё', groups: 'Полезные группы',
-      address: 'Наш адрес', back: 'Назад',
-      from: 'Откуда вылетаете?', to: 'Куда летите?',
-      next: 'Далее', pick_date: 'Выберите дату',
-      with_child: 'Летите с ребёнком?', yes: 'Да', no: 'Нет',
-      passengers: 'Пассажиры', infant: 'Младенец (0–2)',
-      child: 'Ребёнок (2–12)', adult: 'Взрослый',
-      finish: 'Отправить', confirm: 'Подтверждение заявки',
-      send_via: 'Отправить через:', call: 'Позвонить',
-      visa_title: 'Проверка визы',
-      visa_official: 'Проверить на официальном сайте',
-      visa_upload: 'Загрузить фото анкеты', visa_scan: 'Сканировать штрих-код',
-      barcode: 'Номер штрих-кода', phone: 'Ваш номер +7',
-      support_title: 'Помощь', support_placeholder: 'Опишите проблему...',
-      attach: 'Прикрепить фото',
-      cabinet_title: 'Личный кабинет', my_requests: 'Мои заявки',
-      no_requests: 'Заявок пока нет', delete: 'Удалить',
-      status_new: 'Новая', status_done: 'Готово',
-      admin_hint: 'Admin: нажмите логотип 5 раз',
-      admin_title: 'Админ-панель',
-      admin_pass: 'Введите пароль администратора:',
-      wrong_pass: 'Неверный пароль'
-    },
-    uz: {
-      avia: 'Aviabiletlar', visa: 'Viza masalasi', support: 'Yordam',
-      cabinet: 'Shaxsiy kabinet', more: 'Yana', groups: 'Foydali guruhlar',
-      address: 'Manzilimiz', back: 'Orqaga',
-      from: 'Qayerdan uchmoqchisiz?', to: 'Qayerga?',
-      next: 'Davom etish', pick_date: 'Sanani tanlang',
-      with_child: 'Bola bilan uchasizmi?', yes: 'Ha', no: "Yo'q",
-      passengers: "Yo'lovchilar", infant: 'Chaqaloq (0–2)',
-      child: 'Bola (2–12)', adult: 'Katta',
-      finish: 'Yuborish', confirm: "So'rovni tasdiqlash",
-      send_via: 'Yuborish:', call: "Qo'ng'iroq",
-      visa_title: 'Vizani tekshirish',
-      visa_official: "Rasmiy saytda tekshirish",
-      visa_upload: 'Anketa rasmini yuklash', visa_scan: 'Shtrix-kodni skanerlash',
-      barcode: 'Shtrix-kod raqami', phone: 'Telefon raqamingiz +7',
-      support_title: 'Yordam', support_placeholder: 'Muammoingizni yozing...',
-      attach: 'Rasm biriktirish',
-      cabinet_title: 'Shaxsiy kabinet', my_requests: "Mening so'rovlarim",
-      no_requests: "Hozircha so'rovlar yo'q", delete: "O'chirish",
-      status_new: 'Yangi', status_done: 'Tayyor',
-      admin_hint: 'Admin: logoni 5 marta bosing',
-      admin_title: 'Admin panel',
-      admin_pass: 'Admin parolini kiriting:',
-      wrong_pass: "Parol noto'g'ri"
-    },
-    tk: {
-      avia: 'Awia biletler', visa: 'Wiza meselesi', support: 'Kömek',
-      cabinet: 'Şahsy kabinet', more: 'Has hem', groups: 'Peýdaly toparlar',
-      address: 'Salgymyz', back: 'Yza',
-      from: 'Nireden uçýarsyňyz?', to: 'Nirä?',
-      next: 'Dowam et', pick_date: 'Senä saýlaň',
-      with_child: 'Çaga bilen uçýarsyňyzmy?', yes: 'Hawa', no: 'Ýok',
-      passengers: 'Ýolagçylar', infant: 'Bäbek (0–2)',
-      child: 'Çaga (2–12)', adult: 'Uly',
-      finish: 'Iber', confirm: 'Haýyşy tassykla',
-      send_via: 'Ibermek:', call: 'Jaň et',
-      visa_title: 'Wizany barlamak',
-      visa_official: 'Resmi saýtda barlamak',
-      visa_upload: 'Anketa suratyny ýükle', visa_scan: 'Ştrih-kody skanirle',
-      barcode: 'Ştrih-kod belgisi', phone: 'Telefon belgiňiz +7',
-      support_title: 'Kömek', support_placeholder: 'Meseläni ýazyň...',
-      attach: 'Surat goş',
-      cabinet_title: 'Şahsy kabinet', my_requests: 'Meniň haýyşlarym',
-      no_requests: 'Häzirlikçe haýyş ýok', delete: 'Poz',
-      status_new: 'Täze', status_done: 'Taýýar',
-      admin_hint: 'Admin: logony 5 gezek basyň',
-      admin_title: 'Admin panel',
-      admin_pass: 'Admin parolyny giriziň:',
-      wrong_pass: 'Parol nädogry'
-    },
-    en: {
-      avia: 'Flights', visa: 'Visa support', support: 'Help',
-      cabinet: 'My account', more: 'More', groups: 'Useful groups',
-      address: 'Our address', back: 'Back',
-      from: 'Where are you flying from?', to: 'Where to?',
-      next: 'Next', pick_date: 'Pick a date',
-      with_child: 'Travelling with a child?', yes: 'Yes', no: 'No',
-      passengers: 'Passengers', infant: 'Infant (0–2)',
-      child: 'Child (2–12)', adult: 'Adult',
-      finish: 'Submit', confirm: 'Confirm request',
-      send_via: 'Send via:', call: 'Call',
-      visa_title: 'Visa check',
-      visa_official: 'Check on official website',
-      visa_upload: 'Upload form photo', visa_scan: 'Scan barcode',
-      barcode: 'Barcode number', phone: 'Your number +7',
-      support_title: 'Help', support_placeholder: 'Describe your issue...',
-      attach: 'Attach photo',
-      cabinet_title: 'My account', my_requests: 'My requests',
-      no_requests: 'No requests yet', delete: 'Delete',
-      status_new: 'New', status_done: 'Done',
-      admin_hint: 'Admin: tap logo 5 times',
-      admin_title: 'Admin panel',
-      admin_pass: 'Enter admin password:',
-      wrong_pass: 'Wrong password'
-    }
-  };
-
-  let currentLang = 'ru';
-  let historyStack = [];
-
-  /* ============================================================
-     TIL QO'LLASH
-  ============================================================ */
-  function applyLang() {
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (i18n[currentLang][key]) el.textContent = i18n[currentLang][key];
-    });
-    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-      const key = el.getAttribute('data-i18n-ph');
-      if (i18n[currentLang][key]) el.setAttribute('placeholder', i18n[currentLang][key]);
-    });
-    renderCalendar();
-    renderMyRequests();
-    updateSummary();
+/* ============================================================
+   i18n
+============================================================ */
+const I18N = {
+  uz: {
+    greeting: 'Xush kelibsiz',
+    greeting_sub: 'Sayohatingizni boshlaymiz',
+    services: 'Xizmatlar',
+    avia: 'Aviabiletlar', avia_sub: 'Eng qulay narxlar',
+    visa: 'Viza', visa_sub: 'Javobni tekshirish',
+    support: 'Yordam', support_sub: '24/7 aloqada',
+    cabinet: 'Kabinet', cabinet_sub: "So'rovlarim",
+    more: 'Boshqa', groups: 'Foydali guruhlar', groups_sub: 'Telegram kanallar',
+    address: 'Manzilimiz', address_sub: 'Sankt-Peterburg',
+    from: 'Qayerdan', to: 'Qayerga',
+    next: 'Davom etish', back: 'Orqaga',
+    pick_date: 'Sanani tanlang',
+    with_child: 'Bola bilan uchasizmi?', yes: 'Ha', no: "Yo'q",
+    passengers: "Yo'lovchilar", adult: 'Katta', child: 'Bola', infant: 'Chaqaloq',
+    confirm: "So'rovni tasdiqlash", send_via: 'Yuborish',
+    call: "Qo'ng'iroq",
+    visa_official: 'Rasmiy saytda tekshirish',
+    visa_scan_block: 'Anketani yuklang', visa_scan: 'Shtrix-kodni skanerlash',
+    barcode: 'Shtrix-kod raqami', phone: 'Telefon raqamingiz',
+    support_msg: 'Muammoni tasvirlab bering',
+    contact_operator: "Operator bilan bog'lanish",
+    attach: 'Rasm biriktirish',
+    my_requests: "Mening so'rovlarim",
+    settings: 'Sozlamalar', language: 'Til',
+    no_requests: "Hozircha so'rovlar yo'q",
+    no_requests_sub: "Birinchi so'rovingizni yuboring",
+    delete: "O'chirish", view: 'Ko‘rish',
+    status_new: 'Yangi', status_done: 'Tayyor',
+    nav_home: 'Bosh', nav_flight: 'Bilet', nav_visa: 'Viza', nav_profile: 'Profil',
+    sent: 'So‘rov matni tayyor!',
+    scan_demo: 'Skaner keyingi versiyada ishlaydi',
+    wrong_pass: "Parol noto'g'ri",
+    summary_from: 'Qayerdan', summary_to: 'Qayerga', summary_date: 'Sana',
+    summary_pass: "Yo'lovchilar"
+  },
+  ru: {
+    greeting: 'Добро пожаловать',
+    greeting_sub: 'Начнём ваше путешествие',
+    services: 'Услуги',
+    avia: 'Авиабилеты', avia_sub: 'Лучшие цены',
+    visa: 'Виза', visa_sub: 'Проверка ответа',
+    support: 'Помощь', support_sub: '24/7 на связи',
+    cabinet: 'Кабинет', cabinet_sub: 'Мои заявки',
+    more: 'Ещё', groups: 'Полезные группы', groups_sub: 'Telegram каналы',
+    address: 'Наш адрес', address_sub: 'Санкт-Петербург',
+    from: 'Откуда', to: 'Куда',
+    next: 'Далее', back: 'Назад',
+    pick_date: 'Выберите дату',
+    with_child: 'Летите с ребёнком?', yes: 'Да', no: 'Нет',
+    passengers: 'Пассажиры', adult: 'Взрослый', child: 'Ребёнок', infant: 'Младенец',
+    confirm: 'Подтверждение', send_via: 'Отправить',
+    call: 'Позвонить',
+    visa_official: 'Проверить на сайте',
+    visa_scan_block: 'Загрузить анкету', visa_scan: 'Сканировать штрих-код',
+    barcode: 'Номер штрих-кода', phone: 'Ваш телефон',
+    support_msg: 'Опишите проблему',
+    contact_operator: 'Связаться с оператором',
+    attach: 'Прикрепить фото',
+    my_requests: 'Мои заявки',
+    settings: 'Настройки', language: 'Язык',
+    no_requests: 'Заявок пока нет',
+    no_requests_sub: 'Отправьте первую заявку',
+    delete: 'Удалить', view: 'Открыть',
+    status_new: 'Новая', status_done: 'Готово',
+    nav_home: 'Главная', nav_flight: 'Билеты', nav_visa: 'Виза', nav_profile: 'Профиль',
+    sent: 'Текст заявки готов!',
+    scan_demo: 'Сканер будет в следующей версии',
+    wrong_pass: 'Неверный пароль',
+    summary_from: 'Откуда', summary_to: 'Куда', summary_date: 'Дата',
+    summary_pass: 'Пассажиры'
+  },
+  tk: {
+    greeting: 'Hoş geldiňiz',
+    greeting_sub: 'Syýahatyňyzy başlalyň',
+    services: 'Hyzmatlar',
+    avia: 'Awia biletler', avia_sub: 'Iň amatly bahalar',
+    visa: 'Wiza', visa_sub: 'Jogaby barlamak',
+    support: 'Kömek', support_sub: '24/7 aragatnaşykda',
+    cabinet: 'Kabinet', cabinet_sub: 'Meniň haýyşlarym',
+    more: 'Has hem', groups: 'Peýdaly toparlar', groups_sub: 'Telegram kanallar',
+    address: 'Salgymyz', address_sub: 'Sankt-Peterburg',
+    from: 'Nireden', to: 'Nirä',
+    next: 'Dowam et', back: 'Yza',
+    pick_date: 'Senäni saýlaň',
+    with_child: 'Çaga bilen uçýarsyňyzmy?', yes: 'Hawa', no: 'Ýok',
+    passengers: 'Ýolagçylar', adult: 'Uly', child: 'Çaga', infant: 'Bäbek',
+    confirm: 'Tassykla', send_via: 'Iber',
+    call: 'Jaň et',
+    visa_official: 'Resmi saýtda barlamak',
+    visa_scan_block: 'Anketany ýükle', visa_scan: 'Ştrih-kody skanirle',
+    barcode: 'Ştrih-kod belgisi', phone: 'Telefon belgiňiz',
+    support_msg: 'Meseläni beýan ediň',
+    contact_operator: 'Operator bilen habarlaş',
+    attach: 'Surat goş',
+    my_requests: 'Meniň haýyşlarym',
+    settings: 'Sazlamalar', language: 'Dil',
+    no_requests: 'Häzirlikçe haýyş ýok',
+    no_requests_sub: 'Ilkinji haýyşyňyzy iberiň',
+    delete: 'Poz', view: 'Aç',
+    status_new: 'Täze', status_done: 'Taýýar',
+    nav_home: 'Baş', nav_flight: 'Bilet', nav_visa: 'Wiza', nav_profile: 'Profil',
+    sent: 'Haýyş teksti taýýar!',
+    scan_demo: 'Skaner indiki wersiýada işlär',
+    wrong_pass: 'Parol nädogry',
+    summary_from: 'Nireden', summary_to: 'Nirä', summary_date: 'Senesi',
+    summary_pass: 'Ýolagçylar'
+  },
+  en: {
+    greeting: 'Welcome',
+    greeting_sub: "Let's start your journey",
+    services: 'Services',
+    avia: 'Flights', avia_sub: 'Best prices',
+    visa: 'Visa', visa_sub: 'Check response',
+    support: 'Help', support_sub: '24/7 available',
+    cabinet: 'Account', cabinet_sub: 'My requests',
+    more: 'More', groups: 'Useful groups', groups_sub: 'Telegram channels',
+    address: 'Our address', address_sub: 'St. Petersburg',
+    from: 'From', to: 'To',
+    next: 'Next', back: 'Back',
+    pick_date: 'Pick a date',
+    with_child: 'Flying with a child?', yes: 'Yes', no: 'No',
+    passengers: 'Passengers', adult: 'Adult', child: 'Child', infant: 'Infant',
+    confirm: 'Confirm request', send_via: 'Send via',
+    call: 'Call',
+    visa_official: 'Check official site',
+    visa_scan_block: 'Upload form', visa_scan: 'Scan barcode',
+    barcode: 'Barcode number', phone: 'Your phone',
+    support_msg: 'Describe your issue',
+    contact_operator: 'Contact operator',
+    attach: 'Attach photo',
+    my_requests: 'My requests',
+    settings: 'Settings', language: 'Language',
+    no_requests: 'No requests yet',
+    no_requests_sub: 'Submit your first request',
+    delete: 'Delete', view: 'Open',
+    status_new: 'New', status_done: 'Done',
+    nav_home: 'Home', nav_flight: 'Flights', nav_visa: 'Visa', nav_profile: 'Profile',
+    sent: 'Request text is ready!',
+    scan_demo: 'Scanner will be in the next version',
+    wrong_pass: 'Wrong password',
+    summary_from: 'From', summary_to: 'To', summary_date: 'Date',
+    summary_pass: 'Passengers'
   }
+};
 
-  /* ============================================================
-     NAVIGATSIYA
-  ============================================================ */
-  function showScreen(id, push = true) {
-    const current = document.querySelector('.screen.active');
-    if (current && current.id === id) return;
-    if (push && current) historyStack.push(current.id);
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+const MONTHS = {
+  uz: ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr'],
+  ru: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+  tk: ['Ýanwar','Fewral','Mart','Aprel','Maý','Iýun','Iýul','Awgust','Sentýabr','Oktýabr','Noýabr','Dekabr'],
+  en: ['January','February','March','April','May','June','July','August','September','October','November','December']
+};
+const DOW = {
+  uz: ['Du','Se','Ch','Pa','Ju','Sh','Ya'],
+  ru: ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],
+  tk: ['Du','Si','Ça','Pe','An','Şe','Ýe'],
+  en: ['Mo','Tu','We','Th','Fr','Sa','Su']
+};
+
+/* ============================================================
+   STATE
+============================================================ */
+const state = {
+  lang: localStorage.getItem('omad_lang') || 'uz',
+  theme: localStorage.getItem('omad_theme') || 'dark',
+  history: [],
+  flight: {
+    from: '', to: '',
+    date: null,
+    withChild: null,
+    adults: 1, children: 0, infants: 0
+  },
+  requests: JSON.parse(localStorage.getItem('omad_requests') || '[]')
+};
+
+/* ============================================================
+   HELPERS
+============================================================ */
+const $ = (s, p = document) => p.querySelector(s);
+const $$ = (s, p = document) => Array.from(p.querySelectorAll(s));
+const t = (k) => I18N[state.lang][k] || k;
+
+function saveRequests() {
+  localStorage.setItem('omad_requests', JSON.stringify(state.requests));
+}
+
+function toast(msg) {
+  const el = $('#toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 2400);
+}
+
+/* ============================================================
+   LANGUAGE
+============================================================ */
+function applyLang() {
+  $$('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (I18N[state.lang][key]) el.textContent = I18N[state.lang][key];
+  });
+  $$('[data-i18n-ph]').forEach(el => {
+    const key = el.dataset.i18nPh;
+    if (I18N[state.lang][key]) el.placeholder = I18N[state.lang][key];
+  });
+  $$('.lang-pill').forEach(b => b.classList.toggle('active', b.dataset.lang === state.lang));
+  renderCalendar();
+  renderRequests();
+  updateSummary();
+  updateContactLinks();
+}
+
+/* ============================================================
+   THEME
+============================================================ */
+function applyTheme() {
+  document.body.classList.toggle('light', state.theme === 'light');
+  const btn = $('#themeBtn');
+  btn.innerHTML = state.theme === 'light'
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+}
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+function goTo(id, push = true) {
+  const cur = $('.screen.active[data-nav]');
+  if (cur && cur.id === id) {
+    // same screen
+  } else {
+    if (push && cur) state.history.push(cur.id);
+    $$('.screen[data-nav]').forEach(s => s.classList.remove('active'));
     const target = document.getElementById(id);
     if (target) target.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (id === 'screen-cabinet') renderMyRequests();
-    if (id === 'screen-flight-6') updateSummary();
+    $('#mainScroll').scrollTo({ top: 0, behavior: 'instant' });
   }
-
-  function goBack() {
-    const prev = historyStack.pop() || 'screen-home';
-    showScreen(prev, false);
+  // reset flight wizard when entering from top
+  if (id === 'screen-flight' && (cur === null || cur.id !== 'screen-flight')) {
+    if (state.history.length === 0 || state.history[state.history.length - 1] !== 'screen-flight') {
+      resetFlightSteps();
+    }
   }
+  updateNavActive(id);
+}
 
-  document.querySelectorAll('[data-back]').forEach(btn => btn.addEventListener('click', goBack));
-  document.querySelectorAll('[data-nav]').forEach(btn => {
+function updateNavActive(id) {
+  const nav = $('#bottomNav');
+  nav.classList.remove('hidden');
+  $$('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.nav === id));
+  if (id === 'screen-support' || id === 'screen-admin' || id.startsWith('fstep-')) {
+    nav.classList.add('hidden');
+    nav.style.display = 'none';
+  } else {
+    nav.style.display = '';
+  }
+}
+
+function goBack() {
+  const prev = state.history.pop();
+  if (prev) goTo(prev, false);
+  else goTo('screen-home', false);
+}
+
+/* Flight sub-step navigation */
+function showFlightStep(n) {
+  $$('#screen-flight .screen').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(`fstep-${n}`);
+  if (target) target.classList.add('active');
+  $$('#flightProgress .progress-seg').forEach((s, i) => {
+    s.classList.toggle('on', i < n);
+  });
+  $('#mainScroll').scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetFlightSteps() {
+  state.flight = { from: '', to: '', date: null, withChild: null, adults: 1, children: 0, infants: 0 };
+  $('#flightFrom').value = '';
+  $('#flightTo').value = '';
+  $('#cntAdult').textContent = '1';
+  $('#cntChild').textContent = '0';
+  $('#cntInfant').textContent = '0';
+  $('#btnF1Next').disabled = true;
+  $('#btnF2Next').disabled = true;
+  $('#btnF3Next').disabled = true;
+  showFlightStep(1);
+  updateSummary();
+}
+
+/* ============================================================
+   CALENDAR
+============================================================ */
+const calState = { year: new Date().getFullYear(), month: new Date().getMonth() };
+
+function renderCalendar() {
+  const grid = $('#calGrid');
+  if (!grid) return;
+  const title = $('#calTitle');
+  if (title) title.textContent = `${MONTHS[state.lang][calState.month]} ${calState.year}`;
+  grid.innerHTML = '';
+  DOW[state.lang].forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'cal-dow';
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+  const first = new Date(calState.year, calState.month, 1);
+  const startOffset = (first.getDay() + 6) % 7;
+  const daysInMonth = new Date(calState.year, calState.month + 1, 0).getDate();
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  for (let i = 0; i < startOffset; i++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day empty';
+    grid.appendChild(el);
+  }
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = new Date(calState.year, calState.month, d);
+    const btn = document.createElement('button');
+    btn.className = 'cal-day';
+    btn.textContent = d;
+    if (date < today) btn.classList.add('past');
+    if (date.getTime() === today.getTime()) btn.classList.add('today');
+    const sel = state.flight.date;
+    if (sel && sel.getFullYear() === calState.year && sel.getMonth() === calState.month && sel.getDate() === d) {
+      btn.classList.add('selected');
+    }
     btn.addEventListener('click', () => {
-      const target = btn.getAttribute('data-nav');
-      const withChild = btn.getAttribute('data-with-child');
-      if (withChild) {
-        if (withChild === 'no') { resetPassengers(); }
-      }
-      showScreen(target);
+      state.flight.date = date;
+      $('#btnF3Next').disabled = false;
+      renderCalendar();
     });
-  });
-
-  document.addEventListener('click', e => {
-    if (e.target.closest('#btnGroups')) window.open('https://t.me/+4RhCSj7qgnxjNWNi', '_blank');
-    if (e.target.closest('#btnAddress')) window.open('https://yandex.ru/maps/org/omad_tour/106008133546', '_blank');
-    if (e.target.closest('#btnVisaSite')) window.open('https://visa.mfa.uz/ruxsat/view', '_blank');
-    if (e.target.closest('#btnScan')) {
-      alert(currentLang === 'uz' ? 'Bu demo: skaner keyingi versiyada ishlaydi.' : 'Demo: scanner will work in the next version.');
-    }
-  });
-
-  /* ============================================================
-     ADMIN (5 taps)
-  ============================================================ */
-  let logoClicks = 0, logoTimer = null;
-  document.getElementById('logoClick').addEventListener('click', () => {
-    logoClicks++;
-    clearTimeout(logoTimer);
-    logoTimer = setTimeout(() => { logoClicks = 0; }, 2000);
-    if (logoClicks >= 5) {
-      logoClicks = 0;
-      const p = prompt(i18n[currentLang].admin_pass);
-      if (p === 'Omad2022') showScreen('screen-admin');
-      else if (p !== null) alert(i18n[currentLang].wrong_pass);
-    }
-  });
-
-  /* ============================================================
-     CALENDAR
-  ============================================================ */
-  const DOW = {
-    ru: ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],
-    uz: ['Du','Se','Ch','Pa','Ju','Sh','Ya'],
-    tk: ['Du','Si','Ça','Pe','An','Şe','Ýe'],
-    en: ['Mo','Tu','We','Th','Fr','Sa','Su']
-  };
-  const MONTHS = {
-    ru: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
-    uz: ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr'],
-    tk: ['Ýanwar','Fewral','Mart','Aprel','Maý','Iýun','Iýul','Awgust','Sentýabr','Oktýabr','Noýabr','Dekabr'],
-    en: ['January','February','March','April','May','June','July','August','September','October','November','December']
-  };
-  let calYear, calMonth, calSelected = null;
-  (function initCal() {
-    const now = new Date();
-    calYear = now.getFullYear();
-    calMonth = now.getMonth();
-  })();
-
-  function renderCalendar() {
-    const el = document.getElementById('calGrid');
-    if (!el) return;
-    el.innerHTML = '';
-    DOW[currentLang].forEach(d => {
-      const dEl = document.createElement('div');
-      dEl.className = 'dow';
-      dEl.textContent = d;
-      el.appendChild(dEl);
-    });
-    document.getElementById('calMonth').textContent = `${MONTHS[currentLang][calMonth]} ${calYear}`;
-    const first = new Date(calYear, calMonth, 1);
-    const startDay = (first.getDay() + 6) % 7; // Monday = 0
-    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
-    for (let i = 0; i < startDay; i++) {
-      const e = document.createElement('div'); e.className = 'day empty'; el.appendChild(e);
-    }
-    for (let d = 1; d <= daysInMonth; d++) {
-      const btn = document.createElement('button');
-      btn.className = 'day';
-      btn.textContent = d;
-      if (calSelected && calSelected.y === calYear && calSelected.m === calMonth && calSelected.d === d) {
-        btn.classList.add('selected');
-      }
-      btn.addEventListener('click', () => {
-        calSelected = { y: calYear, m: calMonth, d };
-        renderCalendar();
-        document.getElementById('calConfirm').disabled = false;
-      });
-      el.appendChild(btn);
-    }
+    grid.appendChild(btn);
   }
+}
 
-  document.getElementById('calPrev').addEventListener('click', () => {
-    calMonth--;
-    if (calMonth < 0) { calMonth = 11; calYear--; }
-    renderCalendar();
-  });
-  document.getElementById('calNext').addEventListener('click', () => {
-    calMonth++;
-    if (calMonth > 11) { calMonth = 0; calYear++; }
-    renderCalendar();
-  });
+$('#calPrev')?.addEventListener('click', () => {
+  calState.month--;
+  if (calState.month < 0) { calState.month = 11; calState.year--; }
   renderCalendar();
+});
+$('#calNext')?.addEventListener('click', () => {
+  calState.month++;
+  if (calState.month > 11) { calState.month = 0; calState.year++; }
+  renderCalendar();
+});
 
-  /* ============================================================
-     PASSENGER COUNTERS
-  ============================================================ */
-  function resetPassengers() {
-    document.getElementById('cntInfant').value = 0;
-    document.getElementById('cntChild').value = 0;
-    document.getElementById('cntAdult').value = 1;
+/* ============================================================
+   FLIGHT FLOW
+============================================================ */
+$('#flightFrom')?.addEventListener('input', e => {
+  state.flight.from = e.target.value.trim();
+  $('#btnF1Next').disabled = !state.flight.from;
+});
+$('#flightTo')?.addEventListener('input', e => {
+  state.flight.to = e.target.value.trim();
+  $('#btnF2Next').disabled = !state.flight.to;
+});
+$('#btnF1Next')?.addEventListener('click', () => showFlightStep(2));
+$('#btnF2Next')?.addEventListener('click', () => showFlightStep(3));
+$('#btnF3Next')?.addEventListener('click', () => showFlightStep(4));
+$('#btnF5Next')?.addEventListener('click', () => { updateSummary(); showFlightStep(6); });
+
+$$('[data-child]').forEach(b => {
+  b.addEventListener('click', () => {
+    state.flight.withChild = b.dataset.child === 'yes';
+    showFlightStep(5);
+  });
+});
+
+$$('.counter-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    const key = b.dataset.counter;
+    const dir = parseInt(b.dataset.dir, 10);
+    const limits = { adult: [1, 9], child: [0, 9], infant: [0, 4] };
+    const [min, max] = limits[key];
+    let val = state.flight[key === 'adult' ? 'adults' : key === 'child' ? 'children' : 'infants'];
+    val = Math.max(min, Math.min(max, val + dir));
+    if (key === 'adult') state.flight.adults = val;
+    else if (key === 'child') state.flight.children = val;
+    else state.flight.infants = val;
+    const el = $(`#cnt${key.charAt(0).toUpperCase() + key.slice(1)}`);
+    if (el) el.textContent = val;
+    // disable minus if at min
+    const minusBtn = $$(`.counter-btn[data-counter="${key}"][data-dir="-1"]`)[0];
+    if (minusBtn) minusBtn.disabled = val <= min;
+  });
+});
+
+function updateSummary() {
+  const el = $('#flightSummary');
+  if (!el) return;
+  const d = state.flight;
+  const dateStr = d.date
+    ? `${d.date.getDate()} ${MONTHS[state.lang][d.date.getMonth()]} ${d.date.getFullYear()}`
+    : '—';
+  const L = I18N[state.lang];
+  el.innerHTML = `
+    <div class="summary-row"><span class="summary-key">${L.summary_from}</span><span class="summary-val">${d.from || '—'}</span></div>
+    <div class="summary-row"><span class="summary-key">${L.summary_to}</span><span class="summary-val">${d.to || '—'}</span></div>
+    <div class="summary-row"><span class="summary-key">${L.summary_date}</span><span class="summary-val">${dateStr}</span></div>
+    <div class="summary-row"><span class="summary-key">${L.summary_pass}</span><span class="summary-val">${d.adults} ${L.adult}, ${d.children} ${L.child}, ${d.infants} ${L.infant}</span></div>
+  `;
+  updateContactLinks();
+}
+
+/* ============================================================
+   CONTACT LINKS
+============================================================ */
+function updateContactLinks() {
+  const d = state.flight;
+  const dateStr = d.date ? `${d.date.getDate()}.${String(d.date.getMonth()+1).padStart(2,'0')}.${d.date.getFullYear()}` : '—';
+  const flightText = `✈️ Aviabilet so'rovi\n${t('summary_from')}: ${d.from}\n${t('summary_to')}: ${d.to}\n${t('summary_date')}: ${dateStr}\n${t('summary_pass')}: ${d.adults} ${t('adult')}, ${d.children} ${t('child')}, ${d.infants} ${t('infant')}`;
+  const enc = encodeURIComponent(flightText);
+
+  setHref('#sendTg', `https://t.me/OMAD_TOUR9094?text=${enc}`);
+  setHref('#sendWa', `https://wa.me/79811939094?text=${enc}`);
+  setHref('#sendMx', `https://max.ru/u/f9LHodD0cOLdbuGpTx71gF1lKZN5kU8yUUSak1S5b7PAPNv3_lID0dB_rW0`);
+  setHref('#sendSms', `sms:+79811939094?body=${enc}`);
+
+  // visa
+  const barcode = $('#visaBarcode')?.value || '';
+  const phone = $('#visaPhone')?.value || '';
+  const visaText = `🛂 Viza so'rovi\nBarcode: ${barcode}\nTel: ${phone}`;
+  const visaEnc = encodeURIComponent(visaText);
+  setHref('#visaTg', `https://t.me/OMAD_TOUR9094?text=${visaEnc}`);
+  setHref('#visaWa', `https://wa.me/79811939094?text=${visaEnc}`);
+  setHref('#visaMx', `https://max.ru/u/f9LHodD0cOLdbuGpTx71gF1lKZN5kU8yUUSak1S5b7PAPNv3_lID0dB_rW0`);
+  setHref('#visaSms', `sms:+79811939094?body=${visaEnc}`);
+
+  // support
+  const supText = $('#supportText')?.value || '';
+  const supEnc = encodeURIComponent(`🆘 Yordam so'rovi\n${supText}`);
+  setHref('#supTg', `https://t.me/AVIAKASSA9094?text=${supEnc}`);
+  setHref('#supWa', `https://wa.me/79379499094?text=${supEnc}`);
+  setHref('#supMx', `https://max.ru/u/f9LHodD0cOLdbuGpTx71gF1lKZN5kU8yUUSak1S5b7PAPNv3_lID0dB_rW0`);
+  setHref('#supSms', `sms:+79379499094?body=${supEnc}`);
+}
+
+function setHref(sel, url) {
+  const el = $(sel);
+  if (el) el.href = url;
+}
+
+$('#visaBarcode')?.addEventListener('input', updateContactLinks);
+$('#visaPhone')?.addEventListener('input', updateContactLinks);
+$('#supportText')?.addEventListener('input', updateContactLinks);
+
+/* ============================================================
+   REQUESTS
+============================================================ */
+function renderRequests() {
+  const el = $('#myRequests');
+  if (!el) return;
+  const L = I18N[state.lang];
+  if (!state.requests.length) {
+    el.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+        </div>
+        <div class="empty-title">${L.no_requests}</div>
+        <div class="empty-sub">${L.no_requests_sub}</div>
+      </div>`;
+    return;
   }
-
-  /* ============================================================
-     SUMMARY
-  ============================================================ */
-  function updateSummary() {
-    const el = document.getElementById('flightSummary');
-    if (!el) return;
-    const from = document.getElementById('flightFrom').value || '—';
-    const to = document.getElementById('flightTo').value || '—';
-    const dateStr = calSelected
-      ? `${calSelected.d} ${MONTHS[currentLang][calSelected.m]} ${calSelected.y}`
-      : '—';
-    const inf = document.getElementById('cntInfant').value || 0;
-    const ch = document.getElementById('cntChild').value || 0;
-    const ad = document.getElementById('cntAdult').value || 1;
-    el.textContent =
-      `From / Откуда: ${from}\nTo / Куда: ${to}\nDate / Дата: ${dateStr}\n` +
-      `${i18n[currentLang].adult}: ${ad}\n${i18n[currentLang].child}: ${ch}\n${i18n[currentLang].infant}: ${inf}`;
-  }
-
-  /* ============================================================
-     MY REQUESTS (demo)
-  ============================================================ */
-  const demoRequests = [
-    { id: 1, type: 'flight', text: 'СПб → Самара, 20.09.2026, 2 пассажира', status: 'new' },
-    { id: 2, type: 'visa',   text: 'Barcode: 1234567890, +79811939094', status: 'done' }
-  ];
-  let requests = [...demoRequests];
-
-  function renderMyRequests() {
-    const el = document.getElementById('myRequests');
-    if (!el) return;
-    if (requests.length === 0) {
-      el.innerHTML = `<div class="empty-state">${i18n[currentLang].no_requests}</div>`;
-      return;
-    }
-    el.innerHTML = '';
-    requests.forEach(r => {
-      const card = document.createElement('div');
-      card.className = 'request-card';
-      const statusLabel = r.status === 'new' ? i18n[currentLang].status_new : i18n[currentLang].status_done;
-      card.innerHTML = `
-        <div class="meta">ID: ${r.id} · ${r.type}</div>
-        <div>${r.text}</div>
-        <div style="margin-top:8px"><span class="badge ${r.status}">${statusLabel}</span></div>
-        <button class="delete-btn" data-del="${r.id}">${i18n[currentLang].delete}</button>
-      `;
-      el.appendChild(card);
+  el.innerHTML = '';
+  state.requests.slice().reverse().forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'request-item';
+    const isNew = r.status === 'new';
+    card.innerHTML = `
+      <div class="request-top">
+        <span class="request-id">#${r.id} · ${r.type}</span>
+        <span class="request-badge ${isNew ? 'new' : 'done'}">${isNew ? L.status_new : L.status_done}</span>
+      </div>
+      <div class="request-text">${escapeHtml(r.text)}</div>
+      <div class="request-actions">
+        <button class="request-btn danger" data-del="${r.id}">${L.delete}</button>
+      </div>
+    `;
+    el.appendChild(card);
+  });
+  $$('[data-del]', el).forEach(b => {
+    b.addEventListener('click', () => {
+      state.requests = state.requests.filter(r => r.id != b.dataset.del);
+      saveRequests();
+      renderRequests();
     });
-    el.querySelectorAll('[data-del]').forEach(b => {
-      b.addEventListener('click', () => {
-        requests = requests.filter(r => r.id != b.getAttribute('data-del'));
-        renderMyRequests();
-      });
-    });
-  }
+  });
+}
 
-  /* ============================================================
-     TIL VA TEMA
-  ============================================================ */
-  document.getElementById('langSelect').addEventListener('change', e => {
-    currentLang = e.target.value;
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  })[c]);
+}
+
+function addRequest(type, text) {
+  const id = Date.now();
+  state.requests.push({ id, type, text, status: 'new' });
+  saveRequests();
+  renderRequests();
+}
+
+/* ============================================================
+   EVENTS
+============================================================ */
+// Nav
+$$('[data-nav]').forEach(el => {
+  el.addEventListener('click', (e) => {
+    const target = el.dataset.nav;
+    if (target.startsWith('screen-')) goTo(target);
+  });
+});
+// Back
+$$('[data-back]').forEach(el => el.addEventListener('click', goBack));
+
+// Language pills
+$$('.lang-pill').forEach(b => {
+  b.addEventListener('click', () => {
+    state.lang = b.dataset.lang;
+    localStorage.setItem('omad_lang', state.lang);
     applyLang();
   });
+});
 
-  document.getElementById('themeBtn').addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    document.getElementById('themeBtn').textContent =
-      document.body.classList.contains('dark') ? '☀️' : '🌙';
+// Theme
+$('#themeBtn')?.addEventListener('click', () => {
+  state.theme = state.theme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('omad_theme', state.theme);
+  applyTheme();
+});
+
+// External links
+$('#btnGroups')?.addEventListener('click', () => window.open('https://t.me/+4RhCSj7qgnxjNWNi', '_blank'));
+$('#btnAddress')?.addEventListener('click', () => window.open('https://yandex.ru/maps/org/omad_tour/106008133546', '_blank'));
+$('#btnVisaSite')?.addEventListener('click', () => window.open('https://visa.mfa.uz/ruxsat/view', '_blank'));
+$('#btnScan')?.addEventListener('click', () => toast(t('scan_demo')));
+
+// Send buttons — record request + toast
+$$('.contact-btn').forEach(a => {
+  a.addEventListener('click', () => {
+    if (a.id === 'sendTg' || a.id === 'sendWa' || a.id === 'sendMx' || a.id === 'sendSms') {
+      addRequest('flight', `${state.flight.from} → ${state.flight.to}, ${state.flight.adults+state.flight.children+state.flight.infants} ${t('summary_pass')}`);
+      toast(t('sent'));
+    }
+    if (a.id === 'visaTg' || a.id === 'visaWa' || a.id === 'visaMx' || a.id === 'visaSms') {
+      const b = $('#visaBarcode')?.value || '—';
+      addRequest('visa', `Barcode: ${b}`);
+      toast(t('sent'));
+    }
+    if (a.id === 'supTg' || a.id === 'supWa' || a.id === 'supMx' || a.id === 'supSms') {
+      const txt = $('#supportText')?.value || '—';
+      addRequest('support', txt.slice(0, 80));
+      toast(t('sent'));
+    }
   });
+});
 
-  /* ============================================================
-     START
-  ============================================================ */
-  applyLang();
-  renderMyRequests();
+// Admin 5-tap
+let tapCount = 0, tapTimer = null;
+$('#logoClick')?.addEventListener('click', () => {
+  tapCount++;
+  clearTimeout(tapTimer);
+  tapTimer = setTimeout(() => tapCount = 0, 2000);
+  if (tapCount >= 5) {
+    tapCount = 0;
+    $('#adminModal').classList.add('show');
+    setTimeout(() => $('#adminPass')?.focus(), 100);
+  }
+});
+$('#adminCancel')?.addEventListener('click', () => $('#adminModal').classList.remove('show'));
+$('#adminOk')?.addEventListener('click', () => {
+  if ($('#adminPass').value === 'Omad2022') {
+    $('#adminModal').classList.remove('show');
+    $('#adminPass').value = '';
+    goTo('screen-admin');
+  } else {
+    toast(t('wrong_pass'));
+  }
+});
+
+// Splash
+window.addEventListener('load', () => {
+  setTimeout(() => $('#splash')?.classList.add('hide'), 900);
+});
+
+/* ============================================================
+   INIT
+============================================================ */
+applyTheme();
+applyLang();
+renderCalendar();
+renderRequests();
+updateSummary();
+updateContactLinks();
 </script>
 </body>
 </html>
