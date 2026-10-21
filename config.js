@@ -1,0 +1,3 @@
+// SUPABASE KALITLARI (Bularni Supabase'dan olib shu yerga qo'ying)
+window.SUPABASE_URL = "BU_YERGA_SUPABASE_URL_KELADI";
+window.SUPABASE_ANON_KEY = "BU_YERGA_ANON_KEY_KELADI";
