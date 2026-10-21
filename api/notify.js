@@ -15,11 +15,21 @@ export default async function handler(req, res) {
   };
 
   try {
-    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    const tgResponse = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'Markdown', reply_markup: inlineKeyboard })
     });
+
+    const tgData = await tgResponse.json();
+
+    // Agar Telegram xato bersa, endi Vercel Supabase'ga xato deb qaytaradi!
+    if (!tgData.ok) {
+      return res.status(500).json({ error: tgData.description });
+    }
+
     return res.status(200).json({ success: true });
-  } catch (error) { return res.status(500).json({ error: 'Telegram error' }); }
+  } catch (error) { 
+    return res.status(500).json({ error: 'Server xatosi' }); 
+  }
 }
