@@ -189,13 +189,23 @@
 
 <div class="toast" id="toast">Xabar</div>
 
-<script src="./config.js?v=999"></script>
 <script>
-    // 1. SUPABASE ULANISHI
+    // ==========================================
+    // 1. SUPABASE KALITLARI (SHU YERGA YOZING!)
+    // ==========================================
+    // Diqqat! Quyidagi qo'shtirnoqlar ichiga o'zingizning Supabase'dagi 
+    // URL va ANON KEY ni yozing. Boshqa hech narsani o'zgartirmang!
+    
+    const SUPABASE_URL = "https://uosilbcdpgffjudetboe.supabase.co"; 
+    const SUPABASE_ANON_KEY = "sb_publishable_wYFWJjdFL4Nv-IYHgEj3bg_ZThDSFWl";
+
+    // ==========================================
+    // 2. DASTUR LOGIKASI (TEGMANG)
+    // ==========================================
     let supabaseClient = null;
     try {
-        if (window.SUPABASE_URL && window.SUPABASE_URL.includes('supabase.co')) {
-            supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+        if (SUPABASE_URL && SUPABASE_URL.includes('supabase.co')) {
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             console.log("Supabase ulandi");
         } else {
             console.log("Baza manzili topilmadi");
@@ -253,7 +263,7 @@
         const barcode = document.getElementById('visaBarcode').value;
         
         if(!phone || !barcode) return showToast("Hamma joyni to'ldiring!");
-        if(!supabaseClient) return showToast("Xato: config.js da baza kalitlari yo'q!");
+        if(!supabaseClient) return showToast("Xato: Supabase URL yoki Key noto'g'ri!");
 
         showToast("Yuborilmoqda...");
         try {
@@ -273,7 +283,7 @@
         const to = document.getElementById('flightTo').value;
         const date = document.getElementById('flightDate').value;
         if(!from || !to || !date) return showToast("Hamma joyni to'ldiring!");
-        if(!supabaseClient) return showToast("Xato: Baza ulanmagan!");
+        if(!supabaseClient) return showToast("Xato: Supabase URL yoki Key noto'g'ri!");
 
         showToast("Yuborilmoqda...");
         try {
