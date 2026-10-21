@@ -7,49 +7,28 @@
     <title>OMAD TOUR</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        /* ============================================================
-           YANGI ZAMONAVIY DIZAYN (CLEAN & LIGHT)
-        ============================================================ */
         :root {
-            --bg-body: #f8f9fc;
-            --bg-card: #ffffff;
-            --text-main: #111827;
-            --text-muted: #6b7280;
-            --primary: #0066FF; /* Toza ko'k rang */
-            --primary-light: #e6f0ff;
-            --border: #e5e7eb;
-            --radius: 20px;
-            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            --bg-body: #f8f9fc; --bg-card: #ffffff; --text-main: #111827; --text-muted: #6b7280;
+            --primary: #0066FF; --primary-light: #e6f0ff; --border: #e5e7eb;
+            --radius: 20px; --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
         }
-
-        /* Tungi rejim uchun ranglar */
         body.dark {
-            --bg-body: #0f172a;
-            --bg-card: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --primary-light: #1e3a8a;
-            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --bg-body: #0f172a; --bg-card: #1e293b; --text-main: #f8fafc; --text-muted: #94a3b8;
+            --border: #334155; --primary-light: #1e3a8a; --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
         }
-
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body { background-color: var(--bg-body); color: var(--text-main); margin: 0; height: 100vh; overflow: hidden; transition: background 0.3s; }
         
         .app { height: 100vh; max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; }
-        
-        /* Tepa qism */
         .topbar { display: flex; justify-content: space-between; padding: 20px; align-items: center; }
-        .logo-text { font-weight: 800; font-size: 20px; letter-spacing: -0.5px; color: var(--text-main); }
+        .logo-text { font-weight: 800; font-size: 20px; letter-spacing: -0.5px; }
         .theme-btn { background: var(--bg-card); border: 1px solid var(--border); border-radius: 50%; width: 44px; height: 44px; color: var(--text-main); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); font-size: 20px;}
         
-        /* Asosiy oyna */
         .main { flex: 1; overflow-y: auto; padding: 0 20px 100px; scroll-behavior: smooth;}
         .screen { display: none; animation: fadeIn 0.3s ease; }
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Bosh sahifa */
         .hero-title { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
         .hero-sub { font-size: 15px; color: var(--text-muted); margin-bottom: 24px; }
         
@@ -65,7 +44,6 @@
         .card-title { font-weight: 700; font-size: 16px; }
         .card-sub { font-size: 13px; color: var(--text-muted); }
 
-        /* Ichki sahifalar */
         .page-head { display: flex; align-items: center; margin: 10px 0 24px; gap: 16px; }
         .page-title { font-size: 24px; font-weight: 800; }
         
@@ -76,7 +54,6 @@
         
         .btn-primary { width: 100%; padding: 18px; border-radius: 16px; background: var(--primary); color: white; border: none; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 10px; box-shadow: 0 8px 20px -8px rgba(0,102,255,0.5); }
         
-        /* Rasm yuklash qismi */
         .file-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 24px; border-radius: 16px; background: var(--bg-card); border: 2px dashed var(--primary); color: var(--primary); font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 16px; }
         .uploaded-state { border: 1px solid var(--border); border-radius: 16px; padding: 16px; background: var(--bg-card); display: flex; align-items: center; gap: 14px; margin-bottom:16px; box-shadow: var(--shadow);}
         .uploaded-inner { display: flex; align-items: center; gap: 12px; width: 100%;}
@@ -86,14 +63,12 @@
         .delete-img-btn { width: 34px; height: 34px; border-radius: 50%; background: #fee2e2; color: #ef4444; border: none; font-size: 16px; cursor: pointer; margin-left:auto; font-weight:bold;}
         .auto-detected-msg { background: #dcfce7; color: #16a34a; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 600; margin-bottom: 16px; display: none; border: 1px solid #bbf7d0;}
 
-        /* TAGMA-TAG KNOPKALAR (Pastki menyu) */
         .bottom-nav { position: absolute; bottom: 20px; left: 20px; right: 20px; height: 72px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; display: flex; align-items: center; justify-content: space-around; z-index: 100; box-shadow: 0 15px 35px -5px rgba(0,0,0,0.1); }
         .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.2s; width: 60px; height: 100%;}
         .nav-item svg { width: 24px; height: 24px; margin-bottom: 4px; }
         .nav-item.active { color: var(--primary); transform: translateY(-4px); }
         .nav-item.active svg { stroke: var(--primary); }
 
-        /* Natija ekrani */
         .fullscreen-result { position: fixed; inset: 0; z-index: 9999; background: #10b981; color: white; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         .fullscreen-result .btn-close { position: absolute; top: 30px; right: 20px; background: rgba(0,0,0,0.15); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 20px; cursor: pointer; }
         .result-icon { width: 90px; height: 90px; background: white; color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 50px; margin-bottom: 20px; }
@@ -105,15 +80,12 @@
 <body>
 
 <div class="app">
-    <!-- Tepa qism -->
     <div class="topbar">
         <div class="logo-text">OMAD TOUR</div>
         <button class="theme-btn" onclick="toggleTheme()">🌙</button>
     </div>
 
-    <!-- Asosiy qism -->
     <div class="main">
-        <!-- BOSH SAHIFA -->
         <div class="screen active" id="screen-home">
             <div class="hero-title">Xush kelibsiz 👋</div>
             <div class="hero-sub">Sayohatingizni biz bilan boshlang</div>
@@ -121,40 +93,25 @@
             <div class="quick-grid">
                 <div class="quick-card" onclick="nav('screen-flight', document.querySelector('.nav-item[data-target=\'screen-flight\']'))">
                     <div class="quick-icon bg-blue">✈️</div>
-                    <div>
-                        <div class="card-title">Aviabiletlar</div>
-                        <div class="card-sub">Eng qulay narxlar</div>
-                    </div>
+                    <div><div class="card-title">Aviabiletlar</div><div class="card-sub">Eng qulay narxlar</div></div>
                 </div>
                 <div class="quick-card" onclick="nav('screen-visa', document.querySelector('.nav-item[data-target=\'screen-visa\']'))">
                     <div class="quick-icon bg-purple">🛂</div>
-                    <div>
-                        <div class="card-title">Viza</div>
-                        <div class="card-sub">Javobni tekshirish</div>
-                    </div>
+                    <div><div class="card-title">Viza</div><div class="card-sub">Javobni tekshirish</div></div>
                 </div>
                 <div class="quick-card" onclick="window.open('https://t.me/+4RhCSj7qgnxjNWNi', '_blank')">
                     <div class="quick-icon bg-orange">📢</div>
-                    <div>
-                        <div class="card-title">Guruhlar</div>
-                        <div class="card-sub">Telegram kanallar</div>
-                    </div>
+                    <div><div class="card-title">Guruhlar</div><div class="card-sub">Telegram kanallar</div></div>
                 </div>
                 <div class="quick-card" onclick="window.open('https://yandex.ru/maps/org/omad_tour/106008133546', '_blank')">
                     <div class="quick-icon bg-green">📍</div>
-                    <div>
-                        <div class="card-title">Manzil</div>
-                        <div class="card-sub">Bizning ofis</div>
-                    </div>
+                    <div><div class="card-title">Manzil</div><div class="card-sub">Bizning ofis</div></div>
                 </div>
             </div>
         </div>
 
-        <!-- VIZA BO'LIMI -->
         <div class="screen" id="screen-visa">
-            <div class="page-head">
-                <div class="page-title">Viza tekshiruvi</div>
-            </div>
+            <div class="page-head"><div class="page-title">Viza tekshiruvi</div></div>
             
             <label class="field-label">Hujjat rasmini yuklash</label>
             <label class="file-btn" id="uploadPlaceholder">
@@ -174,9 +131,7 @@
                 </div>
             </div>
 
-            <div class="auto-detected-msg" id="autoDetectedMsg">
-                ✓ Raqamlar avtomatik topildi — tekshirib ko'ring
-            </div>
+            <div class="auto-detected-msg" id="autoDetectedMsg">✓ Raqamlar avtomatik topildi</div>
 
             <div class="field-wrap">
                 <label class="field-label">Telefon raqamingiz</label>
@@ -191,61 +146,40 @@
             <button class="btn-primary" style="background:#10b981; margin-top:12px; box-shadow:none;" onclick="showResult()">🧪 Test: Natija tayyor</button>
         </div>
 
-        <!-- AVIABILET BO'LIMI -->
         <div class="screen" id="screen-flight">
-            <div class="page-head">
-                <div class="page-title">Aviabiletlar</div>
-            </div>
-            <div class="field-wrap">
-                <label class="field-label">Qayerdan</label>
-                <input type="text" id="flightFrom" class="field" placeholder="Sankt-Peterburg" />
-            </div>
-            <div class="field-wrap">
-                <label class="field-label">Qayerga</label>
-                <input type="text" id="flightTo" class="field" placeholder="Samarqand" />
-            </div>
-            <div class="field-wrap">
-                <label class="field-label">Sana</label>
-                <input type="date" id="flightDate" class="field" />
-            </div>
+            <div class="page-head"><div class="page-title">Aviabiletlar</div></div>
+            <div class="field-wrap"><label class="field-label">Qayerdan</label><input type="text" id="flightFrom" class="field" placeholder="Sankt-Peterburg" /></div>
+            <div class="field-wrap"><label class="field-label">Qayerga</label><input type="text" id="flightTo" class="field" placeholder="Samarqand" /></div>
+            <div class="field-wrap"><label class="field-label">Sana</label><input type="date" id="flightDate" class="field" /></div>
             <button class="btn-primary" onclick="sendFlightRequest()">Bilet izlash</button>
         </div>
         
-        <!-- KABINET BO'LIMI -->
         <div class="screen" id="screen-account">
-            <div class="page-head">
-                <div class="page-title">Shaxsiy Kabinet</div>
-            </div>
+            <div class="page-head"><div class="page-title">Shaxsiy Kabinet</div></div>
             <div style="background:var(--bg-card); padding:30px; border-radius:var(--radius); text-align:center; border:1px solid var(--border); box-shadow:var(--shadow);">
                 <div style="font-size:40px; margin-bottom:10px;">👤</div>
                 <h3>Tez kunda!</h3>
-                <p style="color:var(--text-muted); font-size:14px;">Telefon raqam orqali kirish va so'rovlar tarixi keyingi bosqichda qo'shiladi.</p>
+                <p style="color:var(--text-muted); font-size:14px;">Telefon raqam orqali kirish keyingi bosqichda.</p>
             </div>
         </div>
     </div>
 
-    <!-- TAGMA-TAG KNOPKALAR (PASTKI MENYU) -->
     <div class="bottom-nav">
         <div class="nav-item active" onclick="nav('screen-home', this)" data-target="screen-home">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
-            Bosh
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Bosh
         </div>
         <div class="nav-item" onclick="nav('screen-flight', this)" data-target="screen-flight">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.4-.2c.4-.2.6-.6.5-1.1z"/></svg>
-            Bilet
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.4-.2c.4-.2.6-.6.5-1.1z"/></svg>Bilet
         </div>
         <div class="nav-item" onclick="nav('screen-visa', this)" data-target="screen-visa">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.2"/><path d="M15 10h4M15 14h4M6 10v4"/></svg>
-            Viza
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.2"/><path d="M15 10h4M15 14h4M6 10v4"/></svg>Viza
         </div>
         <div class="nav-item" onclick="nav('screen-account', this)" data-target="screen-account">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            Kabinet
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Kabinet
         </div>
     </div>
 </div>
 
-<!-- NATIJA EKRANI -->
 <div class="fullscreen-result" id="resultScreen">
     <button class="btn-close" onclick="document.getElementById('resultScreen').style.display='none'">✕</button>
     <div class="result-icon">✓</div>
@@ -255,23 +189,23 @@
 
 <div class="toast" id="toast">Xabar</div>
 
-<!-- SOZLAMALAR (Supabase kalitlaringiz shu yerda qoladi) -->
-<script src="./config.js"></script>
-
-<!-- LOGIKA (O'zgarmadi, to'liq ishlaydi) -->
+<script src="./config.js?v=999"></script>
 <script>
+    // 1. SUPABASE ULANISHI
     let supabaseClient = null;
     try {
         if (window.SUPABASE_URL && window.SUPABASE_URL.includes('supabase.co')) {
             supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+            console.log("Supabase ulandi");
+        } else {
+            console.log("Baza manzili topilmadi");
         }
-    } catch (e) { console.log("Baza ulanmadi"); }
+    } catch (e) { console.log(e); }
 
     function nav(id, el = null) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         const targetScreen = document.getElementById(id);
         if(targetScreen) targetScreen.classList.add('active');
-
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
         if(el) { el.classList.add('active'); }
         else {
@@ -281,6 +215,7 @@
     }
 
     function toggleTheme() { document.body.classList.toggle('dark'); }
+    
     function showToast(msg) {
         const t = document.getElementById('toast');
         t.textContent = msg; t.classList.add('show');
@@ -316,8 +251,9 @@
     async function sendVisaRequest() {
         const phone = document.getElementById('visaPhone').value;
         const barcode = document.getElementById('visaBarcode').value;
+        
         if(!phone || !barcode) return showToast("Hamma joyni to'ldiring!");
-        if(!supabaseClient) return showToast("Baza ulanmagan!");
+        if(!supabaseClient) return showToast("Xato: config.js da baza kalitlari yo'q!");
 
         showToast("Yuborilmoqda...");
         try {
@@ -326,7 +262,10 @@
             showToast("So'rov muvaffaqiyatli yuborildi! ✅");
             document.getElementById('visaPhone').value = '';
             document.getElementById('deleteImgBtn').click();
-        } catch (err) { showToast("Xatolik: " + err.message); }
+        } catch (err) { 
+            showToast("Xatolik: " + err.message); 
+            console.log(err);
+        }
     }
 
     async function sendFlightRequest() {
@@ -334,13 +273,13 @@
         const to = document.getElementById('flightTo').value;
         const date = document.getElementById('flightDate').value;
         if(!from || !to || !date) return showToast("Hamma joyni to'ldiring!");
-        if(!supabaseClient) return showToast("Baza ulanmagan!");
+        if(!supabaseClient) return showToast("Xato: Baza ulanmagan!");
 
         showToast("Yuborilmoqda...");
         try {
             const { error } = await supabaseClient.from('flight_requests').insert([{ from_city: from, to_city: to, date: date, status: 'pending' }]);
             if (error) throw error;
-            showToast("Bilet so'rovi bazaga tushdi! ✅");
+            showToast("Bilet so'rovi yuborildi! ✅");
             document.getElementById('flightFrom').value = '';
             document.getElementById('flightTo').value = '';
         } catch (err) { showToast("Xatolik: " + err.message); }
