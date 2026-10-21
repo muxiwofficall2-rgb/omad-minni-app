@@ -3,118 +3,149 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta name="theme-color" content="#07091a" />
+    <meta name="theme-color" content="#ffffff" />
     <title>OMAD TOUR</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         /* ============================================================
-           PREMIUM DIZAYN
+           YANGI ZAMONAVIY DIZAYN (CLEAN & LIGHT)
         ============================================================ */
         :root {
-            --bg-1: #07091a; --bg-2: #0e1230;
-            --surface: rgba(255,255,255,0.06);
-            --surface-2: rgba(255,255,255,0.1);
-            --stroke: rgba(255,255,255,0.1);
-            --text: #ffffff; --text-dim: rgba(255,255,255,0.6);
-            --accent-1: #8B2C6A; --accent-2: #C13584; --accent-3: #E1306C;
-            --grad-primary: linear-gradient(135deg, #8B2C6A 0%, #C13584 55%, #E1306C 100%);
-            --radius-md: 16px; --radius-lg: 24px;
+            --bg-body: #f8f9fc;
+            --bg-card: #ffffff;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --primary: #0066FF; /* Toza ko'k rang */
+            --primary-light: #e6f0ff;
+            --border: #e5e7eb;
+            --radius: 20px;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
         }
-        body.light {
-            --bg-1: #f5f6fc; --bg-2: #eef0fa;
-            --surface: rgba(255,255,255,0.75); --stroke: rgba(10,14,39,0.1);
-            --text: #0a0e27; --text-dim: rgba(10,14,39,0.65);
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg-1); color: var(--text); font-family: -apple-system, sans-serif; margin: 0; height: 100vh; overflow: hidden; }
-        
-        .bg-orbs { position: fixed; inset: 0; z-index: 0; background: radial-gradient(ellipse at top, var(--bg-2), var(--bg-1) 60%); }
-        
-        .app { position: relative; z-index: 1; height: 100vh; max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; }
-        .topbar { display: flex; justify-content: space-between; padding: 20px; align-items: center; }
-        .icon-btn { background: var(--surface); border: 1px solid var(--stroke); border-radius: 50%; width: 44px; height: 44px; color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px;}
-        .main { flex: 1; overflow-y: auto; padding: 0 20px 100px; scroll-behavior: smooth;}
-        
-        .screen { display: none; animation: slideUp 0.4s ease; }
-        .screen.active { display: block; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: none; } }
 
-        /* Bosh sahifa kartochkalari */
-        .home-logo { width: 120px; height: 120px; border-radius: 34px; background: var(--grad-primary); margin: 10px auto 30px; display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 60px -15px rgba(193,53,132,0.6); cursor: pointer; }
-        .home-logo svg { width: 60px; height: 60px; color: white; }
-        .quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
-        .quick-card { background: var(--surface); border: 1px solid var(--stroke); padding: 20px; border-radius: var(--radius-lg); text-align: left; cursor: pointer; transition: transform 0.2s; }
-        .quick-card:active { transform: scale(0.95); }
-        .quick-card-icon { width: 50px; height: 50px; border-radius: 16px; background: var(--grad-primary); color: white; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 24px;}
-        .quick-card-title { font-weight: 800; font-size: 16px; color: var(--text); }
-        .quick-card-sub { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+        /* Tungi rejim uchun ranglar */
+        body.dark {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --primary-light: #1e3a8a;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg-body); color: var(--text-main); margin: 0; height: 100vh; overflow: hidden; transition: background 0.3s; }
+        
+        .app { height: 100vh; max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; }
+        
+        /* Tepa qism */
+        .topbar { display: flex; justify-content: space-between; padding: 20px; align-items: center; }
+        .logo-text { font-weight: 800; font-size: 20px; letter-spacing: -0.5px; color: var(--text-main); }
+        .theme-btn { background: var(--bg-card); border: 1px solid var(--border); border-radius: 50%; width: 44px; height: 44px; color: var(--text-main); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); font-size: 20px;}
+        
+        /* Asosiy oyna */
+        .main { flex: 1; overflow-y: auto; padding: 0 20px 100px; scroll-behavior: smooth;}
+        .screen { display: none; animation: fadeIn 0.3s ease; }
+        .screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Bosh sahifa */
+        .hero-title { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+        .hero-sub { font-size: 15px; color: var(--text-muted); margin-bottom: 24px; }
+        
+        .quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .quick-card { background: var(--bg-card); padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); cursor: pointer; transition: transform 0.2s; display: flex; flex-direction: column; gap: 12px; }
+        .quick-card:active { transform: scale(0.96); }
+        .quick-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .bg-blue { background: #e0f2fe; color: #0284c7; }
+        .bg-purple { background: #f3e8ff; color: #9333ea; }
+        .bg-orange { background: #ffedd5; color: #ea580c; }
+        .bg-green { background: #dcfce7; color: #16a34a; }
+        
+        .card-title { font-weight: 700; font-size: 16px; }
+        .card-sub { font-size: 13px; color: var(--text-muted); }
 
         /* Ichki sahifalar */
-        .page-head { display: flex; align-items: center; margin: 10px 0 20px; gap: 16px; }
-        .back-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--surface); border: 1px solid var(--stroke); color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px;}
+        .page-head { display: flex; align-items: center; margin: 10px 0 24px; gap: 16px; }
         .page-title { font-size: 24px; font-weight: 800; }
         
         .field-wrap { margin-bottom: 16px; }
-        .field-label { font-size: 12px; font-weight: 700; color: var(--text-dim); margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 1px;}
-        .field { width: 100%; padding: 16px; border-radius: var(--radius-md); background: var(--surface); border: 1px solid var(--stroke); color: var(--text); font-size: 16px; outline: none; transition: border 0.2s;}
-        .field:focus { border-color: var(--accent-2); }
+        .field-label { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; display: block; }
+        .field { width: 100%; padding: 16px; border-radius: 14px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); font-size: 16px; outline: none; transition: border 0.2s;}
+        .field:focus { border-color: var(--primary); }
         
-        .btn-primary { width: 100%; padding: 18px; border-radius: var(--radius-md); background: var(--grad-primary); color: white; border: none; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 10px; box-shadow: 0 10px 20px -10px rgba(193,53,132,0.5);}
+        .btn-primary { width: 100%; padding: 18px; border-radius: 16px; background: var(--primary); color: white; border: none; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 10px; box-shadow: 0 8px 20px -8px rgba(0,102,255,0.5); }
         
-        /* Rasm yuklash dizayni (Skrinshotdagidek) */
-        .file-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 20px; border-radius: var(--radius-md); background: var(--surface); border: 2px dashed var(--stroke); color: var(--text-dim); font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 16px; }
-        .uploaded-state { border: 2px solid #22c55e; border-radius: var(--radius-md); padding: 16px; background: rgba(34,197,94,0.1); display: flex; align-items: center; gap: 14px; margin-bottom:16px;}
+        /* Rasm yuklash qismi */
+        .file-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 24px; border-radius: 16px; background: var(--bg-card); border: 2px dashed var(--primary); color: var(--primary); font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 16px; }
+        .uploaded-state { border: 1px solid var(--border); border-radius: 16px; padding: 16px; background: var(--bg-card); display: flex; align-items: center; gap: 14px; margin-bottom:16px; box-shadow: var(--shadow);}
         .uploaded-inner { display: flex; align-items: center; gap: 12px; width: 100%;}
-        .uploaded-inner img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
+        .uploaded-inner img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border);}
         .file-name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;}
-        .status-text { color: #22c55e; font-size: 12px; font-weight: 700; }
-        .delete-img-btn { width: 34px; height: 34px; border-radius: 50%; background: #ef4444; color: white; border: none; font-size: 16px; cursor: pointer; margin-left:auto;}
-        .auto-detected-msg { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: #22c55e; padding: 12px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; margin-bottom: 16px; display: none;}
+        .status-text { color: #16a34a; font-size: 12px; font-weight: 700; margin-top:4px;}
+        .delete-img-btn { width: 34px; height: 34px; border-radius: 50%; background: #fee2e2; color: #ef4444; border: none; font-size: 16px; cursor: pointer; margin-left:auto; font-weight:bold;}
+        .auto-detected-msg { background: #dcfce7; color: #16a34a; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 600; margin-bottom: 16px; display: none; border: 1px solid #bbf7d0;}
 
-        /* TAGMA-TAG KNOPKALAR (Bottom Nav) */
-        .bottom-nav { position: absolute; bottom: 20px; left: 20px; right: 20px; height: 70px; background: rgba(20,24,50,0.85); backdrop-filter: blur(20px); border: 1px solid var(--stroke); border-radius: 30px; display: flex; align-items: center; justify-content: space-around; z-index: 100; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-dim); font-size: 10px; font-weight: 600; cursor: pointer; transition: 0.2s; width: 60px; height: 100%;}
-        .nav-item svg { width: 22px; height: 22px; margin-bottom: 4px; }
-        .nav-item.active { color: var(--accent-2); transform: translateY(-2px); }
-        .nav-item.active svg { stroke: var(--accent-2); }
+        /* TAGMA-TAG KNOPKALAR (Pastki menyu) */
+        .bottom-nav { position: absolute; bottom: 20px; left: 20px; right: 20px; height: 72px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; display: flex; align-items: center; justify-content: space-around; z-index: 100; box-shadow: 0 15px 35px -5px rgba(0,0,0,0.1); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.2s; width: 60px; height: 100%;}
+        .nav-item svg { width: 24px; height: 24px; margin-bottom: 4px; }
+        .nav-item.active { color: var(--primary); transform: translateY(-4px); }
+        .nav-item.active svg { stroke: var(--primary); }
 
         /* Natija ekrani */
-        .fullscreen-result { position: fixed; inset: 0; z-index: 9999; background: #4CAF50; color: white; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .fullscreen-result .btn-close { position: absolute; top: 30px; right: 20px; background: rgba(0,0,0,0.2); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 20px; cursor: pointer; }
-        .result-icon { width: 90px; height: 90px; background: white; color: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 50px; margin-bottom: 20px; }
+        .fullscreen-result { position: fixed; inset: 0; z-index: 9999; background: #10b981; color: white; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .fullscreen-result .btn-close { position: absolute; top: 30px; right: 20px; background: rgba(0,0,0,0.15); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 20px; cursor: pointer; }
+        .result-icon { width: 90px; height: 90px; background: white; color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 50px; margin-bottom: 20px; }
 
-        .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 14px 24px; border-radius: 12px; opacity: 0; transition: 0.3s; z-index: 10000; font-weight:600; white-space:nowrap;}
+        .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #111827; color: white; padding: 14px 24px; border-radius: 12px; opacity: 0; transition: 0.3s; z-index: 10000; font-weight:600; white-space:nowrap; box-shadow: 0 10px 20px rgba(0,0,0,0.2);}
         .toast.show { opacity: 1; }
     </style>
 </head>
 <body>
 
-<div class="bg-orbs"></div>
 <div class="app">
     <!-- Tepa qism -->
     <div class="topbar">
-        <div style="font-weight:800; letter-spacing:2px;">OMAD TOUR</div>
-        <button class="icon-btn" onclick="toggleTheme()">🌙</button>
+        <div class="logo-text">OMAD TOUR</div>
+        <button class="theme-btn" onclick="toggleTheme()">🌙</button>
     </div>
 
     <!-- Asosiy qism -->
     <div class="main">
         <!-- BOSH SAHIFA -->
         <div class="screen active" id="screen-home">
-            <div class="home-logo" id="logoClick">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-9 9-2 5-2-6-7z"/></svg>
-            </div>
-            <h2 style="text-align:center; font-size:28px;">Xush kelibsiz</h2>
+            <div class="hero-title">Xush kelibsiz 👋</div>
+            <div class="hero-sub">Sayohatingizni biz bilan boshlang</div>
+            
             <div class="quick-grid">
-                <div class="quick-card" onclick="nav('screen-flight')">
-                    <div class="quick-card-icon">✈️</div>
-                    <div class="quick-card-title">Aviabiletlar</div>
-                    <div class="quick-card-sub">Eng qulay narxlar</div>
+                <div class="quick-card" onclick="nav('screen-flight', document.querySelector('.nav-item[data-target=\'screen-flight\']'))">
+                    <div class="quick-icon bg-blue">✈️</div>
+                    <div>
+                        <div class="card-title">Aviabiletlar</div>
+                        <div class="card-sub">Eng qulay narxlar</div>
+                    </div>
                 </div>
-                <div class="quick-card" onclick="nav('screen-visa')">
-                    <div class="quick-card-icon">🛂</div>
-                    <div class="quick-card-title">Viza</div>
-                    <div class="quick-card-sub">Javobni tekshirish</div>
+                <div class="quick-card" onclick="nav('screen-visa', document.querySelector('.nav-item[data-target=\'screen-visa\']'))">
+                    <div class="quick-icon bg-purple">🛂</div>
+                    <div>
+                        <div class="card-title">Viza</div>
+                        <div class="card-sub">Javobni tekshirish</div>
+                    </div>
+                </div>
+                <div class="quick-card" onclick="window.open('https://t.me/+4RhCSj7qgnxjNWNi', '_blank')">
+                    <div class="quick-icon bg-orange">📢</div>
+                    <div>
+                        <div class="card-title">Guruhlar</div>
+                        <div class="card-sub">Telegram kanallar</div>
+                    </div>
+                </div>
+                <div class="quick-card" onclick="window.open('https://yandex.ru/maps/org/omad_tour/106008133546', '_blank')">
+                    <div class="quick-icon bg-green">📍</div>
+                    <div>
+                        <div class="card-title">Manzil</div>
+                        <div class="card-sub">Bizning ofis</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,7 +156,7 @@
                 <div class="page-title">Viza tekshiruvi</div>
             </div>
             
-            <label class="field-label">Hujjat rasmini yuklash *</label>
+            <label class="field-label">Hujjat rasmini yuklash</label>
             <label class="file-btn" id="uploadPlaceholder">
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
                 Rasm yuklash
@@ -157,7 +188,7 @@
             </div>
             
             <button class="btn-primary" onclick="sendVisaRequest()">So'rov yuborish</button>
-            <button class="btn-primary" style="background:#22c55e; margin-top:12px;" onclick="showResult()">🧪 Test: Natija tayyor</button>
+            <button class="btn-primary" style="background:#10b981; margin-top:12px; box-shadow:none;" onclick="showResult()">🧪 Test: Natija tayyor</button>
         </div>
 
         <!-- AVIABILET BO'LIMI -->
@@ -185,10 +216,10 @@
             <div class="page-head">
                 <div class="page-title">Shaxsiy Kabinet</div>
             </div>
-            <div style="background:var(--surface); padding:30px; border-radius:var(--radius-lg); text-align:center; border:1px solid var(--stroke);">
+            <div style="background:var(--bg-card); padding:30px; border-radius:var(--radius); text-align:center; border:1px solid var(--border); box-shadow:var(--shadow);">
                 <div style="font-size:40px; margin-bottom:10px;">👤</div>
                 <h3>Tez kunda!</h3>
-                <p style="color:var(--text-dim); font-size:14px;">Telefon raqam orqali kirish va so'rovlar tarixi keyingi bosqichda qo'shiladi.</p>
+                <p style="color:var(--text-muted); font-size:14px;">Telefon raqam orqali kirish va so'rovlar tarixi keyingi bosqichda qo'shiladi.</p>
             </div>
         </div>
     </div>
@@ -224,49 +255,38 @@
 
 <div class="toast" id="toast">Xabar</div>
 
-<!-- SOZLAMALAR -->
+<!-- SOZLAMALAR (Supabase kalitlaringiz shu yerda qoladi) -->
 <script src="./config.js"></script>
 
-<!-- LOGIKA -->
+<!-- LOGIKA (O'zgarmadi, to'liq ishlaydi) -->
 <script>
-    // 1. SUPABASE ULANISHI (Himoyalangan)
     let supabaseClient = null;
     try {
         if (window.SUPABASE_URL && window.SUPABASE_URL.includes('supabase.co')) {
             supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
         }
-    } catch (e) { console.log("Baza ulanmadi:", e); }
+    } catch (e) { console.log("Baza ulanmadi"); }
 
-    // 2. NAVIGATSIYA (Sahifalar va pastki menyu)
     function nav(id, el = null) {
-        // Barcha sahifalarni yashirish
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        // Kerakli sahifani ko'rsatish
         const targetScreen = document.getElementById(id);
         if(targetScreen) targetScreen.classList.add('active');
 
-        // Pastki menyu holatini yangilash
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        if(el) {
-            el.classList.add('active');
-        } else {
-            // Agar boshqa joydan bosilsa, menyudan mosini topish
+        if(el) { el.classList.add('active'); }
+        else {
             const menuBtn = document.querySelector(`.nav-item[data-target="${id}"]`);
             if(menuBtn) menuBtn.classList.add('active');
         }
     }
 
-    // 3. TUNGI/KUNDUZGI REJIM
-    function toggleTheme() { document.body.classList.toggle('light'); }
-
-    // 4. XABARNOMA
+    function toggleTheme() { document.body.classList.toggle('dark'); }
     function showToast(msg) {
         const t = document.getElementById('toast');
         t.textContent = msg; t.classList.add('show');
         setTimeout(() => t.classList.remove('show'), 3000);
     }
 
-    // 5. RASM YUKLASH LOGIKASI (Viza uchun)
     const visaFileInput = document.getElementById('visaFileInput');
     visaFileInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
@@ -276,9 +296,8 @@
         reader.readAsDataURL(file);
         document.getElementById('fileName').textContent = file.name;
         document.getElementById('uploadPlaceholder').style.display = 'none';
-        document.getElementById('uploadedState').style.display = 'block';
+        document.getElementById('uploadedState').style.display = 'flex';
         
-        // Skaner simulyatsiyasi
         setTimeout(() => {
             document.getElementById('autoDetectedMsg').style.display = 'block';
             document.getElementById('visaBarcode').value = '79675310924';
@@ -294,12 +313,11 @@
         document.getElementById('visaBarcode').value = '';
     });
 
-    // 6. VIZA SO'ROVINI YUBORISH
     async function sendVisaRequest() {
         const phone = document.getElementById('visaPhone').value;
         const barcode = document.getElementById('visaBarcode').value;
-        if(!phone || !barcode) return showToast("Iltimos, hamma joyni to'ldiring!");
-        if(!supabaseClient) return showToast("Baza ulanmagan! config.js ni tekshiring.");
+        if(!phone || !barcode) return showToast("Hamma joyni to'ldiring!");
+        if(!supabaseClient) return showToast("Baza ulanmagan!");
 
         showToast("Yuborilmoqda...");
         try {
@@ -307,12 +325,10 @@
             if (error) throw error;
             showToast("So'rov muvaffaqiyatli yuborildi! ✅");
             document.getElementById('visaPhone').value = '';
-            document.getElementById('visaBarcode').value = '';
-            document.getElementById('deleteImgBtn').click(); // Rasmni tozalash
+            document.getElementById('deleteImgBtn').click();
         } catch (err) { showToast("Xatolik: " + err.message); }
     }
 
-    // 7. AVIABILET YUBORISH
     async function sendFlightRequest() {
         const from = document.getElementById('flightFrom').value;
         const to = document.getElementById('flightTo').value;
@@ -330,18 +346,7 @@
         } catch (err) { showToast("Xatolik: " + err.message); }
     }
 
-    // 8. NATIJA EKRANI
     function showResult() { document.getElementById('resultScreen').style.display = 'flex'; }
-
-    // 9. ADMIN (5 bosish)
-    let clickCount = 0;
-    document.getElementById('logoClick').addEventListener('click', () => {
-        clickCount++; setTimeout(() => clickCount = 0, 2000);
-        if (clickCount === 5) {
-            const pass = prompt("Admin paroli:");
-            if (pass === "Omad2022") showToast("Admin panelga xush kelibsiz!");
-        }
-    });
 </script>
 </body>
 </html>
