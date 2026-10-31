@@ -4,81 +4,137 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <title>Omad Tour</title>
 <style>
-:root{--bg:#f3f6ff;--cd:#fff;--tx:#0e1b33;--mu:#66758f;--ac:#1e63ff;--on:#fff;--ln:#dde5f5}
-[data-t=green]{--bg:#0a1410;--cd:#12241b;--tx:#e6f4ec;--mu:#86ad9a;--ac:#2fd07a;--on:#03200e;--ln:#1d3a2c}
-[data-t=dark]{--bg:#0d0d0f;--cd:#19191c;--tx:#f1f1f3;--mu:#9696a0;--ac:#8ab4ff;--on:#001a40;--ln:#2a2a2f}
-*{box-sizing:border-box;margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-body{background:var(--bg);color:var(--tx);min-height:100dvh}
-#v{max-width:520px;margin:auto;min-height:100dvh;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
-.c{padding:24px 20px;display:flex;flex-direction:column;gap:14px;flex:1;justify-content:center}
-h1{font-size:26px;line-height:1.2}p{color:var(--mu);line-height:1.45}
-button,input,select{font-size:17px;border-radius:14px;border:1px solid var(--ln);padding:14px;background:var(--cd);color:var(--tx);width:100%}
-button.p{background:var(--ac);color:var(--on);border:0;font-weight:600}
-button.l{background:none;border:0;color:var(--mu);font-size:15px}
-.b{flex:1;overflow:auto;padding:18px 16px 90px}
-.cd{background:var(--cd);border:1px solid var(--ln);border-radius:18px;padding:16px;margin-bottom:14px}
-.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.g button{text-align:left;font-weight:600;padding:18px 14px}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;background:var(--cd);border-top:1px solid var(--ln);padding-bottom:env(safe-area-inset-bottom)}
-nav div{display:flex;width:100%;max-width:520px}
-nav button{border:0;background:none;border-radius:0;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;color:var(--mu);padding:10px 0}
-nav button.on{color:var(--ac)}svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.m{max-width:80%;padding:10px 14px;border-radius:18px;margin:6px 0;white-space:pre-wrap}
-.me{background:var(--ac);color:var(--on);margin-left:auto}.ad{background:var(--cd);border:1px solid var(--ln)}
-.row{display:flex;gap:8px;margin:10px 0}.row button{width:auto}
-.r{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:12px 0}.r select{width:auto}
+:root{--bg:#e9f0ff;--cd:#fff;--tx:#061230;--mu:#3a4c78;--ln:#c9d6f4;--ac:#0b57ff;--ac2:#00aaff;--on:#fff;--sh:0 10px 28px rgba(11,87,255,.16)}
+[data-t=green]{--bg:#05100a;--cd:#0d1d14;--tx:#f2fff8;--mu:#a9cdb9;--ln:#21432f;--ac:#2bdc86;--ac2:#10b6a6;--on:#03170c;--sh:0 10px 28px rgba(0,0,0,.55)}
+[data-t=dark]{--bg:#000;--cd:#131316;--tx:#fff;--mu:#b9b9c2;--ln:#2b2b32;--ac:#6aa6ff;--ac2:#9a7bff;--on:#000;--sh:0 10px 28px rgba(0,0,0,.6)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--tx);font:500 16px/1.45 -apple-system,"SF Pro Text",system-ui,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+#v{height:100%;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
+h1{font-size:28px;line-height:1.15;margin:0;font-weight:800;letter-spacing:-.025em}
+h3{font-size:19px;font-weight:800;margin:24px 4px 12px}
+p{margin:0;color:var(--mu)}
+button{font-family:inherit;cursor:pointer}
+.i{stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.c{flex:1;display:flex;flex-direction:column;justify-content:center;padding:28px 22px;gap:16px;max-width:520px;width:100%;margin:0 auto}
+.logo{width:84px;height:84px;border-radius:26px;display:grid;place-items:center;color:var(--on);background:linear-gradient(135deg,var(--ac),var(--ac2));box-shadow:var(--sh)}
+.p{border:0;border-radius:16px;padding:16px;font:800 17px inherit;color:var(--on);background:linear-gradient(135deg,var(--ac),var(--ac2));box-shadow:var(--sh);width:100%;display:flex;gap:8px;align-items:center;justify-content:center}
+.l{background:none;border:0;color:var(--ac);font:800 15px inherit;padding:10px}
+input{width:100%;font:700 18px inherit;color:var(--tx);background:var(--cd);border:2px solid var(--ln);border-radius:16px;padding:15px 16px;outline:0}
+input:focus{border-color:var(--ac)}
+input::placeholder{color:var(--mu);opacity:.8}
+.cd{background:var(--cd);border:1px solid var(--ln);border-radius:22px;padding:18px;box-shadow:var(--sh);margin-bottom:14px}
+.b{flex:1;overflow:auto;padding:18px 16px 24px;max-width:560px;width:100%;margin:0 auto}
+.b.f{padding:0;display:flex;flex-direction:column;overflow:hidden}
+nav{flex:none;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:var(--cd);border-top:1px solid var(--ln)}
+nav div{display:flex;max-width:560px;margin:0 auto}
+nav button{flex:1;border:0;background:none;color:var(--mu);font:800 11.5px inherit;display:flex;flex-direction:column;align-items:center;gap:4px;padding:2px 0}
+nav span{width:58px;height:32px;border-radius:16px;display:grid;place-items:center}
+nav .on{color:var(--tx)}
+nav .on span{background:linear-gradient(135deg,var(--ac),var(--ac2));color:var(--on)}
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:24px;color:var(--on);background:linear-gradient(135deg,var(--ac),var(--ac2));box-shadow:var(--sh)}
+.hero p{color:inherit;opacity:.95;font-weight:600}
+.hero .bg{position:absolute;right:-18px;top:-10px;opacity:.16;transform:rotate(8deg)}
+.pill{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:7px 12px;border-radius:20px;background:rgba(255,255,255,.22);font:800 13px inherit}
+.dot{width:9px;height:9px;border-radius:50%;background:#2ee07a;box-shadow:0 0 0 3px rgba(46,224,122,.3)}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.t{display:flex;flex-direction:column;gap:12px;text-align:left;background:var(--cd);border:1px solid var(--ln);border-radius:22px;padding:16px;color:var(--tx);box-shadow:var(--sh)}
+.t b{font-size:16px;font-weight:800;display:block}.t small{color:var(--mu);font:600 13px inherit}
+.q{width:50px;height:50px;border-radius:16px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--h1),var(--h2))}
+.row{display:flex;align-items:center;gap:14px}
+.av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;flex:none;color:var(--on);background:linear-gradient(135deg,var(--ac),var(--ac2))}
+.nt{display:flex;gap:12px;align-items:flex-start;color:var(--mu);font-weight:600;font-size:14px}.nt .i{color:var(--ac)}
+.ch{display:flex;gap:12px;align-items:center;padding:12px 16px;background:var(--cd);border-bottom:1px solid var(--ln)}
+.ch small{display:flex;align-items:center;gap:6px;color:var(--mu);font:600 13px inherit}.ch .dot{width:8px;height:8px;box-shadow:none}
+.ms{flex:1;overflow:auto;padding:16px 14px;display:flex;flex-direction:column;gap:8px}
+.m{max-width:80%;padding:10px 14px 6px;border-radius:20px;background:var(--cd);border:1px solid var(--ln);overflow-wrap:anywhere;font-weight:600}
+.m.me{align-self:flex-end;background:linear-gradient(135deg,var(--ac),var(--ac2));color:var(--on);border:0;border-bottom-right-radius:6px}
+.m.ad{border-bottom-left-radius:6px}
+.m small{display:block;text-align:right;font-size:11px;opacity:.75;margin-top:2px}
+.m .ph{display:flex;gap:6px;align-items:center;font-weight:800;margin-bottom:2px}
+.cp{display:flex;gap:8px;overflow:auto;padding:8px 14px}
+.cp button{flex:none;display:flex;gap:6px;align-items:center;border:1px solid var(--ln);background:var(--cd);color:var(--tx);border-radius:20px;padding:9px 13px;font:800 14px inherit}
+.cp .i{color:var(--ac)}
+.cm{display:flex;gap:8px;align-items:center;padding:6px 12px 12px}
+.cm input{border-radius:26px;padding:12px 18px;font-size:16px}
+.rb{width:48px;height:48px;border-radius:50%;border:0;flex:none;display:grid;place-items:center}
+.rb.s{background:linear-gradient(135deg,var(--ac),var(--ac2));color:var(--on);box-shadow:var(--sh)}
+.rb.o{background:var(--cd);border:1px solid var(--ln);color:var(--tx)}
+.lk{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--tx);padding:14px 0;border-bottom:1px solid var(--ln)}.lk:last-child{border:0}
+.lk b{display:block;font-weight:800}.lk small{color:var(--mu);font:600 13px inherit}.lk>.i:last-child{margin-left:auto;color:var(--mu)}
+.r{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--ln);font-weight:800}.r:last-child{border:0}
+.ri{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:var(--bg);color:var(--ac);flex:none}
+.sg{display:flex;background:var(--bg);border-radius:14px;padding:4px;gap:4px;margin-top:10px}
+.sg button{flex:1;border:0;background:none;color:var(--mu);font:800 14px inherit;padding:10px;border-radius:11px}
+.sg .on{background:var(--cd);color:var(--tx);box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.sw button{border:2px solid var(--ln);border-radius:16px;background:var(--cd);color:var(--tx);padding:10px;font:800 13px inherit;text-align:left}
+.sw .on{border-color:var(--ac)}.sw i{display:block;height:36px;border-radius:10px;margin-bottom:8px}
+.tg{width:52px;height:30px;border-radius:15px;background:var(--ln);position:relative;border:0;margin-left:auto}
+.tg.on{background:var(--ac)}.tg::after{content:'';position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s}.tg.on::after{left:25px}
+.out{width:100%;border:2px solid var(--ln);background:var(--cd);color:#e5484d;border-radius:16px;padding:14px;font:800 16px inherit;display:flex;gap:8px;justify-content:center}
+.step{display:flex;gap:14px;align-items:center;background:var(--cd);border:1px solid var(--ln);border-radius:18px;padding:14px;font-weight:700}
+#c{text-align:center;font-size:30px;letter-spacing:.4em;padding:16px 8px}
 </style></head><body><div id="v"></div>
 <script>
 const C={phone:'+7XXXXXXXXXX',wa:'7XXXXXXXXXX',tg:'omad_tour',max:'https://max.ru/',vapid:'PASTE_VAPID_PUBLIC_KEY'};
 const L={
-ru:{it:'Установите приложение',id:'Нажмите «Поделиться» → «На экран Домой». Так вы получите ответы и уведомления.',at:'Разрешите уведомления',ad:'Мы сообщим, когда придёт ответ или изменится статус заявки.',ab:'Разрешить',sk:'Позже',lt:'Вход',ph:'Номер телефона',sc:'Получить код',co:'Код из SMS',cd:'Код придёт по SMS. Введите его — вход произойдёт автоматически.',hi:'Здравствуйте',sv:'Услуги',fl:'Авиабилеты',vi:'Виза',no:'Нотариус',pr:'Копи-центр',mn:'Меню',ch:'Чат',ca:'Звонок',se:'Настройки',la:'Язык',th:'Оформление',ts:'Системная',tb:'Синяя',tg:'Тёмная, зелёные акценты',td:'Тёмная нейтральная',nt:'Уведомления',on:'Включены',of:'Выключены',en:'Включить',lo:'Выйти',wr:'Сообщение…',se2:'Отправить',er:'Ошибка. Попробуйте ещё раз',rq:'Мои заявки',ny:'Пока заявок нет. Напишите нам в чат.',em:'Напишите нам — ответим здесь и в Telegram.',cl:'Позвонить'},
-uz:{it:'Ilovani o‘rnating',id:'«Ulashish» → «Bosh ekranga qo‘shish» tugmasini bosing. Shunda javob va bildirishnomalar keladi.',at:'Bildirishnomaga ruxsat bering',ad:'Javob kelganda yoki ariza holati o‘zgarganda xabar beramiz.',ab:'Ruxsat berish',sk:'Keyinroq',lt:'Kirish',ph:'Telefon raqami',sc:'Kod olish',co:'SMS’dagi kod',cd:'Kod SMS orqali keladi. Kiriting — kirish avtomatik bo‘ladi.',hi:'Assalomu alaykum',sv:'Xizmatlar',fl:'Aviachiptalar',vi:'Viza',no:'Notarius',pr:'Kopi markaz',mn:'Menyu',ch:'Chat',ca:'Qo‘ng‘iroq',se:'Sozlamalar',la:'Til',th:'Ko‘rinish',ts:'Tizim',tb:'Ko‘k',tg:'Qorong‘i, yashil urg‘u',td:'Qorong‘i neytral',nt:'Bildirishnomalar',on:'Yoqilgan',of:'O‘chirilgan',en:'Yoqish',lo:'Chiqish',wr:'Xabar…',se2:'Yuborish',er:'Xatolik. Qayta urinib ko‘ring',rq:'Mening arizalarim',ny:'Hozircha ariza yo‘q. Chatda yozing.',em:'Bizga yozing — javobni shu yerda va Telegramda beramiz.',cl:'Qo‘ng‘iroq qilish'},
-tk:{it:'Programmany guruň',id:'«Paýlaş» → «Baş ekrana goş» düwmesine basyň. Şeýdip jogaplary we habarnamalary alarsyňyz.',at:'Habarnamalara rugsat beriň',ad:'Jogap gelende ýa-da arzaňyzyň ýagdaýy üýtgände habar bereris.',ab:'Rugsat bermek',sk:'Soňra',lt:'Girmek',ph:'Telefon belgisi',sc:'Kod almak',co:'SMS-däki kod',cd:'Kod SMS arkaly gelýär. Giriziň — giriş awtomatiki bolýar.',hi:'Salam',sv:'Hyzmatlar',fl:'Awiabilet',vi:'Wiza',no:'Notarius',pr:'Kopi merkezi',mn:'Menýu',ch:'Çat',ca:'Jaň',se:'Sazlamalar',la:'Dil',th:'Görnüş',ts:'Ulgam',tb:'Gök',tg:'Gara, ýaşyl öwüşginli',td:'Gara neýtral',nt:'Habarnamalar',on:'Açyk',of:'Ýapyk',en:'Açmak',lo:'Çykmak',wr:'Habar…',se2:'Ibermek',er:'Ýalňyşlyk. Gaýtadan synanyşyň',rq:'Meniň arzalarym',ny:'Entek arza ýok. Çatda ýazyň.',em:'Bize ýazyň — jogaby şu ýerde we Telegramda bereris.',cl:'Jaň etmek'}};
-const st=JSON.parse(localStorage.st||'{}'),S={l:st.l||'ru',t:st.t||'system',tok:localStorage.tok,tab:'mn',ph:''};
+ru:{it:'Установите приложение',id:'Так вы сразу получите ответы и уведомления о заявках.',g1:'Нажмите «Поделиться» внизу Safari',g2:'Выберите «На экран Домой»',ga:'Меню браузера ⋮ → «Установить приложение»',ib:'Установить',at:'Включите уведомления',ad:'Сообщим, когда придёт ответ или изменится статус заявки.',ab:'Разрешить',sk:'Позже',lt:'Вход',ld:'Билеты, визы и документы — в одном приложении',ph:'Номер телефона',sc:'Получить код',co:'Введите код',cd:'Код придёт по SMS и подставится сам.',er:'Ошибка. Попробуйте ещё раз',sec:'Номер нужен только для входа и связи по заявкам.',hi:'Здравствуйте',on:'Мы на связи',rq:'Мои заявки',ny:'Пока заявок нет. Напишите нам — оформим вместе.',wc:'Написать в чат',sv:'Услуги',fl:'Авиабилеты',vi:'Виза',no:'Нотариус',pr:'Копи-центр',fld:'Подбор и бронь',vid:'Помощь с анкетой',nod:'Переводы и заверение',prd:'Печать и копии',nt:'Мы частный посредник: помогаем заполнить анкету. Визу выдаёт только консульство.',mn:'Меню',ch:'Чат',ca:'Звонок',se:'Настройки',cn:'Отвечаем здесь и в Telegram',wr:'Сообщение',ph2:'Фото отправлено',em:'Напишите нам или пришлите фото документа — ответим здесь.',ct:'Связаться',cl:'Позвонить',of:'Наши офисы',o1:'м. Технологический институт',o2:'пр. Большевиков',la:'Язык',th:'Оформление',t0:'Системная',t1:'Синяя',t2:'Тёмная · зелёная',t3:'Тёмная · нейтральная',nf:'Уведомления',e1:'Включены',e0:'Включить',lo:'Выйти'},
+uz:{it:'Ilovani o‘rnating',id:'Shunda javoblar va ariza bildirishnomalarini darhol olasiz.',g1:'Safari pastidagi «Ulashish»ni bosing',g2:'«Bosh ekranga qo‘shish»ni tanlang',ga:'Brauzer menyusi ⋮ → «Ilovani o‘rnatish»',ib:'O‘rnatish',at:'Bildirishnomalarni yoqing',ad:'Javob kelganda yoki ariza holati o‘zgarganda xabar beramiz.',ab:'Ruxsat berish',sk:'Keyinroq',lt:'Kirish',ld:'Chipta, viza va hujjatlar — bitta ilovada',ph:'Telefon raqami',sc:'Kod olish',co:'Kodni kiriting',cd:'Kod SMS orqali keladi va o‘zi joylashadi.',er:'Xatolik. Qayta urinib ko‘ring',sec:'Raqam faqat kirish va arizalar bo‘yicha aloqa uchun kerak.',hi:'Assalomu alaykum',on:'Aloqadamiz',rq:'Mening arizalarim',ny:'Hozircha ariza yo‘q. Bizga yozing — birga rasmiylashtiramiz.',wc:'Chatga yozish',sv:'Xizmatlar',fl:'Aviachiptalar',vi:'Viza',no:'Notarius',pr:'Kopi markaz',fld:'Tanlash va bron',vid:'Anketa bo‘yicha yordam',nod:'Tarjima va tasdiqlash',prd:'Chop etish va nusxa',nt:'Biz xususiy vositachimiz: anketani to‘ldirishga yordam beramiz. Vizani faqat konsullik beradi.',mn:'Menyu',ch:'Chat',ca:'Qo‘ng‘iroq',se:'Sozlamalar',cn:'Shu yerda va Telegramda javob beramiz',wr:'Xabar',ph2:'Rasm yuborildi',em:'Bizga yozing yoki hujjat rasmini yuboring — shu yerda javob beramiz.',ct:'Bog‘lanish',cl:'Qo‘ng‘iroq qilish',of:'Ofislarimiz',o1:'Texnologik institut m.',o2:'Bolshevikov prospekti',la:'Til',th:'Ko‘rinish',t0:'Tizim',t1:'Ko‘k',t2:'Qorong‘i · yashil',t3:'Qorong‘i · neytral',nf:'Bildirishnomalar',e1:'Yoqilgan',e0:'Yoqish',lo:'Chiqish'},
+tk:{it:'Programmany guruň',id:'Şeýdip jogaplary we arza habarnamalaryny dessine alarsyňyz.',g1:'Safari-niň aşagyndaky «Paýlaş» düwmesine basyň',g2:'«Baş ekrana goş» saýlaň',ga:'Brauzer menýusy ⋮ → «Programmany gurmak»',ib:'Gurmak',at:'Habarnamalary açyň',ad:'Jogap gelende ýa-da arzaňyzyň ýagdaýy üýtgände habar bereris.',ab:'Rugsat bermek',sk:'Soňra',lt:'Girmek',ld:'Bilet, wiza we resminamalar — bir programmada',ph:'Telefon belgisi',sc:'Kod almak',co:'Kody giriziň',cd:'Kod SMS arkaly gelýär we özi ýerleşýär.',er:'Ýalňyşlyk. Gaýtadan synanyşyň',sec:'Belgi diňe girmek we arzalar boýunça aragatnaşyk üçin gerek.',hi:'Salam',on:'Aragatnaşykda',rq:'Meniň arzalarym',ny:'Entek arza ýok. Bize ýazyň — bilelikde resmileşdireris.',wc:'Çata ýazmak',sv:'Hyzmatlar',fl:'Awiabilet',vi:'Wiza',no:'Notarius',pr:'Köpi merkezi',fld:'Saýlamak we bron',vid:'Anketa boýunça kömek',nod:'Terjime we tassyklama',prd:'Çap etmek we nusga',nt:'Biz hususy araçy: anketany dolduryp kömek edýäris. Wizany diňe konsulluk berýär.',mn:'Menýu',ch:'Çat',ca:'Jaň',se:'Sazlamalar',cn:'Şu ýerde we Telegramda jogap berýäris',wr:'Habar',ph2:'Surat iberildi',em:'Bize ýazyň ýa-da resminama suratyny iberiň — şu ýerde jogap bereris.',ct:'Habarlaşmak',cl:'Jaň etmek',of:'Ofislerimiz',o1:'Tehnologiýa instituty m.',o2:'Bolşewikow şaýoly',la:'Dil',th:'Görnüş',t0:'Ulgam',t1:'Gök',t2:'Garaňky · ýaşyl',t3:'Garaňky · neýtral',nf:'Habarnamalar',e1:'Açyk',e0:'Açmak',lo:'Çykmak'}};
+const IC={mn:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',ch:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4"/>',ca:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',se:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
+fl:'<path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>',vi:'<rect x="5" y="2.5" width="14" height="19" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8.5 17h7"/>',no:'<path d="M6 2.5h8l4 4v15H6z"/><path d="M14 2.5v4h4M9 12h6M9 16h6"/>',pr:'<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>',
+send:'<path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/>',cam:'<path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/>',shield:'<path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',bell:'<path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10 21a2 2 0 0 0 4 0"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',pal:'<path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 1.5-2s0-2 1.5-2h2a3 3 0 0 0 3-3c0-5-4-11-8-11z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',pin:'<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',chev:'<path d="M9 6l6 6-6 6"/>',share:'<path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>',plus:'<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/>',wa:'<path d="M3 21l1.6-5A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 9c0 3 3 6 6 6l1-2-2-1-1 .5c-.8-.4-1.6-1.2-2-2l.5-1-1-2z"/>',tg:'<path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/>',max:'<circle cx="12" cy="12" r="9"/><path d="M8 16V9l4 5 4-5v7"/>',dev:'<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/>'};
+const ic=(n,s=24)=>`<svg class="i" width="${s}" height="${s}" viewBox="0 0 24 24">${IC[n]}</svg>`;
+const st=JSON.parse(localStorage.st||'{}'),S={l:st.l||'ru',t:st.t||'system',tok:localStorage.tok,tab:'mn',ph:localStorage.ph||''};
 const $=s=>document.querySelector(s),T=k=>L[S.l][k],V=$('#v');
 const save=()=>localStorage.st=JSON.stringify({l:S.l,t:S.t});
 const theme=()=>document.documentElement.dataset.t=S.t==='system'?(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'blue'):S.t;
 const api=async(u,d)=>{const r=await fetch('/api/'+u,{method:'POST',headers:{'content-type':'application/json',Authorization:'Bearer '+(S.tok||'')},body:JSON.stringify(d)});if(r.status===401&&S.tok){out();return Promise.reject(401)}return r.ok?r.json():Promise.reject(r.status)};
 const out=()=>{localStorage.removeItem('tok');S.tok=null;go()};
 const std=navigator.standalone||matchMedia('(display-mode:standalone)').matches||location.search.includes('dev');
-const hasN='Notification' in window;
+const hasN='Notification' in window,ios=/iphone|ipad|ipod/i.test(navigator.userAgent);let dp;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;if(!std)gate()});
 if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js');
-async function sub(){try{const reg=await navigator.serviceWorker.ready,p='='.repeat((4-C.vapid.length%4)%4),
-k=Uint8Array.from(atob((C.vapid+p).replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0)),
-s=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:k});S.sub=s.toJSON();if(S.tok)await api('chat',{action:'sub',sub:S.sub})}catch(e){}}
-function go(){theme();clearInterval(S.iv);
- if(!std)return gate();
- if(!S.tok&&hasN&&Notification.permission==='default'&&!localStorage.skip)return perm();
- if(!S.tok)return login();
- app()}
-const lang=()=>`<div class="row" style="justify-content:center">${['ru','uz','tk'].map(x=>`<button class="l" style="${S.l===x?'color:var(--ac);font-weight:700':''}" onclick="S.l='${x}';save();go()">${x.toUpperCase()}</button>`).join('')}</div>`;
-function gate(){V.innerHTML=`<div class="c"><h1>${T('it')}</h1><p>${T('id')}</p>${lang()}</div>`}
-function perm(){V.innerHTML=`<div class="c"><h1>${T('at')}</h1><p>${T('ad')}</p><button class="p" id="ok">${T('ab')}</button><button class="l" id="sk">${T('sk')}</button></div>`;
- $('#ok').onclick=async()=>{await Notification.requestPermission();go()};$('#sk').onclick=()=>{localStorage.skip=1;go()}}
-function login(){V.innerHTML=`<div class="c"><h1>${T('lt')}</h1><input id="p" type="tel" inputmode="tel" autocomplete="tel" placeholder="${T('ph')}" value="${S.ph}"><button class="p" id="s">${T('sc')}</button><p id="h"></p>${lang()}</div>`;
- $('#s').onclick=async()=>{S.ph=$('#p').value;try{const d=await api('auth',{action:'send',phone:S.ph});if(d.dev)console.log('DEV',d.dev);
-  V.innerHTML=`<div class="c"><h1>${T('co')}</h1><p>${T('cd')}</p><input id="c" inputmode="numeric" autocomplete="one-time-code" maxlength="6" autofocus></div>`;
-  $('#c').oninput=async e=>{if(e.target.value.length===6)try{const d=await api('auth',{action:'verify',phone:S.ph,code:e.target.value});localStorage.tok=S.tok=d.token;if(hasN&&Notification.permission==='granted')sub();go()}catch(x){e.target.value='';$('#c').placeholder=T('er')}}}catch(x){$('#h').textContent=T('er')}}}
-const I={mn:'<path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>',ch:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',ca:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',se:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>'};
-function app(){V.innerHTML=`<div class="b" id="b"></div><nav><div>${['mn','ch','ca','se'].map(k=>`<button class="${S.tab===k?'on':''}" onclick="S.tab='${k}';app()" style="flex:1"><svg viewBox="0 0 24 24">${I[k]}</svg>${T(k)}</button>`).join('')}</div></nav>`;
- clearInterval(S.iv);({mn:menu,ch:chat,ca:call,se:sets})[S.tab]();
- if(hasN&&Notification.permission==='granted'&&!S.sub)sub()}
-function menu(){$('#b').innerHTML=`<div class="cd"><h1>${T('hi')}</h1><p>+${S.ph.replace(/\D/g,'')||'…'}</p></div>
-<div class="cd"><b>${T('rq')}</b><p style="margin-top:6px">${T('ny')}</p></div><h3 style="margin:6px 4px 10px">${T('sv')}</h3>
-<div class="g">${[['fl','✈️'],['vi','🛂'],['no','📜'],['pr','🖨️']].map(([k,e])=>`<button onclick="S.pre='${T(k)}: ';S.tab='ch';app()">${e}<br>${T(k)}</button>`).join('')}</div>`}
-async function chat(){$('#b').innerHTML=`<div id="ms"></div><div class="row" style="position:sticky;bottom:0"><input id="t" placeholder="${T('wr')}"><button class="p" id="x">${T('se2')}</button></div>`;
- if(S.pre){$('#t').value=S.pre;S.pre=''}
- const load=async()=>{try{const d=await api('chat',{action:'list'});S.ph=d.phone;$('#ms').innerHTML=d.msgs.length?d.msgs.map(m=>`<div class="m ${m.from==='me'?'me':'ad'}"></div>`).join(''):`<p>${T('em')}</p>`;
-  [...$('#ms').children].forEach((n,i)=>n.textContent=d.msgs[i]?.text)}catch(e){}};
- $('#x').onclick=async()=>{const v=$('#t').value.trim();if(!v)return;$('#t').value='';try{await api('chat',{action:'send',text:v});load()}catch(e){$('#t').value=v}};
- load();S.iv=setInterval(load,5000)}
-function call(){const n=C.phone.replace(/\D/g,'');$('#b').innerHTML=[[`tel:${C.phone}`,T('cl')+' '+C.phone],[`https://wa.me/${C.wa}`,'WhatsApp'],[`https://t.me/${C.tg}`,'Telegram'],[C.max,'Max']].map(([h,t])=>`<a href="${h}" style="text-decoration:none"><button class="cd" style="margin-bottom:12px;font-weight:600">${t}</button></a>`).join('')}
-function sets(){const sel=(id,o,v)=>`<select id="${id}">${o.map(([k,t])=>`<option value="${k}"${k===v?' selected':''}>${t}</option>`).join('')}</select>`;
- const g=hasN&&Notification.permission==='granted';
- $('#b').innerHTML=`<div class="cd"><div class="r"><b>${T('la')}</b>${sel('l',[['ru','Русский'],['uz','Oʻzbekcha'],['tk','Türkmençe']],S.l)}</div>
-<div class="r"><b>${T('th')}</b>${sel('t',[['system',T('ts')],['blue',T('tb')],['green',T('tg')],['dark',T('td')]],S.t)}</div>
-<div class="r"><b>${T('nt')}</b>${g?`<span>${T('on')}</span>`:`<button class="p" id="n" style="width:auto">${T('en')}</button>`}</div></div><button id="o">${T('lo')}</button>`;
- $('#l').onchange=e=>{S.l=e.target.value;save();app()};$('#t').onchange=e=>{S.t=e.target.value;save();theme();app()};
- if(!g&&hasN)$('#n').onclick=async()=>{await Notification.requestPermission();await sub();app()};$('#o').onclick=out}
+async function sub(){try{const reg=await navigator.serviceWorker.ready,p='='.repeat((4-C.vapid.length%4)%4),k=Uint8Array.from(atob((C.vapid+p).replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0)),s=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:k});S.sub=s.toJSON();if(S.tok)await api('chat',{action:'sub',sub:S.sub})}catch(e){}}
+function go(){theme();clearInterval(S.iv);if(!std)return gate();if(!S.tok&&hasN&&Notification.permission==='default'&&!localStorage.skip)return perm();if(!S.tok)return login();app()}
+const lang=()=>`<div class="sg" style="margin:0">${['ru','uz','tk'].map(x=>`<button class="${S.l===x?'on':''}" data-a="lang" data-v="${x}">${x.toUpperCase()}</button>`).join('')}</div>`;
+function gate(){V.innerHTML=`<div class="c"><div class="logo">${ic('fl',44)}</div><h1>${T('it')}</h1><p>${T('id')}</p>${ios?`<div class="step">${ic('share',26)}${T('g1')}</div><div class="step">${ic('plus',26)}${T('g2')}</div>`:dp?`<button class="p" data-a="inst">${ic('dev',22)}${T('ib')}</button>`:`<div class="step">${ic('dev',26)}${T('ga')}</div>`}${lang()}</div>`}
+function perm(){V.innerHTML=`<div class="c"><div class="logo">${ic('bell',44)}</div><h1>${T('at')}</h1><p>${T('ad')}</p><button class="p" id="ok">${T('ab')}</button><button class="l" id="sk">${T('sk')}</button></div>`;$('#ok').onclick=async()=>{await Notification.requestPermission();go()};$('#sk').onclick=()=>{localStorage.skip=1;go()}}
+function login(){V.innerHTML=`<div class="c"><div class="logo">${ic('fl',44)}</div><h1>${T('lt')}</h1><p>${T('ld')}</p><input id="p" type="tel" inputmode="tel" autocomplete="tel" placeholder="${T('ph')}" value="${S.ph}"><button class="p" id="s">${T('sc')}</button><div class="nt">${ic('shield',20)}<span>${T('sec')}</span></div><p id="h" style="color:#e5484d"></p>${lang()}</div>`;
+$('#s').onclick=async()=>{S.ph=$('#p').value;try{const d=await api('auth',{action:'send',phone:S.ph});if(d.dev)console.log('DEV',d.dev);code()}catch(x){$('#h').textContent=T('er')}}}
+function code(){V.innerHTML=`<div class="c"><div class="logo">${ic('shield',44)}</div><h1>${T('co')}</h1><p>${T('cd')}</p><input id="c" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••" autofocus></div>`;
+const ok=async v=>{try{const d=await api('auth',{action:'verify',phone:S.ph,code:v});localStorage.tok=S.tok=d.token;localStorage.ph=S.ph;if(hasN&&Notification.permission==='granted')sub();go()}catch(x){$('#c').value='';$('#c').placeholder=T('er')}};
+$('#c').oninput=e=>{if(e.target.value.length===6)ok(e.target.value)};
+if('OTPCredential' in window)navigator.credentials.get({otp:{transport:['sms']}}).then(o=>{$('#c').value=o.code;ok(o.code)}).catch(()=>{})}
+function app(){V.innerHTML=`<div class="b${S.tab==='ch'?' f':''}" id="b"></div><nav><div>${['mn','ch','ca','se'].map(k=>`<button class="${S.tab===k?'on':''}" data-a="tab" data-v="${k}"><span>${ic(k,24)}</span>${T(k)}</button>`).join('')}</div></nav>`;clearInterval(S.iv);({mn:menu,ch:chat,ca:call,se:sets})[S.tab]();if(hasN&&Notification.permission==='granted'&&!S.sub)sub()}
+function menu(){const sv=[['fl','#0b57ff','#00aaff'],['vi','#7c3aed','#c084fc'],['no','#f59e0b','#fbbf24'],['pr','#059669','#2dd4bf']];
+$('#b').innerHTML=`<div class="hero"><div class="bg">${ic('fl',150)}</div><p style="font-weight:700">${T('hi')}</p><h1 style="margin-top:2px">+${S.ph.replace(/\D/g,'')||'…'}</h1><div class="pill"><span class="dot"></span>${T('on')}</div></div>
+<h3>${T('rq')}</h3><div class="cd"><div class="row"><div class="av">${ic('user',24)}</div><p style="font-weight:600">${T('ny')}</p></div><button class="p" style="margin-top:14px" data-a="tab" data-v="ch">${ic('ch',22)}${T('wc')}</button></div>
+<h3 style="margin-top:6px">${T('sv')}</h3><div class="g">${sv.map(([k,a,b])=>`<button class="t" data-a="svc" data-v="${k}" style="--h1:${a};--h2:${b}"><span class="q">${ic(k,26)}</span><span><b>${T(k)}</b><small>${T(k+'d')}</small></span></button>`).join('')}</div>
+<div class="cd nt" style="margin-top:14px">${ic('shield',22)}<span>${T('nt')}</span></div>`}
+const tm=t=>new Date(t).toLocaleTimeString(S.l==='ru'?'ru-RU':'uz-UZ',{hour:'2-digit',minute:'2-digit'});
+const shrink=f=>new Promise(r=>{const im=new Image();im.onload=()=>{const k=Math.min(1,1400/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);r(c.toDataURL('image/jpeg',.78))};im.src=URL.createObjectURL(f)});
+async function chat(){$('#b').innerHTML=`<div class="ch"><div class="av">${ic('fl',24)}</div><div><b>Omad Tour</b><small><span class="dot"></span>${T('cn')}</small></div></div><div class="ms" id="ms"></div>
+<div class="cp">${['fl','vi','no','pr'].map(k=>`<button data-a="chip" data-v="${k}">${ic(k,18)}${T(k)}</button>`).join('')}</div>
+<div class="cm"><label class="rb o" aria-label="photo">${ic('cam',22)}<input type="file" id="f" accept="image/*" hidden></label><input id="t" placeholder="${T('wr')}"><button class="rb s" id="x" aria-label="send">${ic('send',22)}</button></div>`;
+if(S.pre){$('#t').value=S.pre;S.pre=''}
+const mk=m=>{const d=document.createElement('div');d.className='m '+(m.from==='me'?'me':'ad');if(m.photo){const p=document.createElement('div');p.className='ph';p.innerHTML=ic('cam',18);p.append(T('ph2'));d.append(p)}if(m.text)d.append(m.text);if(m.t){const s=document.createElement('small');s.textContent=tm(m.t);d.append(s)}return d};
+const load=async()=>{try{const d=await api('chat',{action:'list'});S.ph=d.phone;const ms=$('#ms');if(!ms)return;ms.replaceChildren(...(d.msgs.length?d.msgs:[{from:'ad',text:T('em')}]).map(mk));ms.scrollTop=1e9}catch(e){}};
+const send=async(img)=>{const v=$('#t').value.trim();if(!v&&!img)return;$('#t').value='';try{await api('chat',{action:'send',text:v,img});load()}catch(e){$('#t').value=v}};
+$('#x').onclick=()=>send();$('#t').onkeydown=e=>e.key==='Enter'&&send();
+$('#f').onchange=async e=>{const f=e.target.files[0];if(f)send(await shrink(f));e.target.value=''};
+load();S.iv=setInterval(load,5000)}
+function call(){const rows=[['ca',T('cl'),C.phone,'tel:'+C.phone,'#16a34a'],['wa','WhatsApp',C.wa?'+'+C.wa:'','https://wa.me/'+C.wa,'#22c55e'],['tg','Telegram','@'+C.tg,'https://t.me/'+C.tg,'#229ed9'],['max','Max','max.ru',C.max,'#7c3aed']];
+$('#b').innerHTML=`<h1 style="margin:4px 4px 16px">${T('ct')}</h1><div class="cd" style="padding:4px 18px">${rows.map(([i,n,s,h,c])=>`<a class="lk" href="${h}"><span class="q" style="--h1:${c};--h2:${c}">${ic(i,26)}</span><span><b>${n}</b><small>${s}</small></span>${ic('chev',20)}</a>`).join('')}</div>
+<h3>${T('of')}</h3><div class="cd" style="padding:4px 18px">${[T('o1'),T('o2')].map(o=>`<div class="lk"><span class="ri">${ic('pin',22)}</span><b>${o}</b></div>`).join('')}</div>`}
+function sets(){const g=hasN&&Notification.permission==='granted',sw=[['system','t0','linear-gradient(135deg,#0b57ff 50%,#131316 50%)'],['blue','t1','linear-gradient(135deg,#0b57ff,#00aaff)'],['green','t2','linear-gradient(135deg,#05100a,#2bdc86)'],['dark','t3','linear-gradient(135deg,#000,#6aa6ff)']];
+$('#b').innerHTML=`<div class="cd"><div class="row"><div class="av">${ic('user',24)}</div><b style="font-size:19px;font-weight:800">+${S.ph.replace(/\D/g,'')||'…'}</b></div></div>
+<div class="cd"><div class="r" style="border:0;padding-top:0"><span class="ri">${ic('globe',22)}</span>${T('la')}</div>${lang()}</div>
+<div class="cd"><div class="r" style="border:0;padding-top:0"><span class="ri">${ic('pal',22)}</span>${T('th')}</div><div class="sw">${sw.map(([k,l,bg])=>`<button class="${S.t===k?'on':''}" data-a="th" data-v="${k}"><i style="background:${bg}"></i>${T(l)}</button>`).join('')}</div></div>
+<div class="cd"><div class="r" style="border:0;padding:0"><span class="ri">${ic('bell',22)}</span>${T('nf')}<button class="tg${g?' on':''}" data-a="push" aria-label="${T('nf')}"></button></div></div>
+<button class="out" data-a="out">${ic('out',22)}${T('lo')}</button>`}
+document.addEventListener('click',e=>{const a=e.target.closest('[data-a]');if(!a)return;const k=a.dataset.a,v=a.dataset.v;
+if(k==='tab'){S.tab=v;app()}else if(k==='lang'){S.l=v;save();go()}else if(k==='th'){S.t=v;save();theme();app()}else if(k==='svc'){S.pre=T(v)+': ';S.tab='ch';app()}else if(k==='chip'){$('#t').value=T(v)+': ';$('#t').focus()}else if(k==='out')out();else if(k==='inst'&&dp)dp.prompt();else if(k==='push'&&hasN)Notification.requestPermission().then(()=>sub()).then(()=>app())});
 matchMedia('(prefers-color-scheme:dark)').onchange=theme;go();
 </script></body></html>
