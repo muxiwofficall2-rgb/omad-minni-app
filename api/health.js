@@ -7,7 +7,7 @@ export default async(q,s)=>{
   const ids=(A.ADMIN_CHAT_ID||'').split(',').map(x=>x.trim()).filter(Boolean);
   const o={env:{REDIS_URL:!!KU,REDIS_TOKEN:!!KT,...Object.fromEntries(['BOT_TOKEN','ADMIN_SECRET','VAPID_PUBLIC','VAPID_PRIVATE'].map(k=>[k,!!A[k]]))},admins:ids.length};
   try{await import('web-push');o.webpush='ok'}catch(e){o.webpush='YO\'Q (package.json repoda bormi?): '+String(e.message).slice(0,80)}
-  try{const l=await import('./_lib.js');o.lib='ok';o.vapid=l.vapidError?'XATO: '+l.vapidError.slice(0,90):(A.VAPID_PUBLIC&&A.VAPID_PRIVATE?'ok':'kiritilmagan')}catch(e){o.lib='YIQILDI: '+String(e.message).slice(0,120)}
+  try{const l=await import('./_lib.js');o.lib='ok';o.vapid=await l.vapidCheck()}catch(e){o.lib='YIQILDI: '+String(e.message).slice(0,120)}
   try{const x=await kv('PING');o.redis=x.result||x.error||'?'}catch(e){o.redis='XATO: '+String(e.message).slice(0,80)}
   try{const m=await tg('getMe',{});o.bot=m.ok?'@'+m.result.username:m.description}catch(e){o.bot='XATO: '+String(e.message).slice(0,80)}
   if(A.ADMIN_SECRET&&q.query&&q.query.test===A.ADMIN_SECRET){
