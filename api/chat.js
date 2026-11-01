@@ -13,7 +13,7 @@ const h=async(q,s)=>{
   if(b.action==='sub'){if(b.sub&&b.sub.endpoint)await r('SADD','p:'+b.cid,JSON.stringify(b.sub));return s.json({ok:1})}
   if(b.action==='send'&&(b.text||b.img)){ // клиент -> Telegram админу
     if(!await rate('rl:'+b.cid,60,3600))return s.status(429).end();
-    const ph=await r('GET','ph:'+b.cid),text=String(b.text||'').slice(0,800);
+    const ph=await r('GET','ph:'+b.cid).catch(()=>null),text=String(b.text||'').slice(0,800);
     const cap=`💬 Чат${ph?'\n📞 '+ph:''}\nID: ${b.cid.slice(0,6)}\n${text}`;
     const ok=typeof b.img==='string'&&b.img.startsWith('data:image/jpeg;base64,')&&b.img.length<4e6;let sent=0;
     for(const a of admins()){
