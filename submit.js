@@ -1,6 +1,6 @@
 // Виза / Копи-центр: файл + телефон -> Telegram админу (кнопка «Ответить»)
-import {r,body,cidOk,admins,rate,tg,kb} from './_lib.js';
-export default async(q,s)=>{
+const h=async(q,s)=>{
+  const {r,body,cidOk,admins,rate,tg,kb}=await import('./_lib.js');
   if(q.method!=='POST')return s.status(405).end();
   const b=body(q),cid=b.cid;
   if(!cidOk(cid))return s.status(400).json({error:'cid'});
@@ -23,3 +23,4 @@ export default async(q,s)=>{
   await r('SET','ph:'+cid,phone,'EX',2592000);
   return sent?s.json({ok:1}):s.status(502).json({error:'telegram'});
 };
+export default async(q,s)=>{try{return await h(q,s)}catch(e){return s.status(500).json({error:String(e&&e.message||e).slice(0,100)})}};
