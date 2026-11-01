@@ -108,7 +108,7 @@ try{S.loc=JSON.parse(LS.loc||'[]')}catch(e){S.loc=[]}
 const addLoc=m=>{S.loc.push(m);try{LS.loc=JSON.stringify(S.loc.slice(-8))}catch(e){try{LS.loc=JSON.stringify(S.loc.slice(-2))}catch(_){}}};
 const save=()=>LS.st=JSON.stringify({l:S.l,t:S.t});
 const theme=()=>document.documentElement.dataset.t=S.t==='system'?(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'blue'):S.t;
-const api=async(u,d)=>{if(MOCK)return u==='chat'&&d.action==='list'?{phone:'',msgs:[]}:{ok:1};const r=await fetch('/api/'+u,{method:'POST',headers:{'content-type':'application/json',Authorization:'Bearer '+(S.tok||'')},body:JSON.stringify({...d,cid:S.cid})});if(r.status===401&&S.tok){out();return Promise.reject(401)}return r.ok?r.json():Promise.reject(r.status)};
+const api=async(u,d)=>{if(MOCK)return u==='chat'&&d.action==='list'?{phone:'',msgs:[]}:{ok:1};const r=await fetch('/api/'+u,{method:'POST',headers:{'content-type':'application/json',Authorization:'Bearer '+(S.tok||'')},body:JSON.stringify({...d,cid:S.cid})});if(r.status===401&&S.tok){out();return Promise.reject(401)}if(!r.ok){let m=String(r.status);try{m+=' '+(await r.json()).error}catch(e){}return Promise.reject(m)}return r.json()};
 const out=()=>{LS.removeItem('tok');S.tok=null;go()};
 const std=navigator.standalone||matchMedia('(display-mode:standalone)').matches||location.search.includes('dev');
 const hasN='Notification' in window,ios=/iphone|ipad|ipod/i.test(navigator.userAgent);let dp;
@@ -145,7 +145,7 @@ try{const pv=$('#pv'),nm=document.createElement('b');if(im){F={name:f.name,img:1
 else{F={name:f.name,data:await new Promise((r,j)=>{const R=new FileReader();R.onload=()=>r(R.result);R.onerror=j;R.readAsDataURL(f)})};pv.innerHTML=ic('file',34);nm.textContent=f.name}pv.append(nm)}catch(x){F=null;er(T('e_f'))}};
 $('#go').onclick=()=>{const ph=$('#ph').value.trim();if(!F)return er(T('e_f'));if(ph.replace(/\D/g,'').length<10)return er(T('e_ph'));
 const kind=pr?'print':'visa';addLoc({from:'me',t:Date.now(),kind,phone:ph,img:F.thumb,file:F.img?undefined:F.name});
-api('submit',{kind,phone:ph,name:F.name,data:F.data}).catch(()=>addLoc({from:'ad',text:T('e_send'),t:Date.now()}));S.tab='ch';S.pg=null;app()}}
+api('submit',{kind,phone:ph,name:F.name,data:F.data}).catch(e=>addLoc({from:'ad',text:T('e_send')+' ['+(e&&e.message||e)+']',t:Date.now()}));S.tab='ch';S.pg=null;app()}}
 function setup(){const g=hasN&&Notification.permission==='granted';if(std&&g)return'';const den=hasN&&Notification.permission==='denied',ac='--h1:var(--ac);--h2:var(--ac2)';
 if(!std)return`<div class="cd" style="margin-top:14px"><div class="row"><span class="q" style="${ac}">${ic('dev',26)}</span><span><b>${T('it')}</b><small>${T('id')}</small></span></div>${ios?`<div class="step" style="margin-top:14px">${ic('share',26)}${T('g1')}</div><div class="step" style="margin-top:10px">${ic('plus',26)}${T('g2')}</div>`:dp?`<button class="p" style="margin-top:14px" data-a="inst">${ic('dev',22)}${T('ib')}</button>`:`<div class="step" style="margin-top:14px">${ic('dev',26)}${T('ga')}</div>`}</div>`;
 return`<div class="cd" style="margin-top:14px"><div class="row"><span class="q" style="${ac}">${ic('bell',26)}</span><span><b>${T('at')}</b><small>${den?T('nd'):T('ad')}</small></span></div>${den?'':`<button class="p" style="margin-top:14px" data-a="push">${ic('bell',22)}${T('ab')}</button>`}</div>`}
@@ -158,12 +158,12 @@ const tm=t=>new Date(t).toLocaleTimeString(S.l==='ru'?'ru-RU':'uz-UZ',{hour:'2-d
 const shrink=(f,mx=1400,q=.78)=>new Promise((r,j)=>{const im=new Image();im.onload=()=>{const k=Math.min(1,mx/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);r(c.toDataURL('image/jpeg',q))};im.onerror=j;im.src=URL.createObjectURL(f)});
 async function chat(){$('#b').innerHTML=`<div class="ch"><div class="av" style="background:#fff;border:1px solid var(--ln);width:52px;height:52px"><img src="${LOGO}" width="38" height="38" alt=""></div><div><b>Omad Tour</b><small><span class="dot"></span>${T('cn')}</small></div></div><div class="ms" id="ms"></div>
 <div class="cp">${['fl','vi','no','pr'].map(k=>`<button data-a="chip" data-v="${k}">${ic(k,18)}${T(k)}</button>`).join('')}</div>
-<div class="cm"><label class="rb o" aria-label="photo">${ic('cam',22)}<input type="file" id="f" accept="image/*" hidden></label><input id="t" placeholder="${T('wr')}"><button class="rb s" id="x" aria-label="send">${ic('send',22)}</button></div>`;
+<div class="cm"><label class="rb o" aria-label="photo">${ic('cam',22)}<input type="file" id="f" accept="image/*" hidden></label><input id="t" placeholder="${T('wr')}" autocomplete="off" enterkeyhint="send"><button class="rb s" id="x" aria-label="send">${ic('send',22)}</button></div>`;
 if(S.pre){$('#t').value=S.pre;S.pre=''}
 const mk=m=>{const d=document.createElement('div');d.className='m '+(m.from==='me'?'me':'ad')+(m.img?' im':'');if(m.kind){const p=document.createElement('div');p.className='ph';p.innerHTML=ic(m.file?'file':'cam',18);p.append(T(m.kind==='visa'?'vi':'pr')+(m.phone?' · '+m.phone:''));d.append(p)}if(m.img){const i=document.createElement('img');i.className='big';i.src=m.img;i.alt='';d.append(i)}if(m.file){const c=document.createElement('div');c.className='chip';c.innerHTML=ic('file',18);c.append(m.file);d.append(c)}if(m.text)d.append(m.text);if(m.t){const s=document.createElement('small');s.textContent=tm(m.t);d.append(s)}return d};
 const load=async()=>{let sv=[];try{sv=(await api('chat',{action:'list'})).msgs||[]}catch(e){}const ms=$('#ms');if(!ms)return;const all=[...S.loc,...sv.filter(x=>x.from!=='me')].sort((a,b)=>a.t-b.t);ms.replaceChildren(...(all.length?all:[{from:'ad',text:T('em')}]).map(mk));ms.scrollTop=1e9};
-const send=async f=>{const v=$('#t').value.trim();if(!v&&!f)return;$('#t').value='';const m={from:'me',text:v,t:Date.now()};let data;if(f){try{data=await shrink(f,1600,.8);m.img=await shrink(f,900,.7)}catch(e){return}}addLoc(m);api('chat',{action:'send',text:v,img:data}).then(()=>{},()=>{addLoc({from:'ad',text:T('e_send'),t:Date.now()});load()});load()};
-$('#x').onclick=()=>send();$('#t').onkeydown=e=>e.key==='Enter'&&send();
+const send=async f=>{const v=$('#t').value.trim();if(!v&&!f)return;$('#t').value='';const m={from:'me',text:v,t:Date.now()};let data;if(f){try{data=await shrink(f,1600,.8);m.img=await shrink(f,900,.7)}catch(e){return}}addLoc(m);api('chat',{action:'send',text:v,img:data}).then(()=>{},e=>{addLoc({from:'ad',text:T('e_send')+' ['+(e&&e.message||e)+']',t:Date.now()});load()});load()};
+$('#x').onclick=()=>send();$('#t').onkeydown=e=>{if(e.key==='Enter')send()};
 $('#f').onchange=e=>{const f=e.target.files[0];if(f)send(f);e.target.value=''};
 load();S.iv=setInterval(load,5000)}
 function call(){const rows=[['ca',T('cl'),C.phone,'tel:'+C.phone,'#16a34a'],['wa','WhatsApp',C.wa?'+'+C.wa:'','https://wa.me/'+C.wa,'#22c55e'],['tg','Telegram','@'+C.tg,'https://t.me/'+C.tg,'#229ed9'],['max','Max','max.ru',C.max,'#7c3aed']];
@@ -176,5 +176,6 @@ $('#b').innerHTML=`<div class="cd"><div class="row"><div class="av">${ic('user',
 <button class="out" data-a="out">${ic('out',22)}${T('lo')}</button>`}
 document.addEventListener('click',e=>{const a=e.target.closest('[data-a]');if(!a)return;const k=a.dataset.a,v=a.dataset.v;
 if(k==='tab'){S.tab=v;S.pg=null;app()}else if(k==='open')openSub(v);else if(k==='back'){S.d>0?history.back():backNav()}else if(k==='lang'){S.l=v;save();go()}else if(k==='th'){S.t=v;save();theme();app()}else if(k==='svc')openSub(v);else if(k==='chip'){$('#t').value=T(v)+': ';$('#t').focus()}else if(k==='out')out();else if(k==='inst'&&dp)dp.prompt();else if(k==='push'&&hasN)Notification.requestPermission().then(()=>sub()).then(()=>app())});
+if(window.visualViewport)visualViewport.addEventListener('resize',()=>{V.style.height=visualViewport.height+'px';scrollTo(0,0)});
 matchMedia('(prefers-color-scheme:dark)').onchange=theme;go();
 </script></body></html>
