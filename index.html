@@ -108,7 +108,7 @@ try{S.loc=JSON.parse(LS.loc||'[]')}catch(e){S.loc=[]}
 const addLoc=m=>{S.loc.push(m);try{LS.loc=JSON.stringify(S.loc.slice(-8))}catch(e){try{LS.loc=JSON.stringify(S.loc.slice(-2))}catch(_){}}};
 const save=()=>LS.st=JSON.stringify({l:S.l,t:S.t});
 const theme=()=>document.documentElement.dataset.t=S.t==='system'?(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'blue'):S.t;
-const api=async(u,d)=>{if(MOCK)return u==='chat'&&d.action==='list'?{phone:'',msgs:[]}:{ok:1};const r=await fetch('/api/'+u,{method:'POST',headers:{'content-type':'application/json',Authorization:'Bearer '+(S.tok||'')},body:JSON.stringify({...d,cid:S.cid})});if(r.status===401&&S.tok){out();return Promise.reject(401)}if(!r.ok){let m=String(r.status);try{m+=' '+(await r.json()).error}catch(e){}return Promise.reject(m)}return r.json()};
+const api=async(u,d)=>{if(MOCK)return u==='chat'&&d.action==='list'?{phone:'',msgs:[]}:{ok:1};const r=await fetch('/api/'+u,{method:'POST',headers:{'content-type':'application/json',Authorization:'Bearer '+(S.tok||'')},body:JSON.stringify({...d,cid:S.cid})});if(r.status===401&&S.tok){out();return Promise.reject(401)}if(!r.ok){let m=String(r.status);try{const t=await r.text();try{m+=' '+JSON.parse(t).error}catch(e){m+=' '+t.replace(/\s+/g,' ').slice(0,60)}}catch(e){}return Promise.reject(m)}return r.json()};
 const out=()=>{LS.removeItem('tok');S.tok=null;go()};
 const std=navigator.standalone||matchMedia('(display-mode:standalone)').matches||location.search.includes('dev');
 const hasN='Notification' in window,ios=/iphone|ipad|ipod/i.test(navigator.userAgent);let dp;
