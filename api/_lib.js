@@ -5,7 +5,7 @@ export const body=q=>typeof q.body==='string'?JSON.parse(q.body||'{}'):(q.body||
 export const phoneOf=async q=>{const t=(q.headers.authorization||'').slice(7);return t?r('GET','s:'+t):null};
 export const cidOk=c=>/^[a-f0-9]{24}$/.test(c||'');
 export const admins=()=>(process.env.ADMIN_CHAT_ID||'').split(',').map(x=>x.trim()).filter(Boolean);
-export const rate=async(k,max,sec)=>{const n=await r('INCR',k);if(n===1)await r('EXPIRE',k,sec);return n<=max};
+export const rate=async(k,max,sec)=>{try{const n=await r('INCR',k);if(n===1)await r('EXPIRE',k,sec);return n<=max}catch(e){return true}}; // Redis yo'q bo'lsa ham xabar o'tadi
 export const tg=(m,x)=>fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/${m}`,{method:'POST',...(x instanceof FormData?{body:x}:{headers:{'content-type':'application/json'},body:JSON.stringify(x)})}).then(a=>a.json());
 export const kb=cid=>({inline_keyboard:[[{text:'✉️ Ответить',callback_data:'r:'+cid}]]});
 async function wp(){
