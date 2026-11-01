@@ -1,5 +1,5 @@
 import webpush from 'web-push';
-const U=process.env.KV_REST_API_URL,T=process.env.KV_REST_API_TOKEN;
+const U=process.env.KV_REST_API_URL||process.env.UPSTASH_REDIS_REST_URL,T=process.env.KV_REST_API_TOKEN||process.env.UPSTASH_REDIS_REST_TOKEN;
 export const r=async(...c)=>(await(await fetch(U,{method:'POST',headers:{Authorization:'Bearer '+T},body:JSON.stringify(c)})).json()).result;
 export const body=q=>typeof q.body==='string'?JSON.parse(q.body||'{}'):(q.body||{});
 export const phoneOf=async q=>{const t=(q.headers.authorization||'').slice(7);return t?r('GET','s:'+t):null};
