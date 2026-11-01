@@ -8,8 +8,11 @@ export const admins=()=>(process.env.ADMIN_CHAT_ID||'').split(',').map(x=>x.trim
 export const rate=async(k,max,sec)=>{const n=await r('INCR',k);if(n===1)await r('EXPIRE',k,sec);return n<=max};
 export const tg=(m,x)=>fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/${m}`,{method:'POST',...(x instanceof FormData?{body:x}:{headers:{'content-type':'application/json'},body:JSON.stringify(x)})}).then(a=>a.json());
 export const kb=cid=>({inline_keyboard:[[{text:'✉️ Ответить',callback_data:'r:'+cid}]]});
-if(process.env.VAPID_PUBLIC&&process.env.VAPID_PRIVATE)webpush.setVapidDetails(process.env.VAPID_SUBJECT||'mailto:admin@example.com',process.env.VAPID_PUBLIC,process.env.VAPID_PRIVATE);
+export let vapidError=null;
+try{if(process.env.VAPID_PUBLIC&&process.env.VAPID_PRIVATE){let sj=(process.env.VAPID_SUBJECT||'').trim();if(!/^(mailto:|https?:\/\/)/.test(sj))sj='mailto:'+(sj||'admin@example.com');
+  webpush.setVapidDetails(sj,process.env.VAPID_PUBLIC.trim(),process.env.VAPID_PRIVATE.trim())}}catch(e){vapidError=String(e.message||e)}
 export async function push(cid,payload){
+  if(vapidError)return;
   const subs=(await r('SMEMBERS','p:'+cid))||[];
   for(const s of subs){try{await webpush.sendNotification(JSON.parse(s),JSON.stringify(payload))}
   catch(e){if(e.statusCode===404||e.statusCode===410)await r('SREM','p:'+cid,s)}}
