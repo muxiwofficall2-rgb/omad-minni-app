@@ -1,5 +1,5 @@
-import {r,body,cidOk,admins,rate,tg,kb,push} from './_lib.js';
-export default async(q,s)=>{
+const h=async(q,s)=>{
+  const {r,body,cidOk,admins,rate,tg,kb,push}=await import('./_lib.js');
   const b=body(q);
   if(b.action==='reply'){ // бот -> клиент (ответ админа)
     if(q.headers['x-secret']!==process.env.ADMIN_SECRET||!cidOk(b.cid))return s.status(403).end();
@@ -28,3 +28,4 @@ export default async(q,s)=>{
   const l=(await r('LRANGE','c:'+b.cid,-50,-1))||[];
   s.json({msgs:l.map(x=>JSON.parse(x))});
 };
+export default async(q,s)=>{try{return await h(q,s)}catch(e){return s.status(500).json({error:String(e&&e.message||e).slice(0,100)})}};
