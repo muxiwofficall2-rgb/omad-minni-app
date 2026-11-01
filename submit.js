@@ -20,7 +20,7 @@ const h=async(q,s)=>{
     f.append(img?'photo':'document',new Blob([buf],{type:m[1]}),img?'photo.jpg':name);
     const t=await tg(img?'sendPhoto':'sendDocument',f);if(t.ok)sent++;
   }
-  await r('SET','ph:'+cid,phone,'EX',2592000);
+  try{await r('SET','ph:'+cid,phone,'EX',2592000)}catch(e){}
   return sent?s.json({ok:1}):s.status(502).json({error:'telegram'});
 };
 export default async(q,s)=>{try{return await h(q,s)}catch(e){return s.status(500).json({error:String(e&&e.message||e).slice(0,100)})}};
