@@ -2,13 +2,15 @@
 // Test xabar:  https://SAYT/api/health?test=ADMIN_SECRET_QIYMATI
 const A=process.env,KU=A.KV_REST_API_URL||A.UPSTASH_REDIS_REST_URL,KT=A.KV_REST_API_TOKEN||A.UPSTASH_REDIS_REST_TOKEN;
 const kv=async(...c)=>(await(await fetch(KU,{method:'POST',headers:{Authorization:'Bearer '+KT},body:JSON.stringify(c)})).json());
-const tg=(m,x)=>fetch(`https://api.telegram.org/bot${A.BOT_TOKEN}/${m}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(x)}).then(a=>a.json());
+const TK=((A.BOT_TOKEN||'').match(/\d{6,}:[A-Za-z0-9_-]{30,}/)||[''])[0];
+const tg=(m,x)=>fetch(`https://api.telegram.org/bot${TK}/${m}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(x)}).then(a=>a.json());
 export default async(q,s)=>{
   const ids=(A.ADMIN_CHAT_ID||'').split(',').map(x=>x.trim()).filter(Boolean);
   const o={env:{REDIS_URL:!!KU,REDIS_TOKEN:!!KT,...Object.fromEntries(['BOT_TOKEN','ADMIN_SECRET','VAPID_PUBLIC','VAPID_PRIVATE'].map(k=>[k,!!A[k]]))},admins:ids.length};
   try{await import('web-push');o.webpush='ok'}catch(e){o.webpush='YO\'Q (package.json repoda bormi?): '+String(e.message).slice(0,80)}
   try{const l=await import('./_lib.js');o.lib='ok';o.vapid=await l.vapidCheck()}catch(e){o.lib='YIQILDI: '+String(e.message).slice(0,120)}
   try{const x=await kv('PING');o.redis=x.result||x.error||'?'}catch(e){o.redis='XATO: '+String(e.message).slice(0,80)}
+  o.token=TK?{botId:TK.split(':')[0],secretLen:TK.split(':')[1].length,rawLen:(A.BOT_TOKEN||'').length}:{found:false,rawLen:(A.BOT_TOKEN||'').length,hint:'format: raqamlar:harflar'};
   try{const m=await tg('getMe',{});o.bot=m.ok?'@'+m.result.username:m.description}catch(e){o.bot='XATO: '+String(e.message).slice(0,80)}
   if(A.ADMIN_SECRET&&q.query&&q.query.test===A.ADMIN_SECRET){
     o.test=[];for(const a of ids){try{const m=await tg('sendMessage',{chat_id:a,text:'✅ Omad Tour: server ↔ bot ishlayapti. Pastdagi tugmani bosib, botning javob berish qismini sinab ko\'ring.',reply_markup:{inline_keyboard:[[{text:'✉️ Ответить (test)',callback_data:'r:'+'0'.repeat(24)}]]}});o.test.push(m.ok?'yuborildi':m.description)}catch(e){o.test.push('XATO: '+e.message)}}
