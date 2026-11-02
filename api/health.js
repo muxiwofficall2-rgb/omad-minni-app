@@ -11,7 +11,7 @@ export default async(q,s)=>{
   try{const x=await kv('PING');o.redis=x.result||x.error||'?'}catch(e){o.redis='XATO: '+String(e.message).slice(0,80)}
   try{const m=await tg('getMe',{});o.bot=m.ok?'@'+m.result.username:m.description}catch(e){o.bot='XATO: '+String(e.message).slice(0,80)}
   if(A.ADMIN_SECRET&&q.query&&q.query.test===A.ADMIN_SECRET){
-    o.test=[];for(const a of ids){try{const m=await tg('sendMessage',{chat_id:a,text:'✅ Omad Tour: server ↔ bot ishlayapti'});o.test.push(m.ok?'yuborildi':m.description)}catch(e){o.test.push('XATO: '+e.message)}}
+    o.test=[];for(const a of ids){try{const m=await tg('sendMessage',{chat_id:a,text:'✅ Omad Tour: server ↔ bot ishlayapti. Pastdagi tugmani bosib, botning javob berish qismini sinab ko\'ring.',reply_markup:{inline_keyboard:[[{text:'✉️ Ответить (test)',callback_data:'r:'+'0'.repeat(24)}]]}});o.test.push(m.ok?'yuborildi':m.description)}catch(e){o.test.push('XATO: '+e.message)}}
   }
   s.json(o);
 };
