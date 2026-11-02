@@ -1,3 +1,4 @@
+import {createHash} from 'node:crypto';
 // Tekshiruv: brauzerda  https://SAYT/api/health  oching. Sirlar ko'rsatilmaydi, faqat bor/yo'q.
 // Test xabar:  https://SAYT/api/health?test=ADMIN_SECRET_QIYMATI
 const A=process.env,KU=A.KV_REST_API_URL||A.UPSTASH_REDIS_REST_URL,KT=A.KV_REST_API_TOKEN||A.UPSTASH_REDIS_REST_TOKEN;
@@ -12,6 +13,11 @@ export default async(q,s)=>{
   try{const x=await kv('PING');o.redis=x.result||x.error||'?'}catch(e){o.redis='XATO: '+String(e.message).slice(0,80)}
   o.token=TK?{botId:TK.split(':')[0],secretLen:TK.split(':')[1].length,rawLen:(A.BOT_TOKEN||'').length}:{found:false,rawLen:(A.BOT_TOKEN||'').length,hint:'format: raqamlar:harflar'};
   try{const m=await tg('getMe',{});o.bot=m.ok?'@'+m.result.username:m.description}catch(e){o.bot='XATO: '+String(e.message).slice(0,80)}
+  try{
+    const sec=createHash('sha256').update(A.ADMIN_SECRET||'').digest('hex');
+    if(A.ADMIN_SECRET&&q.query&&q.query.setup===A.ADMIN_SECRET){const w=await tg('setWebhook',{url:'https://'+q.headers.host+'/api/tg',secret_token:sec,allowed_updates:['message','callback_query']});o.setup=w.ok?'webhook ornatildi':w.description}
+    const w=await tg('getWebhookInfo',{});o.webhook=w.ok?{url:w.result.url||'yoq',kutmoqda:w.result.pending_update_count,xato:w.result.last_error_message||null}:w.description;
+  }catch(e){o.webhook='XATO: '+String(e.message).slice(0,80)}
   if(A.ADMIN_SECRET&&q.query&&q.query.test===A.ADMIN_SECRET){
     o.test=[];for(const a of ids){try{const m=await tg('sendMessage',{chat_id:a,text:'✅ Omad Tour: server ↔ bot ishlayapti. Pastdagi tugmani bosib, botning javob berish qismini sinab ko\'ring.',reply_markup:{inline_keyboard:[[{text:'✉️ Ответить (test)',callback_data:'r:'+'0'.repeat(24)}]]}});o.test.push(m.ok?'yuborildi':m.description)}catch(e){o.test.push('XATO: '+e.message)}}
   }
