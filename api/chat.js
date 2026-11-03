@@ -6,6 +6,7 @@ const h=async(q,s)=>{
     const text=String(b.text||'').slice(0,2000);
     await r('RPUSH','c:'+b.cid,JSON.stringify({from:'ad',text,t:Date.now()}));
     await r('LTRIM','c:'+b.cid,-100,-1);
+    await r('EXPIRE','c:'+b.cid,345600); // 4 kundan keyin eski xabarlar o'zi o'chadi
     await push(b.cid,{title:'Omad Tour',body:text});
     return s.json({ok:1});
   }
@@ -30,7 +31,7 @@ const h=async(q,s)=>{
     try{await r('SET','ph:'+b.cid,phone,'EX',2592000)}catch(e){}
     return sent?s.json({ok:1}):s.status(502).json({error:'telegram'});
   }
-  if(b.action==='sub'){if(b.sub&&b.sub.endpoint)await r('SADD','p:'+b.cid,JSON.stringify(b.sub));return s.json({ok:1})}
+  if(b.action==='sub'){if(b.sub&&b.sub.endpoint){await r('SADD','p:'+b.cid,JSON.stringify(b.sub));await r('EXPIRE','p:'+b.cid,2592000)}return s.json({ok:1})}
   if(b.action==='send'&&(b.text||b.img)){ // клиент -> Telegram админу
     if(!await rate('rl:'+b.cid,60,3600))return s.status(429).end();
     const ph=await r('GET','ph:'+b.cid).catch(()=>null),text=String(b.text||'').slice(0,800);
@@ -45,7 +46,7 @@ const h=async(q,s)=>{
     }
     return sent?s.json({ok:1}):s.status(502).end();
   }
-  const l=(await r('LRANGE','c:'+b.cid,-50,-1))||[];
-  s.json({msgs:l.map(x=>JSON.parse(x))});
+  const l=(await r('LRANGE','c:'+b.cid,-50,-1))||[],rd=Number(await r('GET','rd:'+b.cid).catch(()=>0))||0;
+  s.json({msgs:l.map(x=>JSON.parse(x)),read:rd});
 };
 export default async(q,s)=>{try{return await h(q,s)}catch(e){return s.status(500).json({error:String(e&&e.message||e).slice(0,100)})}};
