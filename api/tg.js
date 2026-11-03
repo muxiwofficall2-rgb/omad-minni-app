@@ -10,6 +10,7 @@ const h=async(q,s)=>{
     if(!d.startsWith('r:')||!cidOk(cid))return s.json({ok:1});
     if(!ids.includes(uid)){await tg('answerCallbackQuery',{callback_query_id:cb.id,text:`⛔ Ruxsat yo'q. Sizning ID: ${uid}. ADMIN_CHAT_ID shu bo'lishi kerak.`,show_alert:true});return s.json({ok:1})}
     await r('SET','adm:'+uid,cid,'EX',1800);
+    await r('SET','rd:'+cid,String(Date.now()),'EX',604800); // mijozda 2 ta galochka
     await tg('answerCallbackQuery',{callback_query_id:cb.id});
     await tg('sendMessage',{chat_id:cb.message.chat.id,text:'✍️ Напишите ответ клиенту. Отмена: /cancel',reply_markup:{force_reply:true,input_field_placeholder:'Ответ клиенту…'}});
     return s.json({ok:1});
@@ -24,6 +25,8 @@ const h=async(q,s)=>{
   await r('DEL','adm:'+uid);
   await r('RPUSH','c:'+cid,JSON.stringify({from:'ad',text:t.slice(0,2000),t:Date.now()}));
   await r('LTRIM','c:'+cid,-100,-1);
+  await r('EXPIRE','c:'+cid,345600);
+  await r('SET','rd:'+cid,String(Date.now()),'EX',604800);
   await push(cid,{title:'Omad Tour',body:t.slice(0,200)});
   await tg('sendMessage',{chat_id:m.chat.id,text:'✅ Отправлено клиенту',reply_markup:{inline_keyboard:[[{text:'✉️ Ответить ещё',callback_data:'r:'+cid}]]}});
   return s.json({ok:1});
