@@ -31,6 +31,7 @@ const h=async(q,s)=>{
     try{await r('SET','ph:'+b.cid,phone,'EX',2592000)}catch(e){}
     return sent?s.json({ok:1}):s.status(502).json({error:'telegram'});
   }
+  if(b.action==='wipe'){for(const k of ['c:','ph:','rd:','p:'])await r('DEL',k+b.cid);return s.json({ok:1})}
   if(b.action==='sub'){if(b.sub&&b.sub.endpoint){await r('SADD','p:'+b.cid,JSON.stringify(b.sub));await r('EXPIRE','p:'+b.cid,2592000)}return s.json({ok:1})}
   if(b.action==='send'&&(b.text||b.img)){ // клиент -> Telegram админу
     if(!await rate('rl:'+b.cid,60,3600))return s.status(429).end();
