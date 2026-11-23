@@ -8,6 +8,7 @@ export const admins=()=>(process.env.ADMIN_CHAT_ID||'').split(',').map(x=>x.trim
 export const rate=async(k,max,sec)=>{try{const n=await r('INCR',k);if(n===1)await r('EXPIRE',k,sec);return n<=max}catch(e){return true}}; // Redis yo'q bo'lsa ham xabar o'tadi
 export const botToken=()=>((process.env.BOT_TOKEN||'').match(/\d{6,}:[A-Za-z0-9_-]{30,}/)||[''])[0]; // ko'rinmas belgi, bo'sh joy, qo'shtirnoq, 'bot' prefiksini e'tiborsiz qoldiradi
 export const tg=(m,x)=>fetch(`https://api.telegram.org/bot${botToken()}/${m}`,{method:'POST',...(x instanceof FormData?{body:x}:{headers:{'content-type':'application/json'},body:JSON.stringify(x)})}).then(a=>a.json());
+export const tgFile=async id=>{const f=await tg('getFile',{file_id:id});if(!f.ok)throw new Error(f.description);const x=await fetch(`https://api.telegram.org/file/bot${botToken()}/${f.result.file_path}`);return{buf:Buffer.from(await x.arrayBuffer())}};
 export const kb=cid=>({inline_keyboard:[[{text:'✉️ Ответить',callback_data:'r:'+cid}]]});
 async function wp(){
   const w=(await import('web-push')).default;let sj=(process.env.VAPID_SUBJECT||'').trim();
